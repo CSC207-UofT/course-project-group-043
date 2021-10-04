@@ -1,6 +1,10 @@
-## Replace this README.md!
+## Specification
 
-This is a standard README.md file for you to replace. You'll want to include your own content here!
+We will create a schedule app for University of Toronto students.
+Students can make an account with an associated username/password.
+Users can input their schedule and share their schedules with others of their choosing based on username.
 
-MD (Markdown) files use [Markdown formatting](https://guides.github.com/features/mastering-markdown/): 
-these look very much like .txt files, so you can write them in a very similar way.
+By sharing their schedules, users can see what times others are not available -- events for which they are not available may be lectures, extracurriculars, tutorials, etc.
+
+The app will show the user's schedule on a calendar on the app's main page, and a user will be able to select other schedules that have been shared with them to see for what time slots both / all people are available, i.e., where there are no schedule conflicts.
+
