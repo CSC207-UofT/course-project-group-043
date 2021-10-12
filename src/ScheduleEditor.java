@@ -24,7 +24,7 @@ public class ScheduleEditor {
      * @param event the event which is being removed from a schedule
      * @param user the Person whose schedule is being changed
      */
-    public void RemoveEvent(Event event, Person user) {
+    public void removeEvent(Event event, Person user) {
         Schedule schedule = user.getUserSchedule();
         HashMap<Integer, String> Day = schedule.schedule.get(event.eventDay);
         for (int i = 0; i <= 23; ++i) {
