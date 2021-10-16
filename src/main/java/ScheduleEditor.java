@@ -11,11 +11,17 @@ public class ScheduleEditor {
      */
     public void addEvent(Event event, Person user){
         Schedule schedule = user.getUserSchedule();
-        HashMap<Integer, String> Day = schedule.schedule.get(event.eventDay);
-        for (int i = event.eventStartTime; i < event.eventEndTime; ++i) {
-            Day.put(i, event.eventName);
+
+        String eventName = event.getEventName();
+        String eventDay = event.getEventDay();
+        int eventStartTime = event.getEventStartTime();
+        int eventEndTime = event.getEventEndTime();
+
+        HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
+        for (int i = eventStartTime; i < eventEndTime; ++i) {
+            Day.put(i, eventName);
         }
-        schedule.schedule.put(event.eventDay, Day);
+        schedule.schedule.put(eventDay, Day);
     }
 
     /**
@@ -26,9 +32,13 @@ public class ScheduleEditor {
      */
     public void removeEvent(Event event, Person user) {
         Schedule schedule = user.getUserSchedule();
-        HashMap<Integer, String> Day = schedule.schedule.get(event.eventDay);
+
+        String eventName = event.getEventName();
+        String eventDay = event.getEventDay();
+
+        HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
         for (int i = 0; i <= 23; ++i) {
-            if (Objects.equals(Day.get(i), event.eventName)){
+            if (Objects.equals(Day.get(i), eventName)){
                 Day.put(i, null);
             }
         }
