@@ -11,10 +11,12 @@ public class ScheduleEditor {
      */
     public void addEvent(Event event, Person user){
         Schedule schedule = user.getUserSchedule();
+
         HashMap<Integer, String> Day = schedule.schedule.get(event.eventDay);
         for (int i = event.eventStartTime; i < event.eventEndTime; ++i) {
             Day.put(i, event.eventName);
         }
+
         schedule.schedule.put(event.eventDay, Day);
     }
 

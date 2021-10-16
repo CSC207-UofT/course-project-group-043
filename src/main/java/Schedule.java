@@ -2,7 +2,8 @@ import java.util.HashMap;
 
 public class Schedule {
 
-    HashMap<String, HashMap<Integer, String>> schedule;
+    // todo: make a toString method for Event to make this work better
+    HashMap<String, HashMap<Integer, String>> schedule;  // day, start hour, event name
 
     public Schedule() {
         this.schedule = new HashMap<>();
@@ -55,6 +56,25 @@ public class Schedule {
         this.schedule.put("Friday", friday);
         this.schedule.put("Saturday", saturday);
         this.schedule.put("Sunday", sunday);
+    }
+
+    public String toString() {
+        StringBuilder rep = new StringBuilder();
+        //todo: put this in constants?
+        String[] keys = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
+        for (String key : keys) {
+            rep.append(key + ":\n");
+            for (int time = 0 ; time < 24 ; time++) {
+                HashMap<Integer, String> oneDay = schedule.get(key);
+
+                if (oneDay.get(time) != null) {
+                    rep.append("\t" + oneDay.get(time) + " at " + time + "h\n");
+                }
+            }
+        }
+
+        return rep.toString();
     }
 
 }
