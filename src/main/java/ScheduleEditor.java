@@ -22,6 +22,7 @@ public class ScheduleEditor {
             Day.put(i, eventName);
         }
         schedule.schedule.put(eventDay, Day);
+
     }
 
     /**
