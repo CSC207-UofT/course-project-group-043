@@ -40,13 +40,13 @@ public class ScheduleEditorTest {
 
         assertEquals(testDay, DennisSchedule.schedule.get("Tuesday"));
 
-        edit.removeEvent(Csc, DennisTat);
+        edit.removeEvent("CSC207", "Tuesday", DennisTat);
 
         testDay.put(16, null);
 
         assertEquals(testDay, DennisSchedule.schedule.get("Tuesday"));
 
-        edit.removeEvent(Mat, DennisTat);
+        edit.removeEvent("MAT334", "Tuesday", DennisTat);
 
         testDay.put(17, null);
         testDay.put(18, null);

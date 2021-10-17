@@ -22,20 +22,17 @@ public class ScheduleEditor {
             Day.put(i, eventName);
         }
         schedule.schedule.put(eventDay, Day);
-
     }
 
     /**
      * Removes all occurrences of event on eventDay from the schedule of user
      *
-     * @param event the event which is being removed from a schedule
+     * @param eventName the name of the event which is being removed from a schedule
+     * @param eventDay the day of the event being removed
      * @param user the Person whose schedule is being changed
      */
-    public void removeEvent(Event event, Person user) {
+    public void removeEvent(String eventName, String eventDay, Person user) {
         Schedule schedule = user.getUserSchedule();
-
-        String eventName = event.getEventName();
-        String eventDay = event.getEventDay();
 
         HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
         for (int i = 0; i <= 23; ++i) {
