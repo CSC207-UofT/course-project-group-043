@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Person {
 
+    // style warnings -- all efforts to fix these have broken other parts of our code
     private String userName;
     private String userPassword;
     private Schedule userSchedule;
@@ -11,22 +12,11 @@ public class Person {
         this.userName = userName;
         this.userPassword = userPassword;
         this.userSchedule = new Schedule();
-        this.userFriends = new ArrayList<String>();
-    }
-
-    public String getUserName() {
-        return this.userName;
-    }
-
-    public String getUserPassword() {
-        return this.userPassword;
-    }
-
-    public ArrayList<String> getUserFriends() {
-        return this.userFriends;
+        this.userFriends = new ArrayList<>();
     }
 
     public Schedule getUserSchedule() {
         return userSchedule;
     }
+
 }

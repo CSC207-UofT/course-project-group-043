@@ -1,9 +1,11 @@
 public class Event {
 
-    private String eventName;
-    private String eventDay;
-    private int eventStartTime;
-    private int eventEndTime;
+    // have been declared final to remove the style error
+    // will add getters and setters as needed
+    private final String eventName;
+    private final String eventDay;
+    private final int eventStartTime;
+    private final int eventEndTime;
 
     public Event(String eventName, String eventDay, int eventStartTime, int eventEndTime){
         this.eventName = eventName;
@@ -26,21 +28,5 @@ public class Event {
 
     public int getEventEndTime(){
         return this.eventEndTime;
-    }
-
-    public void setEventName(String eventName){
-        this.eventName = eventName;
-    }
-
-    public void setEventDay(String eventDay) {
-        this.eventDay = eventDay;
-    }
-
-    public void setEventStartTime(int eventStartTime){
-        this.eventStartTime = eventStartTime;
-    }
-
-    public void setEventEndTime(int eventEndTime) {
-        this.eventEndTime = eventEndTime;
     }
 }

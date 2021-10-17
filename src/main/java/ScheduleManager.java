@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class ScheduleManager {
 
+    // attempts to fix these style warnings have resulted in problems in other classes
     private HashMap<Person, Schedule> schedules;
 
     /**
@@ -14,16 +15,6 @@ public class ScheduleManager {
 
     public ScheduleManager() {
         schedules = new HashMap<>();
-    }
-
-    /**
-     * Adds an instance of Person and Schedule to the schedules hashmap
-     * @param user the user
-     * @param schedule the newly created schedule of this user
-     */
-
-    public void add(Person user, Schedule schedule){
-        schedules.put(user, schedule);
     }
 
     /**
@@ -42,8 +33,8 @@ public class ScheduleManager {
         editor.addEvent(event, user);
     }
 
-    public void removeEvent(Event event, Person user) {
+    public void removeEvent(String eventName, String eventDay, Person user) {
         ScheduleEditor editor = new ScheduleEditor();
-        editor.removeEvent(event, user);
+        editor.removeEvent(eventName, eventDay, user);
     }
 }

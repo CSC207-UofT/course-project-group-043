@@ -64,12 +64,12 @@ public class Schedule {
         String[] keys = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
         for (String key : keys) {
-            rep.append(key + ":\n");
+            rep.append(key).append(":\n");
             for (int time = 0 ; time < 24 ; time++) {
                 HashMap<Integer, String> oneDay = schedule.get(key);
 
                 if (oneDay.get(time) != null) {
-                    rep.append("\t" + oneDay.get(time) + " at " + time + "h\n");
+                    rep.append("\t").append(oneDay.get(time)).append(" at ").append(time).append("h\n");
                 }
             }
         }

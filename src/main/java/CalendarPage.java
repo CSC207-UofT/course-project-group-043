@@ -2,6 +2,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class CalendarPage {
+
     public static void main (String[] args) {
         ScheduleManager manager = new ScheduleManager();
         Person user = new Person("user", "1234");
@@ -50,8 +51,9 @@ public class CalendarPage {
                         "we can compare with is 'Dennis'), who is busy on Monday morning.");
                 /* We don't have a second user to compare with, so we manually create one*/
                 /* use schedule manager to compare to another schedule*/
-                /* print the conflict schedule*/
-                String compareUser = in.nextLine();
+                /* print the conflict schedule
+                /* otherwise we would have used the line below */
+                //  String compareUser = in.nextLine();
                 System.out.println(manager.compare(user, Dennis));
             }
         } while (!Objects.equals(input, "quit"));
