@@ -39,6 +39,6 @@ public class ScheduleManager {
     }
 
     public void editEvent(){
-        return 10
+        return 15
     }
 }
