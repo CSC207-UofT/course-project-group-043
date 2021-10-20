@@ -37,4 +37,8 @@ public class ScheduleManager {
         ScheduleEditor editor = new ScheduleEditor();
         editor.removeEvent(eventName, eventDay, user);
     }
+
+    public void editEvent(){
+        return 10
+    }
 }
