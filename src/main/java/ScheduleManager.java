@@ -24,7 +24,7 @@ public class ScheduleManager {
      */
 
     public Schedule compare(Person user1, Person user2) {
-        ScheduleComparer compare = new ScheduleComparer();
+        ScheduleComparer compare = new ScheduleComparer();  // creating hard dependencies -- i don't think we're supposed to do this?
         return compare.Compare(user1, user2);
     }
 

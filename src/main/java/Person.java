@@ -8,11 +8,23 @@ public class Person {
     private Schedule userSchedule;
     private ArrayList<String> userFriends;
 
+    public Person() {
+        // need to create an empty person to work with for accountcreator
+    }
+
     public Person(String userName, String userPassword) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.userSchedule = new Schedule();
         this.userFriends = new ArrayList<>();
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
     public Schedule getUserSchedule() {
