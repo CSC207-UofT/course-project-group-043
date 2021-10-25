@@ -24,6 +24,22 @@ public class ScheduleEditor {
         schedule.schedule.put(eventDay, Day);
     }
 
+    public void editEventStartTime(Event event, int newStart) {
+        event.setEventStartTime(newStart);
+    }
+
+    public void editEventEndTime(Event event, int newEnd) {
+        event.setEventEndTime(newEnd);
+    }
+
+    public void editEventName(Event event, String newName) {
+        event.setEventName(newName);
+    }
+
+    public void editEventDay(Event event, String newDay) {
+        event.setEventDay(newDay);
+    }
+
     /**
      * Removes all occurrences of event on eventDay from the schedule of user
      *
