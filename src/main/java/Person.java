@@ -7,6 +7,7 @@ public class Person {
     private String userPassword;
     private Schedule userSchedule;
     private ArrayList<String> userFriends;
+    private String trustedAnswer;
 
     public Person() {
         // need to create an empty person to work with for accountcreator
@@ -29,6 +30,10 @@ public class Person {
 
     public Schedule getUserSchedule() {
         return userSchedule;
+    }
+
+    public void setTrustedAnswer(String answer) {
+        this.trustedAnswer = answer;
     }
 
 }

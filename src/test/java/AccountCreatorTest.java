@@ -14,7 +14,7 @@ public class AccountCreatorTest {
 
         tempData.put("user123", "1234");
 
-        boolean actual = ac.makeAccount(u, "user123", "1234", tempData);
+        boolean actual = ac.makeAccount(u, "user123", "1234", "Helen", tempData);
 
         assertEquals(false, actual);
     }
@@ -27,7 +27,7 @@ public class AccountCreatorTest {
 
         tempData.put("user123", "1234");
 
-        boolean actual = ac.makeAccount(u, "sparrow", "4321", tempData);
+        boolean actual = ac.makeAccount(u, "sparrow", "4321", "Helen", tempData);
 
         assertEquals(true, actual);
     }
