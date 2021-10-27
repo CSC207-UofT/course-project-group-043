@@ -9,12 +9,13 @@ public class AccountCreatorTest {
     @Test(timeout = 50)
     public void TestCheckValidity1() {
         AccountCreator ac = new AccountCreator();
-        Person u = new Person();
-        HashMap<String, String> tempData = new HashMap<>();
+        Person u1 = new Person();
+        Person u2 = new Person();
+        HashMap<String, Person> tempData = new HashMap<>();
 
-        tempData.put("user123", "1234");
+        tempData.put("user123", u2);
 
-        boolean actual = ac.makeAccount(u, "user123", "1234", "Helen", tempData);
+        boolean actual = ac.makeAccount(u1, "user123", "1234", "Helen", tempData);
 
         assertEquals(false, actual);
     }
@@ -22,12 +23,13 @@ public class AccountCreatorTest {
     @Test(timeout = 50)
     public void TestCheckValidity2() {
         AccountCreator ac = new AccountCreator();
-        Person u = new Person();
-        HashMap<String, String> tempData = new HashMap<>();
+        Person u1 = new Person();
+        Person u2 = new Person();
+        HashMap<String, Person> tempData = new HashMap<>();
 
-        tempData.put("user123", "1234");
+        tempData.put("user123", u2);
 
-        boolean actual = ac.makeAccount(u, "sparrow", "4321", "Helen", tempData);
+        boolean actual = ac.makeAccount(u1, "sparrow", "4321", "Helen", tempData);
 
         assertEquals(true, actual);
     }
