@@ -41,7 +41,7 @@ public class ScheduleEditor {
     }
 
     /**
-     * Removes all occurrences of event on eventDay from the schedule of user
+     * Removes all occurrences of eventName on eventDay from the schedule of user
      *
      * @param eventName the name of the event which is being removed from a schedule
      * @param eventDay the day of the event being removed
@@ -57,4 +57,5 @@ public class ScheduleEditor {
             }
         }
     }
+
 }
