@@ -36,4 +36,8 @@ public class Person {
         this.trustedAnswer = answer;
     }
 
+    public String getTrustedAnswer() {
+        return this.trustedAnswer;
+    }
+
 }
