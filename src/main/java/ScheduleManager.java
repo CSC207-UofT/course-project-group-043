@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Represents and manages entire system of users and schedules
@@ -37,5 +39,22 @@ public class ScheduleManager {
     public void removeEvent(String eventName, String eventDay, Person user) {
         ScheduleEditor editor = new ScheduleEditor();
         editor.removeEvent(eventName, eventDay, user);
+    }
+
+    public void sendFR(Person user1, String username2){
+        //user 1 sends friend request to user2
+        Set<Person> users = this.schedules.keySet();
+        for (int i = 0; i < users.size(); i++){
+            if (users[i].userName.equals(username2)){
+                Person user2 = users[i];
+            }
+        }
+        FriendAdder newRequest = new FriendAdder();
+        newRequest.sendFriendRequest(user1, user2);
+    }
+
+    public void acceptFR(Person user1, Person user2){
+        FriendAdder acceptNew = new FriendAdder();
+        acceptNew.sendFriendRequest(user1, user2);
     }
 }

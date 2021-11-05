@@ -6,8 +6,10 @@ public class Person {
     private String userName;
     private String userPassword;
     private Schedule userSchedule;
-    private ArrayList<String> userFriends;
+    public ArrayList<Person> userFriends;
     private String trustedAnswer;
+    public ArrayList<Person> incomingRequests;
+    public ArrayList<Person> outgoingRequests;
 
     public Person() {
         // need to create an empty person to work with for accountcreator
