@@ -34,6 +34,8 @@ public class Person {
         return userSchedule;
     }
 
+    public String getUserName() {return userName;}
+
     public void setTrustedAnswer(String answer) {
         this.trustedAnswer = answer;
     }

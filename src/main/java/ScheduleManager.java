@@ -43,10 +43,12 @@ public class ScheduleManager {
 
     public void sendFR(Person user1, String username2){
         //user 1 sends friend request to user2
-        Set<Person> users = this.schedules.keySet();
-        for (int i = 0; i < users.size(); i++){
-            if (users[i].userName.equals(username2)){
-                Person user2 = users[i];
+        Set<Person> userset = this.schedules.keySet();
+        ArrayList<Person> users = new ArrayList<Person>(userset);
+        Person user2 = new Person();
+        for (Person user : users) {
+            if (user.getUserName().equals(username2)) {
+                user2 = user;
             }
         }
         FriendAdder newRequest = new FriendAdder();
