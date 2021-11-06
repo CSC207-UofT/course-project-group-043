@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class FriendAdder {
     /** Adds users to friend list by sending invitations, then accepting invitations.
      *
@@ -8,15 +10,33 @@ public class FriendAdder {
 
     public void sendFriendRequest(Person user1, Person user2){
         //user 1 sends friend request to user 2
-        user1.outgoingRequests.add(user2);
-        user2.incomingRequests.add(user1);
+
+        ArrayList<Person> oR = user1.getOutgoingRequests();
+        oR.add(user2);
+        user1.setOutgoingRequests(oR);
+
+        ArrayList<Person> iR = user1.getIncomingRequests();
+        iR.add(user1);
+        user2.setIncomingRequests(iR);
     }
 
     public void acceptFriendRequest(Person user1, Person user2){
         //user 2 accepts user1's friend request
-         user2.incomingRequests.remove(user1);
-         user1.outgoingRequests.remove(user2);
-         user1.userFriends.add(user2);
-         user2.userFriends.add(user1);
+
+        ArrayList<Person> user2IncomingRequests = user2.getIncomingRequests();
+        user2IncomingRequests.remove(user1);
+        user2.setIncomingRequests(user2IncomingRequests);
+
+        ArrayList<Person> user1OutgoingRequests = user1.getOutgoingRequests();
+        user1OutgoingRequests.remove(user2);
+        user1.setOutgoingRequests(user1OutgoingRequests);
+
+        ArrayList<Person> user1Friends = user1.getUserFriends();
+        user1Friends.add(user2);
+        user2.setUserFriends(user1Friends);
+
+        ArrayList<Person> user2Friends = user2.getUserFriends();
+        user2Friends.add(user1);
+        user2.setUserFriends(user2Friends);
     }
 }
