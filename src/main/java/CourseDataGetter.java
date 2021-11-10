@@ -17,9 +17,10 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class CourseDataGetter {
 
-    public static void main (String [] args) throws URISyntaxException, IOException, InterruptedException {
+    // i truly do not remember how to handle these exceptions right now, help
+    public JSONObject fetchWebsiteInfo(String courseCode) throws URISyntaxException, IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("https://timetable.iit.artsci.utoronto.ca/api/20219/courses?code=csc")) //todo: make this last part a variable
+                .uri(new URI("https://timetable.iit.artsci.utoronto.ca/api/20219/courses?code=" + courseCode.toLowerCase()))
                 .timeout(Duration.of(10, SECONDS))
                 .GET()
                 .build();
@@ -28,15 +29,34 @@ public class CourseDataGetter {
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
-        JSONObject allCourseData  = new JSONObject(response.body());
-//        System.out.println(jObject.get("CSC108H1-F-20219")); // it sure does print it but it's real ugly
-        JSONObject oneCourse = allCourseData.getJSONObject("CSC108H1-F-20219");
-        System.out.println(oneCourse.get("courseId")); // THIS PRINTS IT CORRECTLY
-//        System.out.println(oneCourse.getJSONObject("meetings"));
+        return new JSONObject(response.body());
+    }
 
-        if (oneCourse.get("courseId").equals("51814")) {
-            System.out.println("yep, that's the course code we wanted");
-        }
+    public String getCourseId(JSONObject data, String courseCode) {
+        return data.getJSONObject(courseCode).get("courseId").toString();
+    }
+
+    public static void main (String [] args) throws URISyntaxException, IOException, InterruptedException {
+
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(new URI("https://timetable.iit.artsci.utoronto.ca/api/20219/courses?code=csc")) //todo: make this last part a variable
+//                .timeout(Duration.of(10, SECONDS))
+//                .GET()
+//                .build();
+//
+//        HttpResponse<String> response = HttpClient.newBuilder()
+//                .build()
+//                .send(request, HttpResponse.BodyHandlers.ofString());
+//
+//        JSONObject allCourseData  = new JSONObject(response.body());
+////        System.out.println(jObject.get("CSC108H1-F-20219")); // it sure does print it but it's real ugly
+//        JSONObject oneCourse = allCourseData.getJSONObject("CSC108H1-F-20219");
+//        System.out.println(oneCourse.get("courseId")); // THIS PRINTS IT CORRECTLY
+////        System.out.println(oneCourse.getJSONObject("meetings"));
+//
+//        if (oneCourse.get("courseId").equals("51814")) {
+//            System.out.println("yep, that's the course code we wanted");
+//        }
 
 //        System.out.println(response.body()); // this prints it out nicely
 //        System.out.println(response.body().getClass());  // this is for sure a java string
