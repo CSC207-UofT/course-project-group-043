@@ -12,35 +12,35 @@ public class FriendAdderTest {
 
         /* create two new users
          */
-        Person Sunehra = new Person("sunehra", "2323");
-        Person Bob = new Person("bob1", "7474");
+        Person sunehra = new Person("sunehra", "2323");
+        Person bob = new Person("bob1", "7474");
 
         /* create new FriendAdder
         */
 
         FriendAdder friendRequest = new FriendAdder();
 
-        /* Sunehra sends a friend request to Bob
+        /* sunehra sends a friend request to bob
          */
 
-        friendRequest.sendFriendRequest(Sunehra, Bob);
-        ArrayList<Person> BobList = new ArrayList<Person>();
-        BobList.add(Bob);
-        assertEquals(Sunehra.getOutgoingRequests(), BobList);
+        friendRequest.sendFriendRequest(sunehra, bob);
+        ArrayList<Person> bobList = new ArrayList<Person>();
+        bobList.add(bob);
+        assertEquals(sunehra.getOutgoingRequests(), bobList);
 
-        ArrayList<Person> SunehraList = new ArrayList<Person>();
-        SunehraList.add(Sunehra);
-        assertEquals(Bob.getIncomingRequests(), SunehraList);
+        ArrayList<Person> sunehraList = new ArrayList<Person>();
+        sunehraList.add(sunehra);
+        assertEquals(bob.getIncomingRequests(), sunehraList);
 
-        /* Bob accepts Sunehra's friend request.
+        /* bob accepts sunehra's friend request.
          */
 
-        friendRequest.acceptFriendRequest(Sunehra, Bob);
+        friendRequest.acceptFriendRequest(sunehra, bob);
         ArrayList<Person> empty = new ArrayList<Person>();
 
-        assertEquals(Sunehra.getOutgoingRequests(), empty);
-        assertEquals(Bob.getIncomingRequests(), empty);
-        assertEquals(Sunehra.getUserFriends(), BobList);
-        assertEquals(Bob.getUserFriends(), SunehraList);
+        assertEquals(sunehra.getOutgoingRequests(), empty);
+        assertEquals(bob.getIncomingRequests(), empty);
+        assertEquals(sunehra.getUserFriends(), bobList);
+        assertEquals(bob.getUserFriends(), sunehraList);
     }
 }
