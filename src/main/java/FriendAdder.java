@@ -9,7 +9,8 @@ public class FriendAdder {
      */
 
     public void sendFriendRequest(Person user1, Person user2){
-        //user 1 sends friend request to user 2
+        /* user 1 sends friend request to user 2
+         */
 
         ArrayList<Person> outgoing = user1.getOutgoingRequests();
         outgoing.add(user2);
@@ -21,7 +22,8 @@ public class FriendAdder {
     }
 
     public void acceptFriendRequest(Person user1, Person user2){
-        //user 2 accepts user1's friend request
+        /*user 2 accepts user1's friend request
+         */
 
         ArrayList<Person> user2IncomingRequests = user2.getIncomingRequests();
         user2IncomingRequests.remove(user1);
