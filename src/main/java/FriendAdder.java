@@ -11,13 +11,13 @@ public class FriendAdder {
     public void sendFriendRequest(Person user1, Person user2){
         //user 1 sends friend request to user 2
 
-        ArrayList<Person> oR = user1.getOutgoingRequests();
-        oR.add(user2);
-        user1.setOutgoingRequests(oR);
+        ArrayList<Person> outgoing = user1.getOutgoingRequests();
+        outgoing.add(user2);
+        user1.setOutgoingRequests(outgoing);
 
-        ArrayList<Person> iR = user1.getIncomingRequests();
-        iR.add(user1);
-        user2.setIncomingRequests(iR);
+        ArrayList<Person> incoming = user1.getIncomingRequests();
+        incoming.add(user1);
+        user2.setIncomingRequests(incoming);
     }
 
     public void acceptFriendRequest(Person user1, Person user2){
