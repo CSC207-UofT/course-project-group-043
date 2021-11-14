@@ -42,6 +42,10 @@ public class Person {
         this.trustedAnswer = answer;
     }
 
+    public String getTrustedAnswer() {
+        return this.trustedAnswer;
+    }
+
     public ArrayList<Person> getIncomingRequests() { return incomingRequests;}
 
     public void setIncomingRequests(ArrayList<Person> incomingRequests) {

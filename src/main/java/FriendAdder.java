@@ -39,6 +39,6 @@ public class FriendAdder {
 
         ArrayList<Person> user2Friends = user2.getUserFriends();
         user2Friends.add(user1);
-        user2.setUserFriends(user2Friends);
+        user1.setUserFriends(user2Friends);
     }
 }
