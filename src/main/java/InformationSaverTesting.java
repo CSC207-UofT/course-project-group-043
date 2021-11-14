@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class InformationSaver {
+public class InformationSaverTesting {
 
     public static void main(String [] args) throws IOException, ExecutionException, InterruptedException {
         //setting up connection to database
@@ -41,7 +41,7 @@ public class InformationSaver {
         // result.get() blocks on response
         System.out.println("Update time : " + result.get().getUpdateTime());
 
-        // reading data from databse
+        // reading data from database
         // asynchronously retrieve all users
         ApiFuture<QuerySnapshot> query = db.collection("users").get();
         // ...
