@@ -23,12 +23,18 @@ public class CourseDataGetter {
 
     private JSONObject courseData;
 
-    // are constructors allowed to throw exceptions??
     public CourseDataGetter(String courseCode) throws URISyntaxException, IOException, InterruptedException {
         this.courseData = fetchWebsiteInfo(courseCode);
     }
 
-    // i truly do not remember how to handle these exceptions right now, help
+    /**
+     * Return information on courses with names that start with the given three letters in courseCode.
+     * @param courseCode Three letters indicating the type of course data to retrieve
+     * @return JSONObject that contains all of the information on the course data page
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws InterruptedException // todo: handle exceptions better
+     */
     public JSONObject fetchWebsiteInfo(String courseCode) throws URISyntaxException, IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI("https://timetable.iit.artsci.utoronto.ca/api/20219/courses?code=" + courseCode.toLowerCase()))
@@ -43,6 +49,11 @@ public class CourseDataGetter {
         return new JSONObject(response.body());
     }
 
+    /**
+     * Return a list of all the lecture sections that exist for a certain course.
+     * @param courseName The name of the course that the lecture sections are for.
+     * @return ArrayList with strings that are the names of lecture sections.
+     */
     public ArrayList<String> getAllLectureSections(String courseName) {
         JSONObject lectureSecJSON = courseData.getJSONObject(courseName).getJSONObject("meetings");
         ArrayList<String> lectureKeys = new ArrayList<>();
@@ -56,6 +67,13 @@ public class CourseDataGetter {
         return lectureKeys;
     }
 
+    /**
+     * Return meeting times (day and time) for a particular lecture section of a particular course.
+     * @param courseName The name of the course of interest
+     * @param lectureSection The name of the lecture section of interest
+     * @return HashMap that contains keys representing the day on which a meeting occurs, and values
+     *          representing the start and end time of the meeting
+     */
     public HashMap<String, String> getMeetingTimes(String courseName, String lectureSection) {
         JSONObject lectureSchedJSON = courseData.getJSONObject(courseName)
                 .getJSONObject("meetings")
