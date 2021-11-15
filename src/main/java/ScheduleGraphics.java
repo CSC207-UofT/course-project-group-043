@@ -266,11 +266,11 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
                 String allFriends = new String();
 
-                for (String friend : user.userFriends) {
-                    allFriends = allFriends + friend + "\n";
+                for (Person friend : user.getUserFriends()) {
+                    allFriends = allFriends + friend.getUserName() + "\n";
                 }
 
-                if (user.userFriends.isEmpty()) {
+                if (user.getUserFriends().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "You currently have no friends.");
                 }
                 else {
