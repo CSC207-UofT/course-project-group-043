@@ -3,50 +3,50 @@ import java.util.HashMap;
 public class Schedule {
 
     // todo: make a toString method for Event to make this work better
-    HashMap<String, HashMap<Integer, String>> schedule;  // day, start hour, event name
+    HashMap<String, HashMap<String, String>> schedule;  // day, start hour, event name
 
     public Schedule() {
         this.schedule = new HashMap<>();
-        HashMap<Integer, String> monday = new HashMap<>();
+        HashMap<String, String> monday = new HashMap<>();
 
         for (int i = 0; i <= 23; ++i) {
-            monday.put(i, null);
+            monday.put(String.valueOf(i), null);
         }
 
-        HashMap<Integer, String> tuesday = new HashMap<>();
+        HashMap<String, String> tuesday = new HashMap<>();
 
         for (int i = 0; i <= 23; ++i) {
-            tuesday.put(i, null);
+            tuesday.put(String.valueOf(i), null);
         }
 
-        HashMap<Integer, String> wednesday = new HashMap<>();
+        HashMap<String, String> wednesday = new HashMap<>();
 
         for (int i = 0; i <= 23; ++i) {
-            wednesday.put(i, null);
+            wednesday.put(String.valueOf(i), null);
         }
 
-        HashMap<Integer, String> thursday = new HashMap<>();
+        HashMap<String, String> thursday = new HashMap<>();
 
         for (int i = 0; i <= 23; ++i) {
-            thursday.put(i, null);
+            thursday.put(String.valueOf(i), null);
         }
 
-        HashMap<Integer, String> friday = new HashMap<>();
+        HashMap<String, String> friday = new HashMap<>();
 
         for (int i = 0; i <= 23; ++i) {
-            friday.put(i, null);
+            friday.put(String.valueOf(i), null);
         }
 
-        HashMap<Integer, String> saturday = new HashMap<>();
+        HashMap<String, String> saturday = new HashMap<>();
 
         for (int i = 0; i <= 23; ++i) {
-            saturday.put(i, null);
+            saturday.put(String.valueOf(i), null);
         }
 
-        HashMap<Integer, String> sunday = new HashMap<>();
+        HashMap<String, String> sunday = new HashMap<>();
 
         for (int i = 0; i <= 23; ++i) {
-            sunday.put(i, null);
+            sunday.put(String.valueOf(i), null);
         }
 
         this.schedule.put("Monday", monday);
@@ -66,10 +66,10 @@ public class Schedule {
         for (String key : keys) {
             rep.append(key).append(":\n");
             for (int time = 0 ; time < 24 ; time++) {
-                HashMap<Integer, String> oneDay = schedule.get(key);
+                HashMap<String, String> oneDay = schedule.get(key);
 
-                if (oneDay.get(time) != null) {
-                    rep.append("\t").append(oneDay.get(time)).append(" at ").append(time).append("h\n");
+                if (oneDay.get(String.valueOf(time)) != null) {
+                    rep.append("\t").append(oneDay.get(String.valueOf(time))).append(" at ").append(time).append("h\n");
                 }
             }
         }
