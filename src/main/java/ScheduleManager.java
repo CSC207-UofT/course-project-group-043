@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Represents and manages entire system of users and schedules
@@ -24,8 +26,8 @@ public class ScheduleManager {
      */
 
     public Schedule compare(Person user1, Person user2) {
-        ScheduleComparer compare = new ScheduleComparer();
-        return compare.Compare(user1, user2);
+        ScheduleComparer compare = new ScheduleComparer();  // creating hard dependencies -- i don't think we're supposed to do this?
+        return compare.compare(user1, user2);
     }
 
     public void addEvent(Event event, Person user) {
@@ -33,8 +35,28 @@ public class ScheduleManager {
         editor.addEvent(event, user);
     }
 
+    // should we change this to give it an event
     public void removeEvent(String eventName, String eventDay, Person user) {
         ScheduleEditor editor = new ScheduleEditor();
         editor.removeEvent(eventName, eventDay, user);
+    }
+
+    public void sendFR(Person user1, String username2){
+        //user 1 sends friend request to user2
+        Set<Person> userset = this.schedules.keySet();
+        ArrayList<Person> users = new ArrayList<Person>(userset);
+        Person user2 = new Person();
+        for (Person user : users) {
+            if (user.getUserName().equals(username2)) {
+                user2 = user;
+            }
+        }
+        FriendAdder newRequest = new FriendAdder();
+        newRequest.sendFriendRequest(user1, user2);
+    }
+
+    public void acceptFR(Person user1, Person user2){
+        FriendAdder acceptNew = new FriendAdder();
+        acceptNew.sendFriendRequest(user1, user2);
     }
 }

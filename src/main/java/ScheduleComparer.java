@@ -9,7 +9,7 @@ public class ScheduleComparer {
      * @param user1 A Person whose schedule is being compared to user2's schedule
      * @param user2 A Person whose schedule is being compared to user1's schedule
      */
-    public Schedule Compare(Person user1, Person user2) {
+    public Schedule compare(Person user1, Person user2) {
         Schedule result = new Schedule();
         Schedule schedule1 = user1.getUserSchedule();
         Schedule schedule2 = user2.getUserSchedule();

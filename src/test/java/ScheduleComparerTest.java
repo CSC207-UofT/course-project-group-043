@@ -23,7 +23,7 @@ public class ScheduleComparerTest {
         edit.addEvent(Jog, DennisTwo);
 
         ScheduleComparer compare = new ScheduleComparer();
-        Schedule result = compare.Compare(DennisTat, DennisTwo);
+        Schedule result = compare.compare(DennisTat, DennisTwo);
 
         HashMap<Integer, String> testDay = new HashMap<>();
         for (int i = 0; i <= 23; ++i) {

@@ -8,7 +8,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" scope="TEST">
+    <orderEntry type="module-library" exported="" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
           <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.13.1/junit-4.13.1.jar!/" />
@@ -30,5 +30,6 @@
     <orderEntry type="library" name="google.firebase.admin" level="project" />
     <orderEntry type="library" name="json-20140107" level="project" />
     <orderEntry type="library" name="json" level="project" />
+    <orderEntry type="library" name="junit" level="application" />
   </component>
 </module>
