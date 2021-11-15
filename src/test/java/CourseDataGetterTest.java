@@ -20,6 +20,13 @@ public class CourseDataGetterTest {
     }
 
     @Test()
+    public void testGettingHPS() throws URISyntaxException, IOException, InterruptedException {
+        CourseDataGetter getter = new CourseDataGetter("HPS");
+        String courseIdResult = getter.getCourseId("HPS100H1-F-20219");
+        assertEquals("53326", courseIdResult);
+    }
+
+    @Test()
     public void testGettingLectures() throws URISyntaxException, IOException, InterruptedException {
         CourseDataGetter getter = new CourseDataGetter("CSC");
         ArrayList<String> meetingsActual = getter.getAllLectureSections("CSC108H1-F-20219");
