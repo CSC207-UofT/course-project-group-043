@@ -6,7 +6,7 @@ public class Person {
     private String userName;
     private String userPassword;
     private Schedule userSchedule;
-    private ArrayList<String> userFriends;
+    public ArrayList<String> userFriends;
     private String trustedAnswer;
 
     public Person() {
