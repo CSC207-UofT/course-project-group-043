@@ -1,28 +1,37 @@
+import events.EventFactory;
+import events.Event;
+
 import java.util.HashMap;
 import java.util.Objects;
 
 public class ScheduleEditor {
 
-    /**
-     * Add Event to the schedule of user
-     *
-     * @param event the event being added to user's schedule
-     * @param user the Person whose schedule is being changed
-     */
-    public void addEvent(Event event, Person user){
-        Schedule schedule = user.getUserSchedule();
+    private final EventFactory factory;
 
-        String eventName = event.getEventName();
-        String eventDay = event.getEventDay();
-        int eventStartTime = event.getEventStartTime();
-        int eventEndTime = event.getEventEndTime();
-
-        HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
-        for (int i = eventStartTime; i < eventEndTime; ++i) {
-            Day.put(i, eventName);
-        }
-        schedule.schedule.put(eventDay, Day);
+    public ScheduleEditor() {
+        factory = new EventFactory();
     }
+
+    public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime, Person user) {
+        Schedule schedule = user.getUserSchedule();
+        Event event = factory.getEvent(eventType);
+        if (event != null) {
+            event.setEventName(eventName);
+            event.setEventDay(eventDay);
+            event.setEventStartTime(eventStartTime);
+            event.setEventEndTime(eventEndTime);
+
+            HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
+            for (int i = eventStartTime; i < eventEndTime; ++i) {
+                Day.put(i, eventName);
+            }
+            schedule.schedule.put(eventDay, Day);
+        }
+    }
+
+
+
+
 
     public void editEventStartTime(Event event, int newStart) {
         event.setEventStartTime(newStart);
