@@ -1,6 +1,8 @@
+package Entities;
+
 public class Review {
 
-    // need to add a location variable in Event maybe? Otherwise, I'm not sure where reviews should go
+    // need to add a location variable in Entities.Event maybe? Otherwise, I'm not sure where reviews should go
 
     private String Location;
     private String review;

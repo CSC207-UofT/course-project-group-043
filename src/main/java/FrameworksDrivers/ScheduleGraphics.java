@@ -1,6 +1,10 @@
-import org.junit.internal.builders.JUnit3Builder;
+package FrameworksDrivers;
+
+import Controllers.ScheduleManager;
+import Entities.Event;
+import Entities.Person;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -12,8 +16,6 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {
@@ -67,8 +69,8 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         setLayout(null);
 
 
-        addEventButton = new JButton("Add Event");
-        editEventButton = new JButton("Edit Event");
+        addEventButton = new JButton("Add Entities.Event");
+        editEventButton = new JButton("Edit Entities.Event");
         manageFriendsButton = new JButton("Manage Friends");
         compareSchedulesButton = new JButton("Compare Schedules");
         helpButton = new JButton("Help");
@@ -215,10 +217,10 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         if (source == addEventButton) { // if addEventButton is pressed
             Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
 
-            int buttonChoice = JOptionPane.showConfirmDialog(null, addEventText, "Add Event", JOptionPane.OK_CANCEL_OPTION);
+            int buttonChoice = JOptionPane.showConfirmDialog(null, addEventText, "Add Entities.Event", JOptionPane.OK_CANCEL_OPTION);
 
             if (buttonChoice == JOptionPane.OK_OPTION) {
-                // will interact with Event class
+                // will interact with Entities.Event class
 
                 // temporarily assigning the values to temporary variables
                 String eventName = addEventName.getText();
@@ -240,7 +242,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
                     ex.printStackTrace();
                 }
                 // TODO: delete line below (only there for testing)
-                System.out.println("Event added: " +eventName +" will occur on " +eventDate +" from " +eventStart +" to " +eventEnd);
+                System.out.println("Entities.Event added: " +eventName +" will occur on " +eventDate +" from " +eventStart +" to " +eventEnd);
 
             }
         }
@@ -305,8 +307,8 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         }
 
         if (source == helpButton) { // if helpButton is pressed
-            String helpDialogue = ("Add Event: Press this button to add a new weekly event, with a title, date." +
-                    "\nEdit Event: Edit or delete event details of a previously created event." +
+            String helpDialogue = ("Add Entities.Event: Press this button to add a new weekly event, with a title, date." +
+                    "\nEdit Entities.Event: Edit or delete event details of a previously created event." +
                     "\nManage Friends: Send and accept friend requests, and view current friends here." +
                     "\nCompare Schedules: Compare your schedule availability with any added friends." +
                     "\nLogout: Press this button when you are ready to log out.");

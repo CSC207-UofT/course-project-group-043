@@ -1,3 +1,6 @@
+import Entities.Event;
+import Entities.Person;
+import UseCaseClasses.ScheduleEditor;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

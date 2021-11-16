@@ -1,3 +1,8 @@
+import Entities.Event;
+import Entities.Person;
+import Entities.Schedule;
+import UseCaseClasses.ScheduleComparer;
+import UseCaseClasses.ScheduleEditor;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -34,7 +39,7 @@ public class ScheduleComparerTest {
         }
         testDay.put(7, "busy");
 
-        assertEquals(testDay, result.schedule.get("Tuesday"));
+        assertEquals(testDay, result.getSchedule().get("Tuesday"));
 
     }
 }
