@@ -2,7 +2,7 @@ package Entities;
 
 public class Review {
 
-    // need to add a location variable in Entities.Event maybe? Otherwise, I'm not sure where reviews should go
+    // need to add a location variable in Event maybe? Otherwise, I'm not sure where reviews should go
 
     private String Location;
     private String review;
@@ -17,8 +17,7 @@ public class Review {
         this.rating = rating;
     }
 
-    public void printReview(){
-        System.out.println(Location + ", " + rating + "/5");
-        System.out.println(review);
+    public String printReview(){
+        return(Location + ", " + rating + "/5." + "  " + review);
     }
 }
