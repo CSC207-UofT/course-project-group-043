@@ -8,7 +8,7 @@ public class Review {
     private String review;
     private Integer rating;
 
-    public Review(String Location, String review, Integer rating){
+    public Review(String Location, String review, Integer rating) throws IllegalArgumentException {
         this.Location = Location;
         this.review = review;
         if((rating > 5) || (rating < 0)){
