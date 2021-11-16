@@ -1,5 +1,4 @@
-import org.json.JSONArray;
-import org.json.JSONObject;
+import Controllers.CourseDataGetter;
 import org.junit.Test;
 
 import java.io.IOException;

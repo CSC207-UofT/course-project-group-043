@@ -1,3 +1,7 @@
+package ToBeIgnored;
+
+import Controllers.AccountManager;
+
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
