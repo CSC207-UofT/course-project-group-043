@@ -14,6 +14,11 @@ public class Person {
 
     public Person() {
         // need to create an empty person to work with for accountcreator
+        // however, the variables below need to be added since it as assumed all users have them
+        this.userSchedule = new Schedule();
+        this.userFriends = new ArrayList<>();
+        this.incomingRequests = new ArrayList<>();
+        this.outgoingRequests = new ArrayList<>();
     }
 
     public Person(String userName, String userPassword) {
@@ -61,6 +66,10 @@ public class Person {
 
     public void setUserFriends(ArrayList<Person> userFriends) {
         this.userFriends = userFriends;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
     }
 
 }

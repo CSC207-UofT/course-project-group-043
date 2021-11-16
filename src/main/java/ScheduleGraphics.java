@@ -11,8 +11,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {
     Graphics g2g;
@@ -232,7 +234,11 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
 
                 Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
-                manager.addEvent(event, user);
+                try {
+                    manager.addEvent(event, user);
+                } catch (ExecutionException | InterruptedException | IOException ex) {
+                    ex.printStackTrace();
+                }
                 // TODO: delete line below (only there for testing)
                 System.out.println("Event added: " +eventName +" will occur on " +eventDate +" from " +eventStart +" to " +eventEnd);
 
@@ -266,11 +272,11 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
                 String allFriends = new String();
 
-                for (String friend : user.userFriends) {
-                    allFriends = allFriends + friend + "\n";
+                for (Person friend : user.getUserFriends()) {
+                    allFriends = allFriends + friend.getUserName() + "\n";
                 }
 
-                if (user.userFriends.isEmpty()) {
+                if (user.getUserFriends().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "You currently have no friends.");
                 }
                 else {

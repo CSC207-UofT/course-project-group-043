@@ -1,6 +1,8 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Represents and manages entire system of users and schedules
@@ -30,21 +32,25 @@ public class ScheduleManager {
         return compare.compare(user1, user2);
     }
 
-    public void addEvent(Event event, Person user) {
+    public void addEvent(Event event, Person user) throws ExecutionException, InterruptedException, IOException {
+        InformationSaver saver = new InformationSaver();
         ScheduleEditor editor = new ScheduleEditor();
         editor.addEvent(event, user);
+        saver.saveUser(user);
     }
 
     // should we change this to give it an event
-    public void removeEvent(String eventName, String eventDay, Person user) {
+    public void removeEvent(String eventName, String eventDay, Person user) throws ExecutionException, InterruptedException, IOException {
+        InformationSaver saver = new InformationSaver();
         ScheduleEditor editor = new ScheduleEditor();
         editor.removeEvent(eventName, eventDay, user);
+        saver.saveUser(user);
     }
 
     public void sendFR(Person user1, String username2){
         //user 1 sends friend request to user2
         Set<Person> userset = this.schedules.keySet();
-        ArrayList<Person> users = new ArrayList<Person>(userset);
+        ArrayList<Person> users = new ArrayList<>(userset);
         Person user2 = new Person();
         for (Person user : users) {
             if (user.getUserName().equals(username2)) {
