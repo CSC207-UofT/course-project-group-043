@@ -15,8 +15,7 @@ public class Review {
         this.rating = rating;
     }
 
-    public void printReview(){
-        System.out.println(Location + ", " + rating + "/5");
-        System.out.println(review);
+    public String printReview(){
+        return(Location + ", " + rating + "/5." + "  " + review);
     }
 }
