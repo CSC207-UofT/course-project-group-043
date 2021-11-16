@@ -17,9 +17,9 @@ public class ScheduleEditor {
         int eventStartTime = event.getEventStartTime();
         int eventEndTime = event.getEventEndTime();
 
-        HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
+        HashMap<String, String> Day = schedule.schedule.get(eventDay);
         for (int i = eventStartTime; i < eventEndTime; ++i) {
-            Day.put(i, eventName);
+            Day.put(String.valueOf(i), eventName);
         }
         schedule.schedule.put(eventDay, Day);
     }
@@ -50,10 +50,10 @@ public class ScheduleEditor {
     public void removeEvent(String eventName, String eventDay, Person user) {
         Schedule schedule = user.getUserSchedule();
 
-        HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
+        HashMap<String, String> Day = schedule.schedule.get(eventDay);
         for (int i = 0; i <= 23; ++i) {
-            if (Objects.equals(Day.get(i), eventName)){
-                Day.put(i, null);
+            if (Objects.equals(Day.get(String.valueOf(i)), eventName)){
+                Day.put(String.valueOf(i), null);
             }
         }
     }

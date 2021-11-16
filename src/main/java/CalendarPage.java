@@ -1,9 +1,11 @@
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class CalendarPage {
 
-    public static void main (String[] args) {
+    public static void main (String[] args) throws IOException, ExecutionException, InterruptedException {
         ScheduleManager manager = new ScheduleManager();
         Person user = new Person("user", "1234");
         Person Dennis = new Person("Dennis", "1234");
