@@ -1,6 +1,18 @@
+package Controllers;
+
+import Entities.Event;
+import Entities.Person;
+import Entities.Schedule;
+import UseCaseClasses.FriendAdder;
+import UseCaseClasses.InformationSaver;
+import UseCaseClasses.ScheduleComparer;
+import UseCaseClasses.ScheduleEditor;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Represents and manages entire system of users and schedules
@@ -12,7 +24,7 @@ public class ScheduleManager {
     private HashMap<Person, Schedule> schedules;
 
     /**
-     * Creates a ScheduleManager with a hashmap of Person as keys and Schedule as values that is empty
+     * Creates a Controllers.ScheduleManager with a hashmap of Entities.Person as keys and Entities.Schedule as values that is empty
      */
 
     public ScheduleManager() {
@@ -20,9 +32,9 @@ public class ScheduleManager {
     }
 
     /**
-     * Adds an instance of Person and Schedule to the schedules hashmap
-     * @param user1 the main user's Person
-     * @param user2 the friend's Person
+     * Adds an instance of Entities.Person and Entities.Schedule to the schedules hashmap
+     * @param user1 the main user's Entities.Person
+     * @param user2 the friend's Entities.Person
      */
 
     public Schedule compare(Person user1, Person user2) {
@@ -30,15 +42,19 @@ public class ScheduleManager {
         return compare.compare(user1, user2);
     }
 
-    public void addEvent(Event event, Person user) {
+    public void addEvent(Event event, Person user) throws ExecutionException, InterruptedException, IOException {
+        InformationSaver saver = new InformationSaver();
         ScheduleEditor editor = new ScheduleEditor();
         editor.addEvent(event, user);
+        saver.saveUser(user);
     }
 
     // should we change this to give it an event
-    public void removeEvent(String eventName, String eventDay, Person user) {
+    public void removeEvent(String eventName, String eventDay, Person user) throws ExecutionException, InterruptedException, IOException {
+        InformationSaver saver = new InformationSaver();
         ScheduleEditor editor = new ScheduleEditor();
         editor.removeEvent(eventName, eventDay, user);
+        saver.saveUser(user);
     }
 
     public void sendFR(Person user1, String username2){
@@ -46,7 +62,7 @@ public class ScheduleManager {
          */
 
         Set<Person> userset = this.schedules.keySet();
-        ArrayList<Person> users = new ArrayList<Person>(userset);
+        ArrayList<Person> users = new ArrayList<>(userset);
         Person user2 = new Person();
         for (Person user : users) {
             if (user.getUserName().equals(username2)) {
