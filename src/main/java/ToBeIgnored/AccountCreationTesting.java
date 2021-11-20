@@ -1,3 +1,10 @@
+package ToBeIgnored;
+
+import Controllers.AccountManager;
+import Controllers.ScheduleManager;
+import Entities.Event;
+import Entities.Person;
+
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 

@@ -1,3 +1,13 @@
+package Controllers;
+
+import Entities.Event;
+import Entities.Person;
+import Entities.Schedule;
+import UseCaseClasses.FriendAdder;
+import UseCaseClasses.InformationSaver;
+import UseCaseClasses.ScheduleComparer;
+import UseCaseClasses.ScheduleEditor;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +24,7 @@ public class ScheduleManager {
     private HashMap<Person, Schedule> schedules;
 
     /**
-     * Creates a ScheduleManager with a hashmap of Person as keys and Schedule as values that is empty
+     * Creates a Controllers.ScheduleManager with a hashmap of Entities.Person as keys and Entities.Schedule as values that is empty
      */
 
     public ScheduleManager() {
@@ -22,9 +32,9 @@ public class ScheduleManager {
     }
 
     /**
-     * Adds an instance of Person and Schedule to the schedules hashmap
-     * @param user1 the main user's Person
-     * @param user2 the friend's Person
+     * Adds an instance of Entities.Person and Entities.Schedule to the schedules hashmap
+     * @param user1 the main user's Entities.Person
+     * @param user2 the friend's Entities.Person
      */
 
     public Schedule compare(Person user1, Person user2) {
