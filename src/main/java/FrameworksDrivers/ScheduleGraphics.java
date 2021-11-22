@@ -16,6 +16,7 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {
@@ -35,13 +36,6 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
     private JPanel buttonPanel;
 
     private JLabel titleLabel;
-    private JLabel mondayLabel;
-    private JLabel tuesdayLabel;
-    private JLabel wednesdayLabel;
-    private JLabel thursdayLabel;
-    private JLabel fridayLabel;
-    private JLabel saturdayLabel;
-    private JLabel sundayLabel;
 
     // addEventButton popup
     // TODO: keep declaration here, move creation inside
@@ -71,14 +65,6 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
         titleLabel = new JLabel("Scheduler App");
 
-        mondayLabel = new JLabel("Monday");
-        tuesdayLabel = new JLabel("Tuesday");
-        wednesdayLabel = new JLabel("Wednesday");
-        thursdayLabel = new JLabel("Thursday");
-        fridayLabel = new JLabel("Friday");
-        saturdayLabel = new JLabel("Saturday");
-        sundayLabel = new JLabel("Sunday");
-
         // adding ActionListeners (code at bottom of program will run when a given button is pressed)
         addEventButton.addActionListener(this);
         editEventButton.addActionListener(this);
@@ -103,25 +89,8 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         titleLabel.setBounds(288, -5, 200, 50);
         buttonPanel.setBounds(7,35,700,200);
 
-        mondayLabel.setBounds(116, 76, 70, 40);
-        tuesdayLabel.setBounds(185, 76, 70, 40);
-        wednesdayLabel.setBounds(248, 76, 70, 40);
-        thursdayLabel.setBounds(325, 76, 70, 40);
-        fridayLabel.setBounds(400, 76, 70, 40);
-        saturdayLabel.setBounds(465, 76, 70, 40);
-        sundayLabel.setBounds(536, 76, 70, 40);
-
-
         // adding to JPanel
         add(titleLabel);
-
-        add(mondayLabel);
-        add(tuesdayLabel);
-        add(wednesdayLabel);
-        add(thursdayLabel);
-        add(fridayLabel);
-        add(saturdayLabel);
-        add(sundayLabel);
 
         add(buttonPanel);
 
@@ -147,6 +116,8 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
         Color[] colorsList = {color1, color2, color3, color4, color5, color6, color7};
 
+        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
         // TODO: make schedule grid larger
 
 
@@ -154,20 +125,22 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         for (int x = 0; x < 7; x++) {
             g2g.setColor(colorsList[x]); // different color for each day slot
             g2g.fillRect(25 + (x * 100), 100, 100, 40);
+            g2g.setColor(Color.BLACK);
+            g2g.drawString(days[x],53 + (x * 100), 125);
         }
-
+//
         g2g.setColor(Color.white);
         for (int x = 0; x < 7; x++) {
             g2g.drawRect(25 + (x * 100), 100, 100, 40);
         }
-
+//
         // drawing the empty schedule outlines
         for (int x = 0; x < 7; x++) {
             for (int i = 0; i < 24; i++) {
                 g2g.drawRect(25 + (x * 100), 140 + (i * 25), 100, 25);
             }
         }
-
+//
     }
 
 
