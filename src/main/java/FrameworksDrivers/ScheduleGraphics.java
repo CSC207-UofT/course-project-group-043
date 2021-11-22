@@ -19,39 +19,37 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {
-    Graphics g2g;
+    private Graphics g2g;
 
     ScheduleManager manager = new ScheduleManager();
     Person user = new Person("user", "1234"); // making a temporary person (for testing purposes)
 
-    JFrame mainFrame;
-
     // declaring JButtons, JLabels, etc. that appear as graphics
-    JButton addEventButton;
-    JButton editEventButton;
-    JButton manageFriendsButton;
-    JButton compareSchedulesButton;
-    JButton helpButton;
-    JButton logoutButton;
+    private JButton addEventButton;
+    private JButton editEventButton;
+    private JButton manageFriendsButton;
+    private JButton compareSchedulesButton;
+    private JButton helpButton;
+    private JButton logoutButton;
 
-    JPanel buttonPanel;
+    private JPanel buttonPanel;
 
-    JLabel titleLabel;
-    JLabel mondayLabel;
-    JLabel tuesdayLabel;
-    JLabel wednesdayLabel;
-    JLabel thursdayLabel;
-    JLabel fridayLabel;
-    JLabel saturdayLabel;
-    JLabel sundayLabel;
+    private JLabel titleLabel;
+    private JLabel mondayLabel;
+    private JLabel tuesdayLabel;
+    private JLabel wednesdayLabel;
+    private JLabel thursdayLabel;
+    private JLabel fridayLabel;
+    private JLabel saturdayLabel;
+    private JLabel sundayLabel;
 
     // addEventButton popup
     // TODO: keep declaration here, move creation inside
-    JTextField addEventName = new JTextField();
-    JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"});
-    String[] timesList = {"12:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am", "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm", "11:00pm"};
-    JComboBox addEventStart = new JComboBox(timesList);
-    JComboBox addEventEnd = new JComboBox(timesList);
+    private JTextField addEventName = new JTextField();
+    private JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"});
+    private String[] timesList = {"12:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am", "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm", "11:00pm"};
+    private JComboBox addEventStart = new JComboBox(timesList);
+    private JComboBox addEventEnd = new JComboBox(timesList);
 
 
     public ScheduleGraphics() {
