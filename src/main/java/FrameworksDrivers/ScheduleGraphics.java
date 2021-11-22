@@ -48,7 +48,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
     public ScheduleGraphics() {
         super("Scheduler App");
-        setSize(750, 750); // setting the default size of the frame
+        setSize(850, 850); // setting the default size of the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // when pressing the x button, progarm will close
 
         setLayout(null);
@@ -86,8 +86,8 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         buttonPanel.add(logoutButton);
 
         // setting the locations of objects
-        titleLabel.setBounds(288, -5, 200, 50);
-        buttonPanel.setBounds(7,35,700,200);
+        titleLabel.setBounds(360, -5, 200, 50);
+        buttonPanel.setBounds(80,35,700,200);
 
         // adding to JPanel
         add(titleLabel);
@@ -115,9 +115,10 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         Color color6 = new Color(0, 207, 137);
         Color color7 = new Color(65, 202, 94);
 
-        Color[] colorsList = {color1, color2, color3, color4, color5, color6, color7};
+        Color[] colorsList = {color0, color1, color2, color3, color4, color5, color6, color7};
 
         String[] titles = {"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
 
         // TODO: make schedule grid larger
 
@@ -141,6 +142,15 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
                 g2g.drawRect(25 + (x * 100), 140 + (i * 25), 100, 25);
             }
         }
+
+        for (int x = 0; x < 24; x++) {
+            g2g.setColor(Color.gray);
+            g2g.fillRect(25, 140 + (x * 25), 100, 25);
+            g2g.setColor(Color.BLACK);
+            g2g.drawString(timesList[x], 50, 160 +(25 * x));
+        }
+
+        public
 //
     }
 
@@ -199,6 +209,20 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
                 } catch (ExecutionException | InterruptedException | IOException ex) {
                     ex.printStackTrace();
                 }
+
+                //find blocks to color out
+                // draw string in the middle with event name
+//                String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+//
+//
+//
+//                for (int i = 0; i < 7; i++){
+//                    if (eventDate == days[i]){
+//                        int x = 25 + 100 * i;
+//                    }
+//                }
+
+
 
                 // TODO: delete line below (only there for testing)
                 System.out.println("Entities.Event added: " +eventName +" will occur on " +eventDate +" from " +eventStart +" to " +eventEnd);
