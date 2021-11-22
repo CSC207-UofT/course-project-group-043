@@ -106,6 +106,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         g2g = (Graphics2D)g;
 
         // creating custom colors
+        Color color0 = Color.white;
         Color color1 = new Color(110, 205, 250);
         Color color2 = new Color(39, 208, 245);
         Color color3 = new Color(0, 210, 231);
@@ -116,26 +117,26 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
         Color[] colorsList = {color1, color2, color3, color4, color5, color6, color7};
 
-        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        String[] titles = {"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
         // TODO: make schedule grid larger
 
 
         // drawing the day of week header boxes & outlines
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 8; x++) {
             g2g.setColor(colorsList[x]); // different color for each day slot
             g2g.fillRect(25 + (x * 100), 100, 100, 40);
             g2g.setColor(Color.BLACK);
-            g2g.drawString(days[x],53 + (x * 100), 125);
+            g2g.drawString(titles[x],53 + (x * 100), 125);
         }
 //
         g2g.setColor(Color.white);
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 8; x++) {
             g2g.drawRect(25 + (x * 100), 100, 100, 40);
         }
 //
         // drawing the empty schedule outlines
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 8; x++) {
             for (int i = 0; i < 24; i++) {
                 g2g.drawRect(25 + (x * 100), 140 + (i * 25), 100, 25);
             }
