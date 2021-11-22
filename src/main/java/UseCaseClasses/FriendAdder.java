@@ -1,3 +1,7 @@
+package UseCaseClasses;
+
+import Entities.Person;
+
 import java.util.ArrayList;
 
 public class FriendAdder {
