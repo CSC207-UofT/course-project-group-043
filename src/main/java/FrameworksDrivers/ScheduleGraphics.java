@@ -44,7 +44,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
     // TODO: keep declaration here, move creation inside
     private JTextField addEventName = new JTextField();
     private JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"});
-    private String[] timesList = {"12:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am", "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm", "11:00pm"};
+    private String[] timesList = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00pm", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
     private JComboBox addEventStart = new JComboBox(timesList);
     private JComboBox addEventEnd = new JComboBox(timesList);
 
@@ -218,11 +218,11 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
                 String eventStart = (String) addEventStart.getSelectedItem();
                 String eventStartString = eventStart.split(":")[0];
-                int eventStartInt = Integer.valueOf(eventStartString);
+                int eventStartInt = Integer.parseInt(eventStartString);
 
                 String eventEnd = (String) addEventEnd.getSelectedItem();
                 String eventEndString = eventEnd.split(":")[0];
-                int eventEndInt = Integer.valueOf(eventEndString);
+                int eventEndInt = Integer.parseInt(eventEndString);
 
 
                 Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
