@@ -195,7 +195,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         // the following code will run if a given button is pressed
 
         if (source == addEventButton) {
-            // todo: make this not an object array
+            // creating a JPanel that will go inside the dialog
             JPanel addEventPanel = new JPanel();
             addEventPanel.setLayout(new BoxLayout(addEventPanel, BoxLayout.Y_AXIS));
             addEventPanel.add(new JLabel("Name:"));
@@ -206,8 +206,6 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
             addEventPanel.add(addEventStart);
             addEventPanel.add(new JLabel("End Time:"));
             addEventPanel.add(addEventEnd);
-
-//            Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
 
             int buttonChoice = JOptionPane.showConfirmDialog(null, addEventPanel, "Add Entities.Event", JOptionPane.OK_CANCEL_OPTION);
 
