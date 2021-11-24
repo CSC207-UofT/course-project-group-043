@@ -5,21 +5,17 @@ import Entities.Event;
 import Entities.Person;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Color;
-import java.awt.Font;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {
-    // testing123 comment
     private Graphics g2g;
 
     ScheduleManager manager = new ScheduleManager();
@@ -135,7 +131,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
 
-        g2g = (Graphics2D)g;
+        g2g = g;
 
         // creating custom colors
         Color color1 = new Color(110, 205, 250);
@@ -194,15 +190,26 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
+        Object source = e.getSource(); // this method fully just does return an Object, it doesn't get more specific, apparently
 
         // the following code will run if a given button is pressed
 
-
         if (source == addEventButton) {
-            Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
+            // todo: make this not an object array
+            JPanel addEventPanel = new JPanel();
+            addEventPanel.setLayout(new BoxLayout(addEventPanel, BoxLayout.Y_AXIS));
+            addEventPanel.add(new JLabel("Name:"));
+            addEventPanel.add(addEventName);
+            addEventPanel.add(new JLabel("Date:"));
+            addEventPanel.add(addEventDate);
+            addEventPanel.add(new JLabel("Start Time:"));
+            addEventPanel.add(addEventStart);
+            addEventPanel.add(new JLabel("End Time:"));
+            addEventPanel.add(addEventEnd);
 
-            int buttonChoice = JOptionPane.showConfirmDialog(null, addEventText, "Add Entities.Event", JOptionPane.OK_CANCEL_OPTION);
+//            Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
+
+            int buttonChoice = JOptionPane.showConfirmDialog(null, addEventPanel, "Add Entities.Event", JOptionPane.OK_CANCEL_OPTION);
 
             if (buttonChoice == JOptionPane.OK_OPTION) {
                 // will interact with Entities.Event class
@@ -239,7 +246,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         }
 
         if (source == manageFriendsButton) {
-            Object[] manageFriendType = { "View current friends", "View friend requests", "Send friend request"};
+            String[] manageFriendType = { "View current friends", "View friend requests", "Send friend request"};
 
             int buttonChoice = JOptionPane.showOptionDialog(null, "Manage Friends",
                     "What type of friends do you want to manage: ",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
