@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {
@@ -32,13 +33,6 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
     private JPanel buttonPanel;
 
     private JLabel titleLabel;
-    private JLabel mondayLabel;
-    private JLabel tuesdayLabel;
-    private JLabel wednesdayLabel;
-    private JLabel thursdayLabel;
-    private JLabel fridayLabel;
-    private JLabel saturdayLabel;
-    private JLabel sundayLabel;
 
     // addEventButton popup
     // TODO: keep declaration here, move creation inside
@@ -51,7 +45,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
     public ScheduleGraphics() {
         super("Scheduler App");
-        setSize(750, 750); // setting the default size of the frame
+        setSize(850, 850); // setting the default size of the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // when pressing the x button, progarm will close
 
         setLayout(null);
@@ -67,14 +61,6 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         buttonPanel = new JPanel();
 
         titleLabel = new JLabel("Scheduler App");
-
-        mondayLabel = new JLabel("Monday");
-        tuesdayLabel = new JLabel("Tuesday");
-        wednesdayLabel = new JLabel("Wednesday");
-        thursdayLabel = new JLabel("Thursday");
-        fridayLabel = new JLabel("Friday");
-        saturdayLabel = new JLabel("Saturday");
-        sundayLabel = new JLabel("Sunday");
 
         // adding ActionListeners (code at bottom of program will run when a given button is pressed)
         addEventButton.addActionListener(this);
@@ -97,28 +83,11 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         buttonPanel.add(logoutButton);
 
         // setting the locations of objects
-        titleLabel.setBounds(288, -5, 200, 50);
-        buttonPanel.setBounds(7,35,700,200);
-
-        mondayLabel.setBounds(116, 76, 70, 40);
-        tuesdayLabel.setBounds(185, 76, 70, 40);
-        wednesdayLabel.setBounds(248, 76, 70, 40);
-        thursdayLabel.setBounds(325, 76, 70, 40);
-        fridayLabel.setBounds(400, 76, 70, 40);
-        saturdayLabel.setBounds(465, 76, 70, 40);
-        sundayLabel.setBounds(536, 76, 70, 40);
-
+        titleLabel.setBounds(360, -5, 200, 50);
+        buttonPanel.setBounds(80,35,700,200);
 
         // adding to JPanel
         add(titleLabel);
-
-        add(mondayLabel);
-        add(tuesdayLabel);
-        add(wednesdayLabel);
-        add(thursdayLabel);
-        add(fridayLabel);
-        add(saturdayLabel);
-        add(sundayLabel);
 
         add(buttonPanel);
 
@@ -134,6 +103,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         g2g = g;
 
         // creating custom colors
+        Color color0 = Color.white;
         Color color1 = new Color(110, 205, 250);
         Color color2 = new Color(39, 208, 245);
         Color color3 = new Color(0, 210, 231);
@@ -142,29 +112,43 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         Color color6 = new Color(0, 207, 137);
         Color color7 = new Color(65, 202, 94);
 
-        Color[] colorsList = {color1, color2, color3, color4, color5, color6, color7};
+        Color[] colorsList = {color0, color1, color2, color3, color4, color5, color6, color7};
+
+        String[] titles = {"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
 
         // TODO: make schedule grid larger
 
 
         // drawing the day of week header boxes & outlines
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 8; x++) {
             g2g.setColor(colorsList[x]); // different color for each day slot
             g2g.fillRect(25 + (x * 100), 100, 100, 40);
+            g2g.setColor(Color.BLACK);
+            g2g.drawString(titles[x],53 + (x * 100), 125);
         }
-
+//
         g2g.setColor(Color.white);
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 8; x++) {
             g2g.drawRect(25 + (x * 100), 100, 100, 40);
         }
-
+//
         // drawing the empty schedule outlines
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 8; x++) {
             for (int i = 0; i < 24; i++) {
                 g2g.drawRect(25 + (x * 100), 140 + (i * 25), 100, 25);
             }
         }
 
+        for (int x = 0; x < 24; x++) {
+            g2g.setColor(Color.gray);
+            g2g.fillRect(25, 140 + (x * 25), 100, 25);
+            g2g.setColor(Color.BLACK);
+            g2g.drawString(timesList[x], 50, 160 +(25 * x));
+        }
+
+        public
+//
     }
 
 
@@ -231,6 +215,20 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
                 } catch (ExecutionException | InterruptedException | IOException ex) {
                     ex.printStackTrace();
                 }
+
+                //find blocks to color out
+                // draw string in the middle with event name
+//                String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+//
+//
+//
+//                for (int i = 0; i < 7; i++){
+//                    if (eventDate == days[i]){
+//                        int x = 25 + 100 * i;
+//                    }
+//                }
+
+
 
                 // TODO: delete line below (only there for testing)
                 System.out.println("Entities.Event added: " +eventName +" will occur on " +eventDate +" from " +eventStart +" to " +eventEnd);
