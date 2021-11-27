@@ -14,7 +14,7 @@ public class AccountEditor {
         return user.getTrustedAnswer().equals(answer);
     }
 
-    public boolean userExists(String name, HashMap<String, Person> data) {
-        return data.containsKey(name);
+    public boolean userExists(String name, UserList data) {
+        return data.containsUser(name);
     }
 }

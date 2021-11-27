@@ -3,6 +3,7 @@ package UseCaseClasses;
 import Entities.Person;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class AccountCreator {
 
@@ -19,7 +20,8 @@ public class AccountCreator {
      * @param data HashMap containing all usernames in use thus far, with associated Entities.Person
      * @return true if the user account was successfully created and added
      */
-    public boolean makeAccount(String name, String pass, String answer, UserList data, InformationSaver saver) {
+    public boolean makeAccount(String name, String pass, String answer, UserList data)
+            throws ExecutionException, InterruptedException {
 
         boolean check = isValidName(name, data);
         Person newUser = new Person();
@@ -29,14 +31,13 @@ public class AccountCreator {
             newUser.setUserPassword(pass);
             newUser.setTrustedAnswer(answer);
             data.addUser(name, newUser);
-            saver.saveUser(data.getUser(name)); // adds the user to the firestore database
         }
 
         return check;
     }
 
-    private boolean isValidName(String name, HashMap<String, Person> data) {
-        return !data.containsKey(name);
+    private boolean isValidName(String name, UserList data) {
+        return !data.containsUser(name);
     }
 
 }

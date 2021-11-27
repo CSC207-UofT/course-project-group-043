@@ -1,4 +1,4 @@
-package Controllers;
+package InterfaceAdapters;
 
 import Entities.Event;
 import Entities.Person;

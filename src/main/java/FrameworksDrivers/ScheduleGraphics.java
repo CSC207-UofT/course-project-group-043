@@ -1,6 +1,6 @@
 package FrameworksDrivers;
 
-import Controllers.ScheduleManager;
+import InterfaceAdapters.ScheduleManager;
 import Entities.Event;
 import Entities.Person;
 
@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {

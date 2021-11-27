@@ -24,6 +24,8 @@ public class InformationSaver {
     private FirebaseOptions options;
     private Firestore db;
 
+    // todo: THIS IS A GATEWAY, IT GOES IN INTERFACEADAPTERS
+
     public InformationSaver() throws IOException {
         //The following line needs to be changed to the path of the key file for your device
         serviceAccount = new FileInputStream("C:/Users/denni/IdeaProjects/course-project-group-043/csc207-043-538e5a047423.json");
