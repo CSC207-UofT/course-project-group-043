@@ -34,7 +34,7 @@ public class CourseDataGetter {
      * @return JSONObject that contains all of the information on the course data page
      * @throws URISyntaxException
      * @throws IOException
-     * @throws InterruptedException // todo: handle exceptions better
+     * @throws InterruptedException
      */
     public JSONObject fetchWebsiteInfo(String courseCode) throws URISyntaxException, IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
