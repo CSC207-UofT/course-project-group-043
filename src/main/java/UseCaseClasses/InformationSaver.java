@@ -57,7 +57,6 @@ public class InformationSaver {
         QuerySnapshot querySnapshot = query.get();
         List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
         for (QueryDocumentSnapshot document : documents) {
-            String user = document.getId();
             String Username = document.getString("userName");
             String Password = document.getString("userPassword");
             Person a = new Person(Username, Password);

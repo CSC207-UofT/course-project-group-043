@@ -1,9 +1,10 @@
 package Controllers;
 
-import Entities.Person;
+//import Entities.Person;
 import UseCaseClasses.AccountCreator;
 import UseCaseClasses.AccountEditor;
 import UseCaseClasses.InformationSaver;
+import UseCaseClasses.UserList;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,11 +13,11 @@ import java.util.concurrent.ExecutionException;
 
 public class AccountManager {
 
-    private HashMap<String, Person> users;
+//    private HashMap<String, Person> users;
 
-    public AccountManager() {
-        users = new HashMap<>();
-    }
+//    public AccountManager() {
+//        users = new HashMap<>();
+//    }
 
     /**
      * Calls on UseCaseClasses.AccountCreator to create a new account
@@ -26,19 +27,19 @@ public class AccountManager {
      * @param answer The answer to the security question that will be used for password changes / account recovery
      * @return true if the user account was successfully created and added
      */
+    public boolean createAccount(String name, String pass, String answer, UserList users, InformationSaver saver) throws IOException, ExecutionException, InterruptedException {
 
-    public boolean createAccount(String name, String pass, String answer) throws IOException, ExecutionException, InterruptedException {
-
+        // todo: move this somewhere else?
         InformationSaver saver = new InformationSaver();
         AccountCreator creator = new AccountCreator();
-        Person user = new Person();
+//        Person user = new Person();
 
-        boolean result = creator.makeAccount(user, name, pass, answer, this.users);
-        if (result) {
-            users.put(name, user); // adds the user to the hashmap of users
-            saver.saveUser(users.get(name)); // adds the user to the firestore database
-        }
-        return result;
+//        boolean result = ;
+//        if (result) {
+//            users.add(name, u); // adds the user to the hashmap of users
+//            saver.saveUser(users.getUser(name)); // adds the user to the firestore database
+//        }
+        return creator.makeAccount(name, pass, answer, users, saver);
     }
 
     /**
@@ -49,7 +50,6 @@ public class AccountManager {
      * @param answer The answer to the security question that will be used for password changes / account recovery
      * @return true if the user was able to change their password
      */
-
     public boolean changePassword(String name, String answer, String newPass) throws IOException, ExecutionException, InterruptedException {
 
         InformationSaver saver = new InformationSaver();
@@ -69,7 +69,6 @@ public class AccountManager {
     /**
      * Retrieves all users from database and adds their names as keys in users, and the Entities.Person object as values.
      */
-
     public void populateUsers() throws ExecutionException, InterruptedException, IOException {
         InformationSaver saver = new InformationSaver();
 

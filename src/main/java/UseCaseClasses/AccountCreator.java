@@ -6,11 +6,6 @@ import java.util.HashMap;
 
 public class AccountCreator {
 
-    // need to keep all our info about who has what accounts stored somewhere
-    // consider a database?
-    // store all users in a hashmap?
-    // how to store between runs of program? shared access to it?
-
     // maybe accountmanager has a hashmap of all the users' usernames (and the values are person objects) of this program??
     // if yes, the following code works
 
@@ -24,15 +19,17 @@ public class AccountCreator {
      * @param data HashMap containing all usernames in use thus far, with associated Entities.Person
      * @return true if the user account was successfully created and added
      */
-    public boolean makeAccount(Person user, String name, String pass, String answer, HashMap<String, Person> data) {
+    public boolean makeAccount(String name, String pass, String answer, UserList data, InformationSaver saver) {
 
         boolean check = isValidName(name, data);
+        Person newUser = new Person();
 
         if (check) {
-            user.setUserName(name);
-            user.setUserPassword(pass);
-            user.setTrustedAnswer(answer);
-            data.put(name, user);
+            newUser.setUserName(name);
+            newUser.setUserPassword(pass);
+            newUser.setTrustedAnswer(answer);
+            data.addUser(name, newUser);
+            saver.saveUser(data.getUser(name)); // adds the user to the firestore database
         }
 
         return check;
