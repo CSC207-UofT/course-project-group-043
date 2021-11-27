@@ -35,7 +35,6 @@ public class FriendAdderTest {
 
         /* bob accepts sunehra's friend request.
          */
-
         friendRequest.acceptFriendRequest(sunehra, bob);
         ArrayList<Person> empty = new ArrayList<Person>();
 

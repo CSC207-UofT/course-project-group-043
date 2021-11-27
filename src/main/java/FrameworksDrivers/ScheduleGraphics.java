@@ -5,17 +5,15 @@ import Entities.Event;
 import Entities.Person;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Color;
-import java.awt.Font;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {
@@ -35,26 +33,19 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
     private JPanel buttonPanel;
 
     private JLabel titleLabel;
-    private JLabel mondayLabel;
-    private JLabel tuesdayLabel;
-    private JLabel wednesdayLabel;
-    private JLabel thursdayLabel;
-    private JLabel fridayLabel;
-    private JLabel saturdayLabel;
-    private JLabel sundayLabel;
 
     // addEventButton popup
     // TODO: keep declaration here, move creation inside
     private JTextField addEventName = new JTextField();
     private JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"});
-    private String[] timesList = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00pm", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+    private String[] timesList = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
     private JComboBox addEventStart = new JComboBox(timesList);
     private JComboBox addEventEnd = new JComboBox(timesList);
 
 
     public ScheduleGraphics() {
         super("Scheduler App");
-        setSize(750, 750); // setting the default size of the frame
+        setSize(850, 850); // setting the default size of the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // when pressing the x button, progarm will close
 
         setLayout(null);
@@ -70,14 +61,6 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         buttonPanel = new JPanel();
 
         titleLabel = new JLabel("Scheduler App");
-
-        mondayLabel = new JLabel("Monday");
-        tuesdayLabel = new JLabel("Tuesday");
-        wednesdayLabel = new JLabel("Wednesday");
-        thursdayLabel = new JLabel("Thursday");
-        fridayLabel = new JLabel("Friday");
-        saturdayLabel = new JLabel("Saturday");
-        sundayLabel = new JLabel("Sunday");
 
         // adding ActionListeners (code at bottom of program will run when a given button is pressed)
         addEventButton.addActionListener(this);
@@ -100,28 +83,11 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         buttonPanel.add(logoutButton);
 
         // setting the locations of objects
-        titleLabel.setBounds(288, -5, 200, 50);
-        buttonPanel.setBounds(7,35,700,200);
-
-        mondayLabel.setBounds(116, 76, 70, 40);
-        tuesdayLabel.setBounds(185, 76, 70, 40);
-        wednesdayLabel.setBounds(248, 76, 70, 40);
-        thursdayLabel.setBounds(325, 76, 70, 40);
-        fridayLabel.setBounds(400, 76, 70, 40);
-        saturdayLabel.setBounds(465, 76, 70, 40);
-        sundayLabel.setBounds(536, 76, 70, 40);
-
+        titleLabel.setBounds(360, -5, 200, 50);
+        buttonPanel.setBounds(80,35,700,200);
 
         // adding to JPanel
         add(titleLabel);
-
-        add(mondayLabel);
-        add(tuesdayLabel);
-        add(wednesdayLabel);
-        add(thursdayLabel);
-        add(fridayLabel);
-        add(saturdayLabel);
-        add(sundayLabel);
 
         add(buttonPanel);
 
@@ -134,9 +100,10 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
 
-        g2g = (Graphics2D)g;
+        g2g = g;
 
         // creating custom colors
+        Color color0 = Color.white;
         Color color1 = new Color(110, 205, 250);
         Color color2 = new Color(39, 208, 245);
         Color color3 = new Color(0, 210, 231);
@@ -145,27 +112,39 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         Color color6 = new Color(0, 207, 137);
         Color color7 = new Color(65, 202, 94);
 
-        Color[] colorsList = {color1, color2, color3, color4, color5, color6, color7};
+        Color[] colorsList = {color0, color1, color2, color3, color4, color5, color6, color7};
+
+        String[] titles = {"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
 
         // TODO: make schedule grid larger
 
 
         // drawing the day of week header boxes & outlines
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 8; x++) {
             g2g.setColor(colorsList[x]); // different color for each day slot
             g2g.fillRect(25 + (x * 100), 100, 100, 40);
+            g2g.setColor(Color.BLACK);
+            g2g.drawString(titles[x],53 + (x * 100), 125);
         }
-
+//
         g2g.setColor(Color.white);
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 8; x++) {
             g2g.drawRect(25 + (x * 100), 100, 100, 40);
         }
-
+//
         // drawing the empty schedule outlines
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 8; x++) {
             for (int i = 0; i < 24; i++) {
                 g2g.drawRect(25 + (x * 100), 140 + (i * 25), 100, 25);
             }
+        }
+
+        for (int x = 0; x < 24; x++) {
+            g2g.setColor(Color.gray);
+            g2g.fillRect(25, 140 + (x * 25), 100, 25);
+            g2g.setColor(Color.BLACK);
+            g2g.drawString(timesList[x], 50, 160 +(25 * x));
         }
 
     }
@@ -193,15 +172,24 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
+        Object source = e.getSource(); // this method fully just does return an Object, it doesn't get more specific, apparently
 
         // the following code will run if a given button is pressed
 
-
         if (source == addEventButton) {
-            Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
+            // creating a JPanel that will go inside the dialog
+            JPanel addEventPanel = new JPanel();
+            addEventPanel.setLayout(new BoxLayout(addEventPanel, BoxLayout.Y_AXIS));
+            addEventPanel.add(new JLabel("Name:"));
+            addEventPanel.add(addEventName);
+            addEventPanel.add(new JLabel("Date:"));
+            addEventPanel.add(addEventDate);
+            addEventPanel.add(new JLabel("Start Time:"));
+            addEventPanel.add(addEventStart);
+            addEventPanel.add(new JLabel("End Time:"));
+            addEventPanel.add(addEventEnd);
 
-            int buttonChoice = JOptionPane.showConfirmDialog(null, addEventText, "Add Entities.Event", JOptionPane.OK_CANCEL_OPTION);
+            int buttonChoice = JOptionPane.showConfirmDialog(null, addEventPanel, "Add Entities.Event", JOptionPane.OK_CANCEL_OPTION);
 
             if (buttonChoice == JOptionPane.OK_OPTION) {
                 // will interact with Entities.Event class
@@ -226,6 +214,20 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
                     ex.printStackTrace();
                 }
 
+                //find blocks to color out
+                // draw string in the middle with event name
+//                String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+//
+//
+//
+//                for (int i = 0; i < 7; i++){
+//                    if (eventDate == days[i]){
+//                        int x = 25 + 100 * i;
+//                    }
+//                }
+
+
+
                 // TODO: delete line below (only there for testing)
                 System.out.println("Entities.Event added: " +eventName +" will occur on " +eventDate +" from " +eventStart +" to " +eventEnd);
 
@@ -238,7 +240,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         }
 
         if (source == manageFriendsButton) {
-            Object[] manageFriendType = { "View current friends", "View friend requests", "Send friend request"};
+            String[] manageFriendType = { "View current friends", "View friend requests", "Send friend request"};
 
             int buttonChoice = JOptionPane.showOptionDialog(null, "Manage Friends",
                     "What type of friends do you want to manage: ",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
