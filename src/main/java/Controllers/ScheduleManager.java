@@ -35,5 +35,30 @@ public class ScheduleManager {
     public void removeEvent(String eventName, String eventDay, Person user) {
         ScheduleEditor editor = new ScheduleEditor();
         editor.removeEvent(eventName, eventDay, user);
+
+        saver.saveUser(user);
+    }
+
+    public void sendFR(Person user1, String username2){
+        /* user 1 sends friend request to user2 using user 2's username
+         */
+
+        Set<Person> userset = this.schedules.keySet();
+        ArrayList<Person> users = new ArrayList<>(userset);
+        Person user2 = new Person();
+        for (Person user : users) {
+            if (user.getUserName().equals(username2)) {
+                user2 = user;
+            }
+        }
+        FriendAdder newRequest = new FriendAdder();
+        newRequest.sendFriendRequest(user1, user2);
+    }
+
+    public void acceptFR(Person user1, Person user2){
+        /* user 2 accepts user 1's friend request
+         */
+        FriendAdder acceptNew = new FriendAdder();
+        acceptNew.sendFriendRequest(user1, user2);
     }
 }
