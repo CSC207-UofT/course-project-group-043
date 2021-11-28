@@ -17,6 +17,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {
@@ -150,10 +152,49 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
             g2g.drawString(timesList[x], 50, 160 +(25 * x));
         }
 
-        public
-//
     }
 
+    public void paintEvent(Graphics e, Event event){
+        super.paint(e); //do we need to do this
+        Graphics2D e2e = (Graphics2D) e; //why do we do this
+
+        String[] titles = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        // is titles iterable??
+
+        String[] timesList = {"12:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am", "7:00am",
+                "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm",
+                "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm", "11:00pm"};
+
+        int xcord = 0;
+        for (int i = 0; i < 7; i++){
+            if (Objects.equals(event.getEventDay(), titles[i])){
+                xcord = 125 + (i * 100);
+            }
+        }
+
+        int yStartCord = 0;
+        for (int i = 0; i < 7; i++){
+            if (Objects.equals(event.getEventStartTime(), timesList[i])){
+                yStartCord = 140 + (i * 25);
+            }
+        }
+
+        int yEndCord = 0;
+        for (int i = 0; i < 7; i++){
+            if (Objects.equals(event.getEventEndTime(), timesList[i])){
+                yEndCord = 140 + (i * 25);
+            }
+        }
+        System.out.println(xcord);
+        System.out.println(yStartCord);
+        System.out.println(yEndCord);
+
+        e2e.setColor(Color.PINK); // different color for each day slot
+        e2e.fillRect(xcord, yStartCord, 100, (yEndCord - yStartCord));
+        e2e.setColor(Color.BLACK);
+        e2e.drawString(event.getEventName(), (yStartCord + 5), (yStartCord + 5));
+
+    }
 
 
     private static void setLookAndFeel() {
@@ -180,7 +221,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         Object source = e.getSource();
 
         // the following code will run if a given button is pressed
-
+        ScheduleManager program = new ScheduleManager();
 
         if (source == addEventButton) {
             Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
@@ -205,23 +246,14 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
                 Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
                 try {
-                    manager.addEvent(event, user);
+                    program.addEvent(event, user);
                 } catch (ExecutionException | InterruptedException | IOException ex) {
                     ex.printStackTrace();
                 }
 
-                //find blocks to color out
-                // draw string in the middle with event name
-//                String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-//
-//
-//
-//                for (int i = 0; i < 7; i++){
-//                    if (eventDate == days[i]){
-//                        int x = 25 + 100 * i;
-//                    }
-//                }
+                ScheduleGraphics gf = new ScheduleGraphics();
 
+                gf.paintEvent(g2g, event);
 
 
                 // TODO: delete line below (only there for testing)
