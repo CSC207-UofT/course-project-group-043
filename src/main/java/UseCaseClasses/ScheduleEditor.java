@@ -1,34 +1,37 @@
-package UseCaseClasses;
-
-import Entities.Event;
-import Entities.Person;
-import Entities.Schedule;
+import events.EventFactory;
+import events.Event;
 
 import java.util.HashMap;
 import java.util.Objects;
 
 public class ScheduleEditor {
 
-    /**
-     * Add Entities.Event to the schedule of user
-     *
-     * @param event the event being added to user's schedule
-     * @param user the Entities.Person whose schedule is being changed
-     */
-    public void addEvent(Event event, Person user){
-        Schedule schedule = user.getUserSchedule();
+    private final EventFactory factory;
 
-        String eventName = event.getEventName();
-        String eventDay = event.getEventDay();
-        int eventStartTime = event.getEventStartTime();
-        int eventEndTime = event.getEventEndTime();
-
-        HashMap<String, String> Day = schedule.getSchedule().get(eventDay);
-        for (int i = eventStartTime; i < eventEndTime; ++i) {
-            Day.put(String.valueOf(i), eventName);
-        }
-        schedule.getSchedule().put(eventDay, Day);
+    public ScheduleEditor() {
+        factory = new EventFactory();
     }
+
+    public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime, Person user) {
+        Schedule schedule = user.getUserSchedule();
+        Event event = factory.getEvent(eventType);
+        if (event != null) {
+            event.setEventName(eventName);
+            event.setEventDay(eventDay);
+            event.setEventStartTime(eventStartTime);
+            event.setEventEndTime(eventEndTime);
+
+            HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
+            for (int i = eventStartTime; i < eventEndTime; ++i) {
+                Day.put(i, eventName);
+            }
+            schedule.schedule.put(eventDay, Day);
+        }
+    }
+
+
+
+
 
     public void editEventStartTime(Event event, int newStart) {
         event.setEventStartTime(newStart);
@@ -51,15 +54,15 @@ public class ScheduleEditor {
      *
      * @param eventName the name of the event which is being removed from a schedule
      * @param eventDay the day of the event being removed
-     * @param user the Entities.Person whose schedule is being changed
+     * @param user the Person whose schedule is being changed
      */
     public void removeEvent(String eventName, String eventDay, Person user) {
         Schedule schedule = user.getUserSchedule();
 
-        HashMap<String, String> Day = schedule.getSchedule().get(eventDay);
+        HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
         for (int i = 0; i <= 23; ++i) {
-            if (Objects.equals(Day.get(String.valueOf(i)), eventName)){
-                Day.put(String.valueOf(i), null);
+            if (Objects.equals(Day.get(i), eventName)){
+                Day.put(i, null);
             }
         }
     }
