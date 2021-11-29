@@ -154,16 +154,14 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
     }
 
-    public void paintEvent(Graphics e, Event event){
-        super.paint(e); //do we need to do this
-        Graphics2D e2e = (Graphics2D) e; //why do we do this
+    public void paintEvent(Event event){
+
 
         String[] titles = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         // is titles iterable??
 
-        String[] timesList = {"12:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am", "7:00am",
-                "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm",
-                "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm", "11:00pm"};
+       Integer[] timesList = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+           20, 21, 22, 23, 24};
 
         int xcord = 0;
         for (int i = 0; i < 7; i++){
@@ -189,10 +187,10 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
         System.out.println(yStartCord);
         System.out.println(yEndCord);
 
-        e2e.setColor(Color.PINK); // different color for each day slot
-        e2e.fillRect(xcord, yStartCord, 100, (yEndCord - yStartCord));
-        e2e.setColor(Color.BLACK);
-        e2e.drawString(event.getEventName(), (yStartCord + 5), (yStartCord + 5));
+        g2g.setColor(Color.PINK); // different color for each day slot
+        g2g.fillRect(xcord, yStartCord, 100, (yEndCord - yStartCord));
+        g2g.setColor(Color.BLACK);
+        g2g.drawString(event.getEventName(), (yStartCord + 5), (yStartCord + 5));
 
     }
 
@@ -253,7 +251,9 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
 
                 ScheduleGraphics gf = new ScheduleGraphics();
 
-                gf.paintEvent(g2g, event);
+                gf.paintEvent(event);
+
+
 
 
                 // TODO: delete line below (only there for testing)
