@@ -1,3 +1,7 @@
+package UseCaseClasses;
+
+import Entities.Person;
+
 import java.util.HashMap;
 
 public class AccountEditor {

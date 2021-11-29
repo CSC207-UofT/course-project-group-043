@@ -1,3 +1,10 @@
+package Controllers;
+
+import Entities.Person;
+import UseCaseClasses.AccountCreator;
+import UseCaseClasses.AccountEditor;
+import UseCaseClasses.InformationSaver;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +19,7 @@ public class AccountManager {
     }
 
     /**
-     * Calls on AccountCreator to create a new account
+     * Calls on UseCaseClasses.AccountCreator to create a new account
      *
      * @param name The username for the account, which must be unique
      * @param pass The password for the account
@@ -35,7 +42,7 @@ public class AccountManager {
     }
 
     /**
-     * Calls on AccountEditor to change the user's password
+     * Calls on UseCaseClasses.AccountEditor to change the user's password
      *
      * @param name The username for the account that wishes to change their password
      * @param newPass The password for the account
@@ -60,7 +67,7 @@ public class AccountManager {
     }
 
     /**
-     * Retrieves all users from database and adds their names as keys in users, and the Person object as values.
+     * Retrieves all users from database and adds their names as keys in users, and the Entities.Person object as values.
      */
 
     public void populateUsers() throws ExecutionException, InterruptedException, IOException {

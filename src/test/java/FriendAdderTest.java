@@ -1,7 +1,8 @@
+import Entities.Person;
+import UseCaseClasses.FriendAdder;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,7 +16,7 @@ public class FriendAdderTest {
         Person sunehra = new Person("sunehra", "2323");
         Person bob = new Person("bob1", "7474");
 
-        /* create new FriendAdder
+        /* create new UseCaseClasses.FriendAdder
         */
 
         FriendAdder friendRequest = new FriendAdder();
@@ -34,7 +35,6 @@ public class FriendAdderTest {
 
         /* bob accepts sunehra's friend request.
          */
-
         friendRequest.acceptFriendRequest(sunehra, bob);
         ArrayList<Person> empty = new ArrayList<Person>();
 

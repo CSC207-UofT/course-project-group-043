@@ -1,3 +1,7 @@
+import Entities.Event;
+import Entities.Person;
+import Entities.Schedule;
+import UseCaseClasses.ScheduleEditor;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -38,13 +42,13 @@ public class ScheduleEditorTest {
         testDay.put(19, "MAT334");
         testDay.put(20, "MAT334");
 
-        assertEquals(testDay, DennisSchedule.schedule.get("Tuesday"));
+        assertEquals(testDay, DennisSchedule.getSchedule().get("Tuesday"));
 
         edit.removeEvent("CSC207", "Tuesday", DennisTat);
 
         testDay.put(16, null);
 
-        assertEquals(testDay, DennisSchedule.schedule.get("Tuesday"));
+        assertEquals(testDay, DennisSchedule.getSchedule().get("Tuesday"));
 
         edit.removeEvent("MAT334", "Tuesday", DennisTat);
 
@@ -53,6 +57,6 @@ public class ScheduleEditorTest {
         testDay.put(19, null);
         testDay.put(20, null);
 
-        assertEquals(testDay, DennisSchedule.schedule.get("Tuesday"));
+        assertEquals(testDay, DennisSchedule.getSchedule().get("Tuesday"));
     }
 }
