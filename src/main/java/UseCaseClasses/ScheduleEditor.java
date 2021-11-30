@@ -1,5 +1,8 @@
-import events.EventFactory;
-import events.Event;
+package UseCaseClasses;
+
+import Entities.Person;
+import Entities.Schedule;
+import events.*;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -12,6 +15,7 @@ public class ScheduleEditor {
         factory = new EventFactory();
     }
 
+    // TODO: to be fixed
     public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime, Person user) {
         Schedule schedule = user.getUserSchedule();
         Event event = factory.getEvent(eventType);
@@ -59,7 +63,9 @@ public class ScheduleEditor {
     public void removeEvent(String eventName, String eventDay, Person user) {
         Schedule schedule = user.getUserSchedule();
 
-        HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
+        HashMap<String, String> Day = schedule.getSchedule();
+        //TODO: edit the hashmap of event day and convert time to int
+
         for (int i = 0; i <= 23; ++i) {
             if (Objects.equals(Day.get(i), eventName)){
                 Day.put(i, null);
