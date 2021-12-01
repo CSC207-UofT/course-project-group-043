@@ -5,9 +5,10 @@ import java.util.HashMap;
 public class Schedule {
 
     // todo: make a toString method for Entities.Event to make this work better
-    private HashMap<String, HashMap<String, String>> schedule;  // day, start hour, event name
+    //NOTE: had to make schedule public to access it in ScheduleEditor
+    public HashMap<String, HashMap<String, String>> schedule;  // day, start hour, event name
 
-    public Schedule() {
+    public void schedule() {
         this.schedule = new HashMap<>();
         HashMap<String, String> monday = new HashMap<>();
 
