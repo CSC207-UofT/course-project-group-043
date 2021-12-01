@@ -1,4 +1,4 @@
-package events;
+package Entities.events;
 
 public abstract class Event {
     public String eventName;

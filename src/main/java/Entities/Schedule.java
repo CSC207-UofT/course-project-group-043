@@ -6,9 +6,9 @@ public class Schedule {
 
     // todo: make a toString method for Entities.Event to make this work better
     //NOTE: had to make schedule public to access it in ScheduleEditor
-    public HashMap<String, HashMap<String, String>> schedule;  // day, start hour, event name
+    private HashMap<String, HashMap<String, String>> schedule;  // day, start hour, event name
 
-    public void schedule() {
+    public Schedule() {
         this.schedule = new HashMap<>();
         HashMap<String, String> monday = new HashMap<>();
 

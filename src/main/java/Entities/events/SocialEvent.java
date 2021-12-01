@@ -1,4 +1,4 @@
-package events;
+package Entities.events;
 
 public class SocialEvent extends Event {
 

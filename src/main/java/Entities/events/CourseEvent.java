@@ -1,4 +1,4 @@
-package events;
+package Entities.events;
 
 //For CourseEvent, if we are using the database/API then we won't need to have them put in the event details
 public class CourseEvent extends Event {
