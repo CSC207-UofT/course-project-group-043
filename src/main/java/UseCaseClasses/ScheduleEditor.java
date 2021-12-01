@@ -15,7 +15,6 @@ public class ScheduleEditor {
         factory = new EventFactory();
     }
 
-    // TODO: to be fixed
     public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime, Person user) {
         Schedule schedule = user.getUserSchedule();
         Event event = factory.getEvent(eventType);
@@ -25,17 +24,13 @@ public class ScheduleEditor {
             event.setEventStartTime(eventStartTime);
             event.setEventEndTime(eventEndTime);
 
-            HashMap<Integer, String> Day = schedule.schedule.get(eventDay);
+            HashMap<String, String> Day = schedule.schedule.get(eventDay);
             for (int i = eventStartTime; i < eventEndTime; ++i) {
-                Day.put(i, eventName);
+                Day.put(String.valueOf(i), eventName);
             }
             schedule.schedule.put(eventDay, Day);
         }
     }
-
-
-
-
 
     public void editEventStartTime(Event event, int newStart) {
         event.setEventStartTime(newStart);
@@ -60,17 +55,17 @@ public class ScheduleEditor {
      * @param eventDay the day of the event being removed
      * @param user the Person whose schedule is being changed
      */
+
     public void removeEvent(String eventName, String eventDay, Person user) {
         Schedule schedule = user.getUserSchedule();
 
-        HashMap<String, String> Day = schedule.getSchedule();
-        //TODO: edit the hashmap of event day and convert time to int
-
+        HashMap<String, String> Day = schedule.schedule.get(eventDay);
         for (int i = 0; i <= 23; ++i) {
-            if (Objects.equals(Day.get(i), eventName)){
-                Day.put(i, null);
+            if (Objects.equals(Day.get(String.valueOf(i)), eventName)){
+                Day.put(String.valueOf(i), null);
             }
         }
     }
+
 
 }
