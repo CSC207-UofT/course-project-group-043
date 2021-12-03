@@ -87,10 +87,10 @@ public class InformationSaver {
         QuerySnapshot querySnapshot = query.get();
         List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
         for (QueryDocumentSnapshot document : documents) {
-            String review = document.getId();
             String Location = document.getString("userName");
             String reviewBody = document.getString("reviewBody");
-            Integer rating = document.getString("rating");
+            String Rating = document.getString("rating");
+            Integer rating = Integer.parseInt(Rating);
             Review a = new Review(Location, reviewBody, rating);
             allReviews.add(a);
         }
