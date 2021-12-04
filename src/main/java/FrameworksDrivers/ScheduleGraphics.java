@@ -205,7 +205,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
                 String eventEndString = eventEnd.split(":")[0];
                 int eventEndInt = Integer.parseInt(eventEndString);
 
-
+                //TODO: add check for what type of event the user wants to create
                 Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
                 try {
                     manager.addEvent(event, user);

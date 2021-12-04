@@ -27,8 +27,8 @@ public class InformationSaver {
     // todo: THIS IS A GATEWAY, IT GOES IN INTERFACEADAPTERS
 
     public InformationSaver() throws IOException {
-        //The following line needs to be changed to the path of the key file for your device
-        serviceAccount = new FileInputStream("C:/Users/denni/IdeaProjects/course-project-group-043/csc207-043-538e5a047423.json");
+
+        serviceAccount = new FileInputStream("./src/csc207-043-538e5a047423.json");
         credentials = GoogleCredentials.fromStream(serviceAccount);
         options = FirebaseOptions.builder()
                 .setCredentials(credentials)

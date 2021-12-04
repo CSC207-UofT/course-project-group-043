@@ -1,18 +1,16 @@
 package InterfaceAdapters;
 
-import Entities.Event;
 import Entities.Person;
 import Entities.Schedule;
 import UseCaseClasses.FriendAdder;
-import UseCaseClasses.InformationSaver;
 import UseCaseClasses.ScheduleComparer;
 import UseCaseClasses.ScheduleEditor;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
+
 
 /**
  * Represents and manages entire system of users and schedules
@@ -47,10 +45,7 @@ public class ScheduleManager {
 
     // should we change this to give it an event
     public void removeEvent(String eventName, String eventDay, Person user) {
-        ScheduleEditor editor = new ScheduleEditor();
         editor.removeEvent(eventName, eventDay, user);
-
-        saver.saveUser(user);
     }
 
     public void sendFR(Person user1, String username2){
