@@ -1,4 +1,4 @@
-import Controllers.CourseDataGetter;
+import InterfaceAdapters.CourseDataGetter;
 import org.junit.Test;
 
 import java.io.IOException;
