@@ -1,6 +1,6 @@
 package ToBeIgnored;
 
-import Controllers.ScheduleManager;
+import InterfaceAdapters.ScheduleManager;
 import Entities.Event;
 import Entities.Person;
 

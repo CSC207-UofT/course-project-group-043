@@ -24,6 +24,8 @@ public class InformationSaver {
     private FirebaseOptions options;
     private Firestore db;
 
+    // todo: THIS IS A GATEWAY, IT GOES IN INTERFACEADAPTERS
+
     public InformationSaver() throws IOException {
 
         serviceAccount = new FileInputStream("./src/csc207-043-538e5a047423.json");
@@ -57,7 +59,6 @@ public class InformationSaver {
         QuerySnapshot querySnapshot = query.get();
         List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
         for (QueryDocumentSnapshot document : documents) {
-            String user = document.getId();
             String Username = document.getString("userName");
             String Password = document.getString("userPassword");
             Person a = new Person(Username, Password);

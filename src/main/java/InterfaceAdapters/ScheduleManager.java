@@ -1,4 +1,4 @@
-package Controllers;
+package InterfaceAdapters;
 
 import Entities.Person;
 import Entities.Schedule;
