@@ -18,7 +18,7 @@ public class ScheduleEditorTest {
          */
         Schedule DennisSchedule = DennisTat.getUserSchedule();
 
-        /* add the two Entities.events to the schedule
+        /* add two events to the schedule
          */
         edit.addEvent("course","CSC207", "Tuesday", 16, 17 , DennisTat);
         edit.addEvent("course", "MAT334", "Tuesday", 17, 21, DennisTat);
