@@ -1,4 +1,3 @@
-import Entities.Event;
 import Entities.Person;
 import Entities.Schedule;
 import UseCaseClasses.ScheduleComparer;
@@ -17,15 +16,10 @@ public class ScheduleComparerTest {
         Person DennisTat = new Person("twoDennis", "1234");
         Person DennisTwo = new Person("DennisTwo", "1234");
 
-        Event Csc = new Event("CSC207", "Tuesday", 16, 17);
-        Event Mat = new Event("MAT334", "Tuesday", 17, 21);
-        Event Sta = new Event("STA257", "Tuesday", 16, 23);
-        Event Jog = new Event("Jog", "Tuesday", 7, 8);
-
-        edit.addEvent(Csc, DennisTat);
-        edit.addEvent(Mat, DennisTat);
-        edit.addEvent(Sta, DennisTwo);
-        edit.addEvent(Jog, DennisTwo);
+        edit.addEvent("course","CSC207", "Tuesday", 16, 17, DennisTat);
+        edit.addEvent("course", "MAT334", "Tuesday", 17, 21, DennisTat);
+        edit.addEvent("course", "STA257", "Tuesday", 16, 23, DennisTwo);
+        edit.addEvent("fitness", "Jog", "Tuesday", 7, 8, DennisTwo);
 
         ScheduleComparer compare = new ScheduleComparer();
         Schedule result = compare.compare(DennisTat, DennisTwo);
