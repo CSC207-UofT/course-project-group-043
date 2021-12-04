@@ -1,6 +1,6 @@
 package FrameworksDrivers;
 
-import Controllers.ScheduleManager;
+import InterfaceAdapters.ScheduleManager;
 import Entities.Event;
 import Entities.Person;
 
@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class ScheduleGraphics extends JFrame implements ActionListener {
@@ -206,7 +205,7 @@ public class ScheduleGraphics extends JFrame implements ActionListener {
                 String eventEndString = eventEnd.split(":")[0];
                 int eventEndInt = Integer.parseInt(eventEndString);
 
-
+                //TODO: add check for what type of event the user wants to create
                 Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
                 try {
                     manager.addEvent(event, user);

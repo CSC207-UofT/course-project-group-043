@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class ScheduleComparer {
 
     /** Compares two Schedules and returns a Entities.Schedule with entries null if both user1 and user2 do not have
-     * events during that time, and busy if user1 or user2 have events during that time.
+     * Entities.events during that time, and busy if user1 or user2 have Entities.events during that time.
      *
      *
      * @param user1 A Entities.Person whose schedule is being compared to user2's schedule

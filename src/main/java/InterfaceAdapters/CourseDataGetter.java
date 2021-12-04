@@ -1,6 +1,5 @@
-package Controllers;
+package InterfaceAdapters;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 // GOT THE ABOVE TO WORK USING THE LAST ANSWER ON HERE: https://stackoverflow.com/questions/34676940/importing-json-library-into-intellij-idea
 // potentially also need this, but not sure: https://mvnrepository.com/artifact/org.json/json/20140107
@@ -35,7 +34,7 @@ public class CourseDataGetter {
      * @return JSONObject that contains all of the information on the course data page
      * @throws URISyntaxException
      * @throws IOException
-     * @throws InterruptedException // todo: handle exceptions better
+     * @throws InterruptedException
      */
     public JSONObject fetchWebsiteInfo(String courseCode) throws URISyntaxException, IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
