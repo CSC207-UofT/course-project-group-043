@@ -48,11 +48,11 @@ public class ScheduleGraphics extends JFrame {
 
         setLayout(null);
 
-        ScheduleGraphicsTrial.AddEventListener addEventListener = new ScheduleGraphicsTrial.AddEventListener();
+        AddEventListener addEventListener = new AddEventListener();
 //        EditEventListener editEventListener = new EditEventListener();
-        ScheduleGraphicsTrial.ManageFriendsListener manageFriendsListener = new ScheduleGraphicsTrial.ManageFriendsListener();
-        ScheduleGraphicsTrial.CompareScheduleListener compareScheduleListener = new ScheduleGraphicsTrial.CompareScheduleListener();
-        ScheduleGraphicsTrial.HelpListener helpListener = new ScheduleGraphicsTrial.HelpListener();
+        ManageFriendsListener manageFriendsListener = new ManageFriendsListener();
+        CompareScheduleListener compareScheduleListener = new CompareScheduleListener();
+        HelpListener helpListener = new HelpListener();
 
 
         addEventButton.addActionListener(addEventListener);
