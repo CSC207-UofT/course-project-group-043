@@ -19,6 +19,7 @@ public class ScheduleGraphics extends JFrame {
 
     Person user = new Person("user", "1234"); // making a temporary person (for testing purposes)
 
+
     private JButton addEventButton = new JButton("Add Event");
     //    private JButton editEventButton = new JButton("Edit Event");
     private JButton manageFriendsButton = new JButton("Manage Friends");
@@ -29,11 +30,14 @@ public class ScheduleGraphics extends JFrame {
     private JTextField addEventName = new JTextField();
     private JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"});
-    private String[] timesList = {"00:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am",
-            "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "13:00pm", "14:00pm", "15:00pm",
-            "16:00pm", "17:00pm", "18:00pm", "19:00pm", "20:00pm", "21:00pm", "22:00pm", "23:00pm"};
+    private String[] timesList = {"00:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00",
+            "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
+            "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+    private String[] eventTypesList = {"Academic", "Course", "Fitness", "Social"};
     private JComboBox addEventStart = new JComboBox(timesList);
     private JComboBox addEventEnd = new JComboBox(timesList);
+    private JComboBox addEventType = new JComboBox(eventTypesList);
+
 
     ArrayList<Event> eventsSchedule = new ArrayList<>();
 
@@ -106,7 +110,7 @@ public class ScheduleGraphics extends JFrame {
 
 
             if (source == addEventButton) {
-                Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
+                Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd, "Event type:", addEventType};
 
                 int buttonChoice = JOptionPane.showConfirmDialog(null, addEventText, "Add Entities.Event", JOptionPane.OK_CANCEL_OPTION);
 
@@ -125,7 +129,10 @@ public class ScheduleGraphics extends JFrame {
                     String eventEndString = eventEnd.split(":")[0];
                     int eventEndInt = Integer.parseInt(eventEndString);
 
+                    // TODO: collect event type and save it
 
+
+                    // TODO: change how event is created (using ScehduleManager)
                     Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
 
                     scheduleDrawing.schedule.add(event);
@@ -151,24 +158,41 @@ public class ScheduleGraphics extends JFrame {
                         "What type of friends do you want to manage: ", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                         null, manageFriendType, manageFriendType[0]);
 
+                if (buttonChoice == JOptionPane.YES_OPTION) { // view currents friends
+                    String allFriends = new String();
 
-//                if (buttonChoice == JOptionPane.YES_OPTION) { // view current friends
+                    for (Person friend : user.getUserFriends()) {
+                        allFriends = allFriends + friend.getUserName() + "\n";
+                    }
 
-//                    String allFriends = new String();
+                    if (allFriends.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "You currently have no friends.");
+                    }
 
-//                for (Person friend : user.getUserFriends()) {
-//                    allFriends = allFriends + friend.getUserName() + "\n";
-//                }
-//
-//                if (user.getUserFriends().isEmpty()) {
-//                    JOptionPane.showMessageDialog(this, "You currently have no friends.");
-//                }
-//                else {
-//                    JOptionPane.showMessageDialog(this, "Current friends: \n" +allFriends);
-//                }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Current friends: \n" +allFriends);
+                    }
+                }
 
-//
-//                }
+
+
+                if (buttonChoice == JOptionPane.NO_OPTION) { // view friend requests
+                    // TODO: do as comments say
+                    /*
+                    JComboBox listing all current friend requests
+                    Cancel, decline, and accept buttons
+                     */
+                }
+
+                if (buttonChoice == JOptionPane.CANCEL_OPTION) { // send friend request
+                    JTextField friendRequestField = new JTextField();
+                    JOptionPane.showInputDialog(null, "Enter username: ", "Send friend request", JOptionPane.QUESTION_MESSAGE);
+                    String friendRequestName = friendRequestField.getText();
+                    // TODO: call on FriendAdder to send friend request
+                }
+
+
+
 
             }
         }
