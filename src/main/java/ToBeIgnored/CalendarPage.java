@@ -40,7 +40,7 @@ public class CalendarPage {
                 int eventEndTime = in.nextInt();
                 /* use schedule manager to add this to the calendar*/
                 manager.addEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, user);
-                System.out.println("Entities.Event has been added.");
+                System.out.println("Event has been added.");
 
             } else if (Objects.equals(input, "remove")) {
                 System.out.println("What is the name of the event you would like to remove?");
@@ -49,7 +49,7 @@ public class CalendarPage {
                 String eventDay = in.nextLine();
                 /* use schedule manager to remove this from the calendar*/
                 manager.removeEvent(eventName, eventDay, user);
-                System.out.println("Entities.Event has been removed.");
+                System.out.println("Event has been removed.");
 
             } else if (Objects.equals(input, "view")) {
                 System.out.println(user.getUserSchedule());
