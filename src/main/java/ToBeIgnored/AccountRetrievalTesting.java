@@ -10,8 +10,8 @@ public class AccountRetrievalTesting {
     public static void main(String [] args) throws IOException, ExecutionException, InterruptedException {
         // This will print every user stored in the database
         AccountManager manager = new AccountManager();
-        manager.populateUsers();
-        System.out.println(manager.getUsers());
+        //manager.populateUsers();
+        //System.out.println(manager.getUsers());
 
     }
 }

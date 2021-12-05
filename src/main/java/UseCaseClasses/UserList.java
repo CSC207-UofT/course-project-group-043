@@ -6,10 +6,14 @@ import java.util.HashMap;
 
 public class UserList {
 
-    private HashMap<String, Person> users;
+    public HashMap<String, Person> users;
 
     // potentially could have something that adds more than one user at a time?
     // todo: have the constructor add everything from the database? plus a constructor for empty list for testing?
+
+    public UserList() {
+        users = new HashMap<>();
+    }
 
     public HashMap<String, Person> getUsers() {
         return users;

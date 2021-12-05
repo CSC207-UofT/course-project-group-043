@@ -1,8 +1,10 @@
 package FrameworksDrivers;
 
 
-import Entities.Event;
 import Entities.Person;
+import Entities.events.Event;
+import InterfaceAdapters.ScheduleManager;
+import UseCaseClasses.ScheduleEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +18,8 @@ import java.util.ArrayList;
 
 public class ScheduleGraphics extends JFrame {
 
-
+    ScheduleManager manager = new ScheduleManager();
+    ScheduleEditor editor = new ScheduleEditor();
     Person user = new Person("user", "1234"); // making a temporary person (for testing purposes)
 
     private JButton addEventButton = new JButton("Add Event");
@@ -27,8 +30,11 @@ public class ScheduleGraphics extends JFrame {
     private JButton logoutButton = new JButton("Logout");
 
     private JTextField addEventName = new JTextField();
+    private JTextField addFriendName = new JTextField();
     private JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"});
+    private JComboBox addEventType = new JComboBox(new String[]{"Academic", "Course", "Fitness",
+            "Social"});
     private String[] timesList = {"00:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am",
             "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "13:00pm", "14:00pm", "15:00pm",
             "16:00pm", "17:00pm", "18:00pm", "19:00pm", "20:00pm", "21:00pm", "22:00pm", "23:00pm"};
@@ -106,7 +112,7 @@ public class ScheduleGraphics extends JFrame {
 
 
             if (source == addEventButton) {
-                Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
+                Object[] addEventText = {"Type:", addEventType, "Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
 
                 int buttonChoice = JOptionPane.showConfirmDialog(null, addEventText, "Add Entities.Event", JOptionPane.OK_CANCEL_OPTION);
 
@@ -114,6 +120,7 @@ public class ScheduleGraphics extends JFrame {
                     // will interact with Entities.Event class
 
                     // temporarily assigning the values to temporary variables
+                    String eventType = (String) addEventType.getSelectedItem();
                     String eventName = addEventName.getText();
                     String eventDate = (String) addEventDate.getSelectedItem();
 
@@ -125,8 +132,8 @@ public class ScheduleGraphics extends JFrame {
                     String eventEndString = eventEnd.split(":")[0];
                     int eventEndInt = Integer.parseInt(eventEndString);
 
-
-                    Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
+                    manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, user);
+                    Event event = editor.createEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt);
 
                     scheduleDrawing.schedule.add(event);
                     repaint();
@@ -181,7 +188,31 @@ public class ScheduleGraphics extends JFrame {
             Object source = e.getSource();
 
             if (source == compareSchedulesButton) {
+                JPanel compareSchedule = new JPanel();
+                compareSchedule.setLayout(new BoxLayout(compareSchedule, BoxLayout.Y_AXIS));
+                compareSchedule.add(new JLabel("Friend:"));
+                compareSchedule.add(addFriendName);
 
+                int buttonChoice = JOptionPane.showConfirmDialog(null, compareSchedule, "Compare Schedules", JOptionPane.OK_CANCEL_OPTION);
+                if (buttonChoice == JOptionPane.OK_OPTION) {
+
+                    String friendName = addFriendName.getText();
+                    //adding a user with events for testing
+                    Person test = new Person(friendName, "123");
+                    manager.addEvent("Academic", "CSC207", "Friday", 16, 17, test);
+                    manager.addEvent("Academic", "MAT334", "Friday", 17, 21, test);
+                    user.getUserFriends().add(test);
+
+                    for (Person user : user.getUserFriends()) {
+                        if (user.getUserName().equals(friendName)) {
+                            CompareGraphics gf = new CompareGraphics(user, test);
+                        }
+                    }
+
+//                    else {
+//                        JOptionPane.showMessageDialog(this, "That user is not on your friends list");
+//                    }
+                }
             }
 
         }

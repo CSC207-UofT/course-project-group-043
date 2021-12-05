@@ -2,7 +2,7 @@ package ToBeIgnored;
 
 import InterfaceAdapters.AccountManager;
 import InterfaceAdapters.ScheduleManager;
-import Entities.Event;
+import Entities.events.*;
 import Entities.Person;
 import UseCaseClasses.UserList;
 
@@ -17,11 +17,8 @@ public class AccountCreationTesting {
         UserList users = new UserList();
         manager.createAccount("Dennis Tat", "123", "123");
         Person Dennis = users.getUser("Dennis Tat");
-        Event csc207 = new Event("CSC207", "Tuesday", 16, 17);
-        Event mat334 = new Event("MAT334", "Tuesday", 17, 21);
-        Event sta257 = new Event("STA257", "Wednesday", 17, 21);
-        sManager.addEvent(csc207, Dennis);
-        sManager.addEvent(sta257, Dennis);
-        sManager.addEvent(mat334, Dennis);
+        sManager.addEvent("Course", "CSC207", "Tuesday", 16, 17, Dennis);
+        sManager.addEvent("Course", "MAT334", "Tuesday", 17, 21, Dennis);
+        sManager.addEvent("Course", "STA257", "Wednesday", 17, 21, Dennis);
     }
 }

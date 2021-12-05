@@ -4,6 +4,7 @@ import Entities.Person;
 import Entities.Schedule;
 import Entities.events.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -13,6 +14,17 @@ public class ScheduleEditor {
 
     public ScheduleEditor() {
         factory = new EventFactory();
+    }
+
+    public Event createEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime) {
+        Event event = factory.getEvent(eventType);
+        if (event != null) {
+            event.setEventName(eventName);
+            event.setEventDay(eventDay);
+            event.setEventStartTime(eventStartTime);
+            event.setEventEndTime(eventEndTime);
+        }
+        return event;
     }
 
     public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime, Person user) {
@@ -29,6 +41,9 @@ public class ScheduleEditor {
                 Day.put(String.valueOf(i), eventName);
             }
             schedule.getSchedule().put(eventDay, Day);
+            ArrayList<Entities.events.Event> eventList = schedule.getEvents();
+            eventList.add(event);
+            schedule.setEvents(eventList);
         }
     }
 

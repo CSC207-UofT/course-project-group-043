@@ -1,15 +1,18 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import Entities.events.*;
 
 public class Schedule {
 
     // todo: make a toString method for Entities.Event to make this work better
-    //NOTE: had to make schedule public to access it in ScheduleEditor
     private HashMap<String, HashMap<String, String>> schedule;  // day, start hour, event name
+    private ArrayList<Event> events;
 
     public Schedule() {
         this.schedule = new HashMap<>();
+        this.events = new ArrayList<>();
         HashMap<String, String> monday = new HashMap<>();
 
         for (int i = 0; i <= 23; ++i) {
@@ -63,6 +66,18 @@ public class Schedule {
 
     public HashMap<String, HashMap<String, String>> getSchedule() {
         return schedule;
+    }
+
+    public ArrayList<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(ArrayList<Event> event) {
+        events = event;
+    }
+
+    public void setSchedule(HashMap<String, HashMap<String, String>> schedule) {
+        this.schedule = schedule;
     }
 
     public String toString() {
