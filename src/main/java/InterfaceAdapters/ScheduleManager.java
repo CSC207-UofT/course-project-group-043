@@ -44,8 +44,8 @@ public class ScheduleManager {
     }
 
     // should we change this to give it an event
-    public void removeEvent(String eventName, String eventDay, Person user) {
-        editor.removeEvent(eventName, eventDay, user);
+    public void removeEvent(String eventName, String eventDay, int startTime, Person user) {
+        editor.removeEvent(eventName, eventDay, startTime, user);
     }
 
     public void sendFR(Person user1, String username2){

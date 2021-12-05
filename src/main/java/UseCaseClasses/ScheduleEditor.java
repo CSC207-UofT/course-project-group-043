@@ -4,6 +4,7 @@ import Entities.Person;
 import Entities.Schedule;
 import Entities.events.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -24,11 +25,10 @@ public class ScheduleEditor {
             event.setEventStartTime(eventStartTime);
             event.setEventEndTime(eventEndTime);
 
-            HashMap<String, String> Day = schedule.getSchedule().get(eventDay);
-            for (int i = eventStartTime; i < eventEndTime; ++i) {
-                Day.put(String.valueOf(i), eventName);
-            }
-            schedule.getSchedule().put(eventDay, Day);
+            ArrayList<Event> dayevents = schedule.getSchedule().get(eventDay);
+            dayevents.add(event);
+            //TODO: should I create a setter in schedule to set the list of events of a specific day in the schedule class? or can I just use the getter
+            schedule.getSchedule().put(eventDay, dayevents);
         }
     }
 
@@ -56,15 +56,19 @@ public class ScheduleEditor {
      * @param user the Person whose schedule is being changed
      */
 
-    public void removeEvent(String eventName, String eventDay, Person user) {
+    public void removeEvent(String eventName, String eventDay, int startTime, Person user) {
         Schedule schedule = user.getUserSchedule();
 
-        HashMap<String, String> Day = schedule.getSchedule().get(eventDay);
-        for (int i = 0; i <= 23; ++i) {
-            if (Objects.equals(Day.get(String.valueOf(i)), eventName)){
-                Day.put(String.valueOf(i), null);
+        ArrayList<Event> dayevents = schedule.getSchedule().get(eventDay);
+        for (int i = 0; i < dayevents.size(); i++) {
+            if (Objects.equals(dayevents.get(i).eventName, eventName) && Objects.equals(dayevents.get(i).eventStartTime, startTime)) {
+                dayevents.remove(i);
             }
         }
+        //TODO: again should I use the getter or create a setter in schedule?
+        schedule.getSchedule().put(eventDay, dayevents);
+
+
     }
 
 
