@@ -53,13 +53,10 @@ public class ScheduleManager {
         editor.removeEvent(eventName, eventDay, data.getUser(user));
     }
 
-    // todo: edit this to return a boolean if a friend is successfully added??
-    public void sendFR(String user1, String username2){
+    public boolean sendFR(String user1, String username2){
         /* user 1 sends friend request to user2 using user 2's username
          */
-        if(data.containsUser(username2) && data.containsUser(user1)) {
-            adder.sendFriendRequest(data.getUser(user1), data.getUser(username2));
-        }
+        adder.sendFriendRequest(data.getUser(user1), data.getUser(username2), data);
 //        Set<String> userset = data.getUsers().keySet();
 //        ArrayList<Person> users = new ArrayList<>(userset);
 //        Person user2 = new Person();
@@ -72,10 +69,12 @@ public class ScheduleManager {
 //        adder.sendFriendRequest(user1, user2);
     }
 
-    public void acceptFR(String user1, String user2){
+    // todo: write / edit tests for this
+    // todo: fix javadocs on here
+    public boolean acceptFR(String user1, String user2){
         /* user 2 accepts user 1's friend request
          */
 //        FriendAdder acceptNew = new FriendAdder();
-        adder.acceptFriendRequest(data.getUser(user1), data.getUser(user2));
+        return adder.acceptFriendRequest(data.getUser(user1), data.getUser(user2), data);
     }
 }
