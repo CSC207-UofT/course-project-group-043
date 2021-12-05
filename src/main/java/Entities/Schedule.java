@@ -8,8 +8,6 @@ import java.util.HashMap;
 
 public class Schedule {
 
-    // todo: make a toString method for Entities.Event to make this work better
-    //NOTE: had to make schedule public to access it in ScheduleEditor
     private HashMap<String, ArrayList<Event>> schedule;  // day, events
 
     public Schedule() {
@@ -33,6 +31,10 @@ public class Schedule {
 
     public HashMap<String, ArrayList<Event>> getSchedule() {
         return schedule;
+    }
+
+    public void setDayEvents(String day, ArrayList<Event> list){
+        schedule.replace(day, list);
     }
 
 

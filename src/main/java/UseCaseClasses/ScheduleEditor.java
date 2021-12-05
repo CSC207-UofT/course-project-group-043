@@ -25,10 +25,9 @@ public class ScheduleEditor {
             event.setEventStartTime(eventStartTime);
             event.setEventEndTime(eventEndTime);
 
-            ArrayList<Event> dayevents = schedule.getSchedule().get(eventDay);
-            dayevents.add(event);
-            //TODO: should I create a setter in schedule to set the list of events of a specific day in the schedule class? or can I just use the getter
-            schedule.getSchedule().put(eventDay, dayevents);
+            ArrayList<Event> dayEvents = schedule.getSchedule().get(eventDay);
+            dayEvents.add(event);
+            schedule.setDayEvents(eventDay, dayEvents);
         }
     }
 
@@ -59,14 +58,13 @@ public class ScheduleEditor {
     public void removeEvent(String eventName, String eventDay, int startTime, Person user) {
         Schedule schedule = user.getUserSchedule();
 
-        ArrayList<Event> dayevents = schedule.getSchedule().get(eventDay);
-        for (int i = 0; i < dayevents.size(); i++) {
-            if (Objects.equals(dayevents.get(i).eventName, eventName) && Objects.equals(dayevents.get(i).eventStartTime, startTime)) {
-                dayevents.remove(i);
+        ArrayList<Event> dayEvents = schedule.getSchedule().get(eventDay);
+        for (int i = 0; i < dayEvents.size(); i++) {
+            if (Objects.equals(dayEvents.get(i).eventName, eventName) && Objects.equals(dayEvents.get(i).eventStartTime, startTime)) {
+                dayEvents.remove(i);
             }
         }
-        //TODO: again should I use the getter or create a setter in schedule?
-        schedule.getSchedule().put(eventDay, dayevents);
+        schedule.setDayEvents(eventDay,dayEvents);
 
 
     }
