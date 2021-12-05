@@ -142,38 +142,54 @@ public class ScheduleDrawing extends JComponent {
             for (JButton button: buttons.keySet()) {
                 if (source == button) {
 
-                    Object[] addEventText = {"Name:", addEventName, "Date:",
-                            addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
+                    Object[] editEventType = {"Edit Event Details", "Delete Event", "Cancel"};
 
-                    int buttonChoice = JOptionPane.showConfirmDialog(null,
-                            addEventText, "Edit Entities.Event", JOptionPane.OK_CANCEL_OPTION);
+                    int buttonChoice0 = JOptionPane.showOptionDialog(null, "Do you want to edit or delete this event?",
+                            "Edit Event", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                            null, editEventType, editEventType[0]);
 
-                    if (buttonChoice == JOptionPane.OK_OPTION) {
-                        // will interact with Entities.Event class
+                    if (buttonChoice0 == JOptionPane.YES_OPTION) { // edit event details
+                        Object[] addEventText = {"Name:", addEventName, "Date:",
+                                addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
 
-                        // temporarily assigning the values to temporary variables
-                        String eventName = addEventName.getText();
-                        String eventDate = (String) addEventDate.getSelectedItem();
+                        int buttonChoice = JOptionPane.showConfirmDialog(null,
+                                addEventText, "Edit Event", JOptionPane.OK_CANCEL_OPTION);
 
-                        String eventStart = (String) addEventStart.getSelectedItem();
-                        String eventStartString = eventStart.split(":")[0];
-                        int eventStartInt = Integer.parseInt(eventStartString);
+                        if (buttonChoice == JOptionPane.OK_OPTION) {
+                            // will interact with Entities.Event class
 
-                        String eventEnd = (String) addEventEnd.getSelectedItem();
-                        String eventEndString = eventEnd.split(":")[0];
-                        int eventEndInt = Integer.parseInt(eventEndString);
+                            // temporarily assigning the values to temporary variables
+                            String eventName = addEventName.getText();
+                            String eventDate = (String) addEventDate.getSelectedItem();
+
+                            String eventStart = (String) addEventStart.getSelectedItem();
+                            String eventStartString = eventStart.split(":")[0];
+                            int eventStartInt = Integer.parseInt(eventStartString);
+
+                            String eventEnd = (String) addEventEnd.getSelectedItem();
+                            String eventEndString = eventEnd.split(":")[0];
+                            int eventEndInt = Integer.parseInt(eventEndString);
 
 
-                        Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
+                            Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
 
-                        schedule.add(event);
-                        Event removedEvent = buttons.get(button);
-                        schedule.remove(removedEvent);
-                        repaint();
+                            schedule.add(event);
+                            Event removedEvent = buttons.get(button);
+                            schedule.remove(removedEvent);
+                            repaint();
+                        }
                     }
+
+                    if (buttonChoice0 == JOptionPane.NO_OPTION) { // delete selected event
+                        // TODO: implement this
+                    }
+
+                    if (buttonChoice0 == JOptionPane.CANCEL_OPTION) { // delete selected event
+                        // closes window
+                    }
+
                 }
             }
-
         }
     }
 }

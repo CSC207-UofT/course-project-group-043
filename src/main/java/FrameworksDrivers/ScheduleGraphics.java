@@ -112,7 +112,7 @@ public class ScheduleGraphics extends JFrame {
             if (source == addEventButton) {
                 Object[] addEventText = {"Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd, "Event type:", addEventType};
 
-                int buttonChoice = JOptionPane.showConfirmDialog(null, addEventText, "Add Entities.Event", JOptionPane.OK_CANCEL_OPTION);
+                int buttonChoice = JOptionPane.showConfirmDialog(null, addEventText, "Add Event", JOptionPane.OK_CANCEL_OPTION);
 
                 if (buttonChoice == JOptionPane.OK_OPTION) {
                     // will interact with Entities.Event class
@@ -193,7 +193,6 @@ public class ScheduleGraphics extends JFrame {
 
 
 
-
             }
         }
     }
@@ -218,8 +217,8 @@ public class ScheduleGraphics extends JFrame {
             Object source = e.getSource();
 
             if (source == helpButton) {
-                String helpDialogue = ("Add Entities.Event: Press this button to add a new weekly event, with a title, date." +
-                        "\nEdit Entities.Event: Edit or delete event details of a previously created event." +
+                String helpDialogue = ("Add Event: Press this button to add a new weekly event, with a title, date." +
+                        "\nEdit Event: Edit or delete event details of a previously created event." +
                         "\nManage Friends: Send and accept friend requests, and view current friends here." +
                         "\nCompare Schedules: Compare your schedule availability with any added friends." +
                         "\nLogout: Press this button when you are ready to log out.");
