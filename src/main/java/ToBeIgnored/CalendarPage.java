@@ -1,7 +1,7 @@
 package ToBeIgnored;
 
-import Controllers.ScheduleManager;
-import Entities.Event;
+import InterfaceAdapters.ScheduleManager;
+import Entities.events.*;
 import Entities.Person;
 
 import java.io.IOException;
@@ -15,8 +15,7 @@ public class CalendarPage {
         ScheduleManager manager = new ScheduleManager();
         Person user = new Person("user", "1234");
         Person Dennis = new Person("Dennis", "1234");
-        Event work = new Event("Work", "Monday", 9, 17);
-        manager.addEvent(work, Dennis);
+        manager.addEvent("Academic", "Study", "Monday", 9, 17, Dennis);
 
         Scanner in = new Scanner (System.in);
         String input;
@@ -29,6 +28,8 @@ public class CalendarPage {
         do {
             input = in.nextLine();
             if (Objects.equals(input, "add")) {
+                System.out.println("What is the type of your event?");
+                String eventType = in.nextLine();
                 System.out.println("What is the name of your event?");
                 String eventName = in.nextLine();
                 System.out.println("What day does your event happen on? (Monday, Tuesday, Wednesday, etc.)");
@@ -38,8 +39,7 @@ public class CalendarPage {
                 System.out.println("What time does your event end?");
                 int eventEndTime = in.nextInt();
                 /* use schedule manager to add this to the calendar*/
-                Event event = new Event(eventName, eventDay, eventStartTime, eventEndTime);
-                manager.addEvent(event, user);
+                manager.addEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, user);
                 System.out.println("Entities.Event has been added.");
 
             } else if (Objects.equals(input, "remove")) {

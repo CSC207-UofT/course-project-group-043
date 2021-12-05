@@ -1,37 +1,37 @@
 import Entities.Person;
 import UseCaseClasses.AccountCreator;
+import UseCaseClasses.UserList;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
 
 public class AccountCreatorTest {
 
     @Test(timeout = 50)
-    public void TestCheckValidity1() {
+    public void TestCheckValidity1() throws ExecutionException, InterruptedException {
         AccountCreator ac = new AccountCreator();
-        Person u1 = new Person();
         Person u2 = new Person();
-        HashMap<String, Person> tempData = new HashMap<>();
+        UserList tempData = new UserList();
+        System.out.println(tempData.users);
+        tempData.addUser("user123", u2);
 
-        tempData.put("user123", u2);
-
-        boolean actual = ac.makeAccount(u1, "user123", "1234", "Helen", tempData);
+        boolean actual = ac.makeAccount("user123", "1234", "Helen", tempData);
 
         assertEquals(false, actual);
     }
 
     @Test(timeout = 50)
-    public void TestCheckValidity2() {
+    public void TestCheckValidity2() throws ExecutionException, InterruptedException {
         AccountCreator ac = new AccountCreator();
-        Person u1 = new Person();
         Person u2 = new Person();
-        HashMap<String, Person> tempData = new HashMap<>();
+        UserList tempData = new UserList();
 
-        tempData.put("user123", u2);
+        tempData.addUser("user123", u2);
 
-        boolean actual = ac.makeAccount(u1, "sparrow", "4321", "Helen", tempData);
+        boolean actual = ac.makeAccount("sparrow", "4321", "Helen", tempData);
 
         assertEquals(true, actual);
     }

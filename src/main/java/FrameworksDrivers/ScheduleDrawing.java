@@ -1,8 +1,5 @@
 package FrameworksDrivers;
 
-import Entities.Event;
-import Entities.Schedule;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,35 +7,36 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import Entities.events.Event;
+import UseCaseClasses.ScheduleEditor;
 
 public class ScheduleDrawing extends JComponent {
 
     ArrayList<Event> schedule;
+    ArrayList<JButton> buttonList;
     HashMap<JButton, Event> buttons;
+    ScheduleEditor editor = new ScheduleEditor();
 
-    private JTextField addEventName = new JTextField();
-    private JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday",
+    private final JTextField addEventName = new JTextField();
+    private final JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"});
-    private String[] timesList = {"00:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00",
-            "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
-            "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
-    private JComboBox addEventStart = new JComboBox(timesList);
-    private JComboBox addEventEnd = new JComboBox(timesList);
+    private final String[] timesList = {"00:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am",
+            "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "13:00pm", "14:00pm", "15:00pm",
+            "16:00pm", "17:00pm", "18:00pm", "19:00pm", "20:00pm", "21:00pm", "22:00pm", "23:00pm"};
+    private final JComboBox addEventStart = new JComboBox(timesList);
+    private final JComboBox addEventEnd = new JComboBox(timesList);
+    private final JComboBox addEventType = new JComboBox(new String[]{"Academic", "Course", "Fitness",
+            "Social"});
 
     EditEventListener editEventListener = new EditEventListener();
 
-
-
-
     public ScheduleDrawing(ArrayList<Event> schedule){
         this.schedule = schedule;
+        this.buttonList = new ArrayList<>();
         this.buttons = new HashMap<>();
-
-
-
     }
-    public void paintComponent(Graphics g){
 
+    public void paintComponent(Graphics g){
 
         Color color0 = Color.white;
         Color color1 = new Color(110, 205, 250);
@@ -52,9 +50,9 @@ public class ScheduleDrawing extends JComponent {
         Color[] colorsList = {color0, color1, color2, color3, color4, color5, color6, color7};
 
         String[] titles = {"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-        String[] timesList = {"00:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00",
-                "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
-                "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+        String[] timesList = {"12:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am", "7:00am",
+                "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm",
+                "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm", "11:00pm"};
 
 
         // drawing the day of week header boxes & outlines
@@ -88,48 +86,53 @@ public class ScheduleDrawing extends JComponent {
     }
 
     private void drawEvents(Graphics g, ArrayList<Event> schedule) {
+        String[] titles = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        Integer[] timesList = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                20, 21, 22, 23, 24};
 
-        for(int j = 0; j < schedule.size(); j++){
-            String[] titles = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        for (Event event : schedule) {
 
-
-           Integer[] timesList = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-               20, 21, 22, 23, 24};
-
-            int xcord = 0;
-            for (int i = 0; i < 7; i++){
-                if (Objects.equals(schedule.get(j).getEventDay(), titles[i])){
-                    xcord = 125 + (i * 100);
+            int xCord = 0;
+            for (int i = 0; i < 7; i++) {
+                if (titles[i].equals(event.getEventDay())) {
+                    xCord = 125 + (i * 100);
                 }
             }
 
             int yStartCord = 0;
-            for (int i = 0; i < 24; i++){
-                if (Objects.equals(schedule.get(j).getEventStartTime(), timesList[i])){
+            for (int i = 0; i < 24; i++) {
+                if (event.getEventStartTime() == timesList[i]) {
                     yStartCord = 140 + (i * 25);
                 }
             }
 
             int yEndCord = 0;
-            for (int i = 0; i < 24; i++){
-                if (Objects.equals(schedule.get(j).getEventEndTime(), timesList[i])){
+            for (int i = 0; i < 24; i++) {
+                if (event.getEventEndTime() == timesList[i]) {
                     yEndCord = 140 + (i * 25);
                 }
             }
-            System.out.println(xcord);
+            System.out.println(xCord);
             System.out.println(yStartCord);
             System.out.println(yEndCord);
 
-            JButton eventbutton = new JButton(schedule.get(j).getEventName());
+            JButton eventButton = new JButton(event.getEventName());
 
-            eventbutton.setBounds(xcord,yStartCord,100,(yEndCord-yStartCord));
-            eventbutton.addActionListener(editEventListener);
-            add(eventbutton);
-            this.buttons.put(eventbutton, schedule.get(j));
+            eventButton.setBounds(xCord, yStartCord, 100, (yEndCord - yStartCord));
+            eventButton.addActionListener(editEventListener);
+            add(eventButton);
+            this.buttons.put(eventButton, event);
+            this.buttonList.add(eventButton);
+
+            for (JButton button : buttonList) {
+                if (!schedule.contains(buttons.get(button))) {
+                    remove(button);
+                }
+            }
 //            g.setColor(Color.PINK); // different color for each day slot
-//            g.fillRect(xcord, yStartCord, 100, (yEndCord - yStartCord));
+//            g.fillRect(xCord, yStartCord, 100, (yEndCord - yStartCord));
 //            g.setColor(Color.BLACK);
-//            g.drawString(schedule.get(j).getEventName(), (xcord + 10), (yStartCord + 15));
+//            g.drawString(schedule.get(j).getEventName(), (xCord + 10), (yStartCord + 15));
         }
     }
 
@@ -142,52 +145,36 @@ public class ScheduleDrawing extends JComponent {
             for (JButton button: buttons.keySet()) {
                 if (source == button) {
 
-                    Object[] editEventType = {"Edit Event Details", "Delete Event", "Cancel"};
+                    Object[] addEventText = {"Type:", addEventType, "Name:", addEventName, "Date:",
+                            addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
 
-                    int buttonChoice0 = JOptionPane.showOptionDialog(null, "Do you want to edit or delete this event?",
-                            "Edit Event", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-                            null, editEventType, editEventType[0]);
+                    int buttonChoice = JOptionPane.showConfirmDialog(null,
+                            addEventText, "Edit Entities.Event", JOptionPane.OK_CANCEL_OPTION);
 
-                    if (buttonChoice0 == JOptionPane.YES_OPTION) { // edit event details
-                        Object[] addEventText = {"Name:", addEventName, "Date:",
-                                addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
+                    if (buttonChoice == JOptionPane.OK_OPTION) {
+                        // will interact with Entities.Event class
 
-                        int buttonChoice = JOptionPane.showConfirmDialog(null,
-                                addEventText, "Edit Event", JOptionPane.OK_CANCEL_OPTION);
+                        // temporarily assigning the values to temporary variables
+                        String eventType = (String) addEventType.getSelectedItem();
+                        String eventName = addEventName.getText();
+                        String eventDate = (String) addEventDate.getSelectedItem();
 
-                        if (buttonChoice == JOptionPane.OK_OPTION) {
-                            // will interact with Entities.Event class
+                        String eventStart = (String) addEventStart.getSelectedItem();
+                        String eventStartString = eventStart.split(":")[0];
+                        int eventStartInt = Integer.parseInt(eventStartString);
 
-                            // temporarily assigning the values to temporary variables
-                            String eventName = addEventName.getText();
-                            String eventDate = (String) addEventDate.getSelectedItem();
-
-                            String eventStart = (String) addEventStart.getSelectedItem();
-                            String eventStartString = eventStart.split(":")[0];
-                            int eventStartInt = Integer.parseInt(eventStartString);
-
-                            String eventEnd = (String) addEventEnd.getSelectedItem();
-                            String eventEndString = eventEnd.split(":")[0];
-                            int eventEndInt = Integer.parseInt(eventEndString);
+                        String eventEnd = (String) addEventEnd.getSelectedItem();
+                        String eventEndString = eventEnd.split(":")[0];
+                        int eventEndInt = Integer.parseInt(eventEndString);
 
 
-                            Event event = new Event(eventName, eventDate, eventStartInt, eventEndInt);
+                        Event event = editor.createEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt);
 
-                            schedule.add(event);
-                            Event removedEvent = buttons.get(button);
-                            schedule.remove(removedEvent);
-                            repaint();
-                        }
+                        schedule.add(event);
+                        Event removedEvent = buttons.get(button);
+                        schedule.remove(removedEvent);
+                        repaint();
                     }
-
-                    if (buttonChoice0 == JOptionPane.NO_OPTION) { // delete selected event
-                        // TODO: implement this
-                    }
-
-                    if (buttonChoice0 == JOptionPane.CANCEL_OPTION) { // delete selected event
-                        // closes window
-                    }
-
                 }
             }
         }
