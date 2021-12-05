@@ -1,4 +1,3 @@
-import Entities.Event;
 import Entities.Person;
 import Entities.Schedule;
 import UseCaseClasses.ScheduleEditor;
@@ -15,19 +14,14 @@ public class ScheduleEditorTest {
         ScheduleEditor edit = new ScheduleEditor();
         Person DennisTat = new Person("twoDennis", "1234");
 
-        /* create two events to add to DennisTat's schedule
-         */
-        Event Csc = new Event("CSC207", "Tuesday", 16, 17);
-        Event Mat = new Event("MAT334", "Tuesday", 17, 21);
-
         /* retrieve DennisTat's schedule
          */
         Schedule DennisSchedule = DennisTat.getUserSchedule();
 
-        /* add the two events to the schedule
+        /* add two events to the schedule
          */
-        edit.addEvent(Csc, DennisTat);
-        edit.addEvent(Mat, DennisTat);
+        edit.addEvent("course","CSC207", "Tuesday", 16, 17 , DennisTat);
+        edit.addEvent("course", "MAT334", "Tuesday", 17, 21, DennisTat);
 
         /* create a new schedule to compare DennisTat's schedule to
          */
