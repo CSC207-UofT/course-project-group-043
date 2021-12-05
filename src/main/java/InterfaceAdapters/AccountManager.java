@@ -12,14 +12,10 @@ import java.util.concurrent.ExecutionException;
 
 public class AccountManager {
 
-    InformationSaver saver;
-    AccountCreator creator;
-    AccountEditor editor;
-    UserList data; // todo: populate this with users from database?
-
-    public AccountManager() throws IOException {
-
-    }
+    private InformationSaver saver;
+    private AccountCreator creator;
+    private AccountEditor editor;
+    private UserList data; // todo: populate this with users from database?
 
 
     /**
