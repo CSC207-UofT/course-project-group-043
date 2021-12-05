@@ -5,8 +5,6 @@ import Entities.Schedule;
 import Entities.events.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class ScheduleEditor {
 
@@ -60,7 +58,7 @@ public class ScheduleEditor {
 
         ArrayList<Event> dayEvents = schedule.getSchedule().get(eventDay);
         for (int i = 0; i < dayEvents.size(); i++) {
-            if (Objects.equals(dayEvents.get(i).eventName, eventName) && Objects.equals(dayEvents.get(i).eventStartTime, startTime)) {
+            if (dayEvents.get(i).eventName.equals(eventName) && dayEvents.get(i).eventStartTime == startTime) {
                 dayEvents.remove(i);
             }
         }
