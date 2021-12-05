@@ -13,10 +13,10 @@ import UseCaseClasses.ScheduleEditor;
 public class ScheduleDrawing extends JComponent {
 
     ArrayList<Event> schedule;
+    ArrayList<JButton> buttonList;
     HashMap<JButton, Event> buttons;
     ScheduleEditor editor = new ScheduleEditor();
 
-    private final JTextField addEventType = new JTextField();
     private final JTextField addEventName = new JTextField();
     private final JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"});
@@ -25,11 +25,14 @@ public class ScheduleDrawing extends JComponent {
             "16:00pm", "17:00pm", "18:00pm", "19:00pm", "20:00pm", "21:00pm", "22:00pm", "23:00pm"};
     private final JComboBox addEventStart = new JComboBox(timesList);
     private final JComboBox addEventEnd = new JComboBox(timesList);
+    private final JComboBox addEventType = new JComboBox(new String[]{"Academic", "Course", "Fitness",
+            "Social"});
 
     EditEventListener editEventListener = new EditEventListener();
 
     public ScheduleDrawing(ArrayList<Event> schedule){
         this.schedule = schedule;
+        this.buttonList = new ArrayList<>();
         this.buttons = new HashMap<>();
     }
 
@@ -119,6 +122,13 @@ public class ScheduleDrawing extends JComponent {
             eventButton.addActionListener(editEventListener);
             add(eventButton);
             this.buttons.put(eventButton, event);
+            this.buttonList.add(eventButton);
+
+            for (JButton button : buttonList) {
+                if (!schedule.contains(buttons.get(button))) {
+                    remove(button);
+                }
+            }
 //            g.setColor(Color.PINK); // different color for each day slot
 //            g.fillRect(xCord, yStartCord, 100, (yEndCord - yStartCord));
 //            g.setColor(Color.BLACK);
@@ -135,7 +145,7 @@ public class ScheduleDrawing extends JComponent {
             for (JButton button: buttons.keySet()) {
                 if (source == button) {
 
-                    Object[] addEventText = {"Name:", addEventName, "Date:",
+                    Object[] addEventText = {"Type:", addEventType, "Name:", addEventName, "Date:",
                             addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
 
                     int buttonChoice = JOptionPane.showConfirmDialog(null,
@@ -145,7 +155,7 @@ public class ScheduleDrawing extends JComponent {
                         // will interact with Entities.Event class
 
                         // temporarily assigning the values to temporary variables
-                        String eventType = addEventType.getText();
+                        String eventType = (String) addEventType.getSelectedItem();
                         String eventName = addEventName.getText();
                         String eventDate = (String) addEventDate.getSelectedItem();
 
@@ -167,7 +177,6 @@ public class ScheduleDrawing extends JComponent {
                     }
                 }
             }
-
         }
     }
 }

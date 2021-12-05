@@ -41,13 +41,19 @@ public class ScheduleGraphics extends JFrame {
     private JComboBox addEventStart = new JComboBox(timesList);
     private JComboBox addEventEnd = new JComboBox(timesList);
 
-    ArrayList<Event> eventsSchedule = new ArrayList<>();
+    //ArrayList<Event> eventsSchedule = new ArrayList<>();
 
-    ScheduleDrawing scheduleDrawing = new ScheduleDrawing(eventsSchedule);
+    ScheduleDrawing scheduleDrawing = new ScheduleDrawing(user.getUserSchedule().getEvents());
 
     public ScheduleGraphics(){
 
         super("Schedule App");
+        manager.addEvent("Academic", "CSC207", "Tuesday", 14, 16, user);
+        //adding a user with events for testing
+        Person test = new Person("John", "123");
+        manager.addEvent("Academic", "CSC207", "Friday", 16, 17, test);
+        manager.addEvent("Academic", "MAT334", "Friday", 17, 21, test);
+        user.getUserFriends().add(test);
 
         setSize(900, 1200); // setting the default size of the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // when pressing the x button, progarm will close
@@ -133,9 +139,9 @@ public class ScheduleGraphics extends JFrame {
                     int eventEndInt = Integer.parseInt(eventEndString);
 
                     manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, user);
-                    Event event = editor.createEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt);
-
-                    scheduleDrawing.schedule.add(event);
+//                    Event event = editor.createEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt);
+//
+//                    scheduleDrawing.schedule.add(event);
                     repaint();
 
                 }
@@ -143,8 +149,6 @@ public class ScheduleGraphics extends JFrame {
         }
 
     }
-
-
 
     private class ManageFriendsListener implements ActionListener{
         @Override
@@ -195,17 +199,11 @@ public class ScheduleGraphics extends JFrame {
 
                 int buttonChoice = JOptionPane.showConfirmDialog(null, compareSchedule, "Compare Schedules", JOptionPane.OK_CANCEL_OPTION);
                 if (buttonChoice == JOptionPane.OK_OPTION) {
-
                     String friendName = addFriendName.getText();
-                    //adding a user with events for testing
-                    Person test = new Person(friendName, "123");
-                    manager.addEvent("Academic", "CSC207", "Friday", 16, 17, test);
-                    manager.addEvent("Academic", "MAT334", "Friday", 17, 21, test);
-                    user.getUserFriends().add(test);
 
-                    for (Person user : user.getUserFriends()) {
-                        if (user.getUserName().equals(friendName)) {
-                            CompareGraphics gf = new CompareGraphics(user, test);
+                    for (Person person : user.getUserFriends()) {
+                        if (person.getUserName().equals(friendName)) {
+                            CompareGraphics gf = new CompareGraphics(user, person);
                         }
                     }
 
