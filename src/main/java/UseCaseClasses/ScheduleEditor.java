@@ -5,8 +5,6 @@ import Entities.Schedule;
 import Entities.events.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class ScheduleEditor {
 
@@ -14,17 +12,6 @@ public class ScheduleEditor {
 
     public ScheduleEditor() {
         factory = new EventFactory();
-    }
-
-    public Event createEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime) {
-        Event event = factory.getEvent(eventType);
-        if (event != null) {
-            event.setEventName(eventName);
-            event.setEventDay(eventDay);
-            event.setEventStartTime(eventStartTime);
-            event.setEventEndTime(eventEndTime);
-        }
-        return event;
     }
 
     public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime, Person user) {
@@ -36,14 +23,9 @@ public class ScheduleEditor {
             event.setEventStartTime(eventStartTime);
             event.setEventEndTime(eventEndTime);
 
-            HashMap<String, String> Day = schedule.getSchedule().get(eventDay);
-            for (int i = eventStartTime; i < eventEndTime; ++i) {
-                Day.put(String.valueOf(i), eventName);
-            }
-            schedule.getSchedule().put(eventDay, Day);
-            ArrayList<Entities.events.Event> eventList = schedule.getEvents();
-            eventList.add(event);
-            schedule.setEvents(eventList);
+            ArrayList<Event> dayEvents = schedule.getSchedule().get(eventDay);
+            dayEvents.add(event);
+            schedule.setDayEvents(eventDay, dayEvents);
         }
     }
 
@@ -71,15 +53,18 @@ public class ScheduleEditor {
      * @param user the Person whose schedule is being changed
      */
 
-    public void removeEvent(String eventName, String eventDay, Person user) {
+    public void removeEvent(String eventName, String eventDay, int startTime, Person user) {
         Schedule schedule = user.getUserSchedule();
 
-        HashMap<String, String> Day = schedule.getSchedule().get(eventDay);
-        for (int i = 0; i <= 23; ++i) {
-            if (Objects.equals(Day.get(String.valueOf(i)), eventName)){
-                Day.put(String.valueOf(i), null);
+        ArrayList<Event> dayEvents = schedule.getSchedule().get(eventDay);
+        for (int i = 0; i < dayEvents.size(); i++) {
+            if (dayEvents.get(i).eventName.equals(eventName) && dayEvents.get(i).eventStartTime == startTime) {
+                dayEvents.remove(i);
             }
         }
+        schedule.setDayEvents(eventDay,dayEvents);
+
+
     }
 
 
