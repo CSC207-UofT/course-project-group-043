@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class ScheduleGraphics extends JFrame {
 
     ScheduleManager manager = new ScheduleManager();
-    ScheduleEditor editor = new ScheduleEditor();
     Person user = new Person("user", "1234"); // making a temporary person (for testing purposes)
 
     private JButton addEventButton = new JButton("Add Event");
@@ -41,9 +40,8 @@ public class ScheduleGraphics extends JFrame {
     private JComboBox addEventStart = new JComboBox(timesList);
     private JComboBox addEventEnd = new JComboBox(timesList);
 
-    ArrayList<Event> eventsSchedule = new ArrayList<>();
 
-    ScheduleDrawing scheduleDrawing = new ScheduleDrawing(eventsSchedule);
+    ScheduleDrawing scheduleDrawing = new ScheduleDrawing(manager, user);
 
     public ScheduleGraphics(){
 
@@ -55,14 +53,12 @@ public class ScheduleGraphics extends JFrame {
         setLayout(null);
 
         AddEventListener addEventListener = new AddEventListener();
-//        EditEventListener editEventListener = new EditEventListener();
         ManageFriendsListener manageFriendsListener = new ManageFriendsListener();
         CompareScheduleListener compareScheduleListener = new CompareScheduleListener();
         HelpListener helpListener = new HelpListener();
 
 
         addEventButton.addActionListener(addEventListener);
-//        editEventButton.addActionListener(editEventListener);
         manageFriendsButton.addActionListener(manageFriendsListener);
         compareSchedulesButton.addActionListener(compareScheduleListener);
         helpButton.addActionListener(helpListener);
@@ -74,7 +70,6 @@ public class ScheduleGraphics extends JFrame {
 
 
         buttonPanel.add(addEventButton);
-//        buttonPanel.add(editEventButton);
         buttonPanel.add(manageFriendsButton);
         buttonPanel.add(compareSchedulesButton);
         buttonPanel.add(helpButton);
@@ -90,9 +85,7 @@ public class ScheduleGraphics extends JFrame {
         add(buttonPanel);
 
         scheduleDrawing.setBounds(25,0, 900, 1000);
-//        for (int i = 0; i < scheduleDrawing.buttons.size(); i++){
-//            scheduleDrawing.buttons.get(i).addActionListener(editEventListener);
-//        }
+
         add(scheduleDrawing);
 
 
@@ -133,9 +126,7 @@ public class ScheduleGraphics extends JFrame {
                     int eventEndInt = Integer.parseInt(eventEndString);
 
                     manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, user);
-                    Event event = editor.createEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt);
 
-                    scheduleDrawing.schedule.add(event);
                     repaint();
 
                 }
@@ -158,24 +149,6 @@ public class ScheduleGraphics extends JFrame {
                         "What type of friends do you want to manage: ", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                         null, manageFriendType, manageFriendType[0]);
 
-
-//                if (buttonChoice == JOptionPane.YES_OPTION) { // view current friends
-
-//                    String allFriends = new String();
-
-//                for (Person friend : user.getUserFriends()) {
-//                    allFriends = allFriends + friend.getUserName() + "\n";
-//                }
-//
-//                if (user.getUserFriends().isEmpty()) {
-//                    JOptionPane.showMessageDialog(this, "You currently have no friends.");
-//                }
-//                else {
-//                    JOptionPane.showMessageDialog(this, "Current friends: \n" +allFriends);
-//                }
-
-//
-//                }
 
             }
         }
@@ -205,7 +178,7 @@ public class ScheduleGraphics extends JFrame {
 
                     for (Person user : user.getUserFriends()) {
                         if (user.getUserName().equals(friendName)) {
-                            CompareGraphics gf = new CompareGraphics(user, test);
+                            CompareGraphics gf = new CompareGraphics(user, test, manager);
                         }
                     }
 

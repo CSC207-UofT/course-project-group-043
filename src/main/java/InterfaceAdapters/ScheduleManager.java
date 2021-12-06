@@ -48,6 +48,10 @@ public class ScheduleManager {
         editor.removeEvent(eventName, eventDay, startTime, user);
     }
 
+    public Schedule getSchedule(Person user){
+        return user.getUserSchedule();
+    }
+
     public void sendFR(Person user1, String username2){
         /* user 1 sends friend request to user2 using user 2's username
          */

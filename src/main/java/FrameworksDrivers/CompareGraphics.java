@@ -1,6 +1,9 @@
 package FrameworksDrivers;
 
 import Entities.Person;
+import Entities.Schedule;
+import Entities.events.Event;
+import InterfaceAdapters.ScheduleManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +14,7 @@ import java.util.Objects;
 
 public class CompareGraphics extends JFrame implements ActionListener {
     private Graphics g2g;
+    private ScheduleManager manager;
     private Person user1;
     private Person user2;
 
@@ -19,7 +23,7 @@ public class CompareGraphics extends JFrame implements ActionListener {
     private String[] timesList = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
 
 
-    public CompareGraphics(Person user1, Person user2) {
+    public CompareGraphics(Person user1, Person user2, ScheduleManager manager) {
         super("Schedule Compare");
         this.user1 = user1;
         this.user2 = user2;
@@ -81,11 +85,15 @@ public class CompareGraphics extends JFrame implements ActionListener {
             g2g.setColor(Color.BLACK);
             g2g.drawString(timesList[x], 50, 160 +(25 * x));
         }
-        for (Entities.events.Event a : user1.getUserSchedule().getEvents()) {
-            paintEvent(a.getEventDay(), a.getEventStartTime(), a.getEventEndTime());
+        for (String day : manager.getSchedule(user1).getSchedule().keySet()){
+            for (Event e : manager.getSchedule(user1).getDayEvents(day)){
+                paintEvent(e.getEventDay(), e.getEventStartTime(), e.getEventEndTime());
+            }
         }
-        for (Entities.events.Event a : user2.getUserSchedule().getEvents()) {
-            paintEvent(a.getEventDay(), a.getEventStartTime(), a.getEventEndTime());
+        for (String day : manager.getSchedule(user2).getSchedule().keySet()){
+            for (Event e : manager.getSchedule(user2).getDayEvents(day)){
+                paintEvent(e.getEventDay(), e.getEventStartTime(), e.getEventEndTime());
+            }
         }
     }
 
