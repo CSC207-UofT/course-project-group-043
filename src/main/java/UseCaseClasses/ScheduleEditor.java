@@ -4,8 +4,7 @@ import Entities.Person;
 import Entities.Schedule;
 import Entities.events.*;
 
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.ArrayList;
 
 public class ScheduleEditor {
 
@@ -24,11 +23,9 @@ public class ScheduleEditor {
             event.setEventStartTime(eventStartTime);
             event.setEventEndTime(eventEndTime);
 
-            HashMap<String, String> Day = schedule.getSchedule().get(eventDay);
-            for (int i = eventStartTime; i < eventEndTime; ++i) {
-                Day.put(String.valueOf(i), eventName);
-            }
-            schedule.getSchedule().put(eventDay, Day);
+            ArrayList<Event> dayEvents = schedule.getSchedule().get(eventDay);
+            dayEvents.add(event);
+            schedule.setDayEvents(eventDay, dayEvents);
         }
     }
 
@@ -56,15 +53,18 @@ public class ScheduleEditor {
      * @param user the Person whose schedule is being changed
      */
 
-    public void removeEvent(String eventName, String eventDay, Person user) {
+    public void removeEvent(String eventName, String eventDay, int startTime, Person user) {
         Schedule schedule = user.getUserSchedule();
 
-        HashMap<String, String> Day = schedule.getSchedule().get(eventDay);
-        for (int i = 0; i <= 23; ++i) {
-            if (Objects.equals(Day.get(String.valueOf(i)), eventName)){
-                Day.put(String.valueOf(i), null);
+        ArrayList<Event> dayEvents = schedule.getSchedule().get(eventDay);
+        for (int i = 0; i < dayEvents.size(); i++) {
+            if (dayEvents.get(i).eventName.equals(eventName) && dayEvents.get(i).eventStartTime == startTime) {
+                dayEvents.remove(i);
             }
         }
+        schedule.setDayEvents(eventDay,dayEvents);
+
+
     }
 
 
