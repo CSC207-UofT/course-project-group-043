@@ -22,7 +22,6 @@ public class ScheduleGraphics extends JFrame {
     Person user = new Person("user", "1234"); // making a temporary person (for testing purposes)
 
     private JButton addEventButton = new JButton("Add Event");
-    //    private JButton editEventButton = new JButton("Edit Event");
     private JButton manageFriendsButton = new JButton("Manage Friends");
     private JButton compareSchedulesButton = new JButton("Compare Schedules");
     private JButton helpButton = new JButton("Help");
