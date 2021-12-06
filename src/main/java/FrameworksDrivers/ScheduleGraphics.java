@@ -194,15 +194,12 @@ public class ScheduleGraphics extends JFrame {
                 if (buttonChoice == JOptionPane.CANCEL_OPTION) { // send friend request
                     String friendRequestName = JOptionPane.showInputDialog(null, "Enter username: ", "Send friend request", JOptionPane.QUESTION_MESSAGE);
 
-                    System.out.println("FRIEND REQUESTNAME");
-                    System.out.println(friendRequestName);
-                    // TODO: fix
+
                     Object[] done = {"Done"};
 
                     if (UserList.containsUser(friendRequestName)) {
 
                         FriendAdder.sendFriendRequest(user, UserList.getUser(friendRequestName));
-
                         JOptionPane.showOptionDialog(null, "Friend request to " +friendRequestName +" has been sent.", "Friend request sent", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, done, null);
 
                     }
