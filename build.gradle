@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['Controllers', 'Entities', 'FrameworksDrivers', 'UseCaseClasses']
+        }
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    implementation 'org.json:json:20171018'
+    implementation 'com.google.firebase:firebase-admin:8.1.0'
+}
