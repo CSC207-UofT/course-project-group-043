@@ -7,12 +7,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+
+import Entities.Person;
+import Entities.Schedule;
 import Entities.events.Event;
+import InterfaceAdapters.ScheduleManager;
 import UseCaseClasses.ScheduleEditor;
 
 public class ScheduleDrawing extends JComponent {
 
-    ArrayList<Event> schedule;
+    ScheduleManager manager;
+    Person user;
+    Schedule schedule;
     ArrayList<JButton> buttonList;
     HashMap<JButton, Event> buttons;
     ScheduleEditor editor = new ScheduleEditor();
@@ -30,8 +36,10 @@ public class ScheduleDrawing extends JComponent {
 
     EditEventListener editEventListener = new EditEventListener();
 
-    public ScheduleDrawing(ArrayList<Event> schedule){
-        this.schedule = schedule;
+    public ScheduleDrawing(ScheduleManager manager, Person user){
+        this.user = user;
+        this.manager = manager;
+        this.schedule = manager.getSchedule(user);
         this.buttonList = new ArrayList<>();
         this.buttons = new HashMap<>();
     }
@@ -85,58 +93,57 @@ public class ScheduleDrawing extends JComponent {
         drawEvents(g, this.schedule);
     }
 
-    private void drawEvents(Graphics g, ArrayList<Event> schedule) {
+    private void drawEvents(Graphics g, Schedule schedule) {
         String[] titles = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         Integer[] timesList = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
                 20, 21, 22, 23, 24};
 
-        for (Event event : schedule) {
+        for (String day : schedule.getSchedule().keySet()) {
 
-            int xCord = 0;
-            for (int i = 0; i < 7; i++) {
-                if (titles[i].equals(event.getEventDay())) {
-                    xCord = 125 + (i * 100);
+            for (Event event: schedule.getSchedule().get(day)) {
+
+                int xCord = 0;
+                for (int i = 0; i < 7; i++) {
+                    if (titles[i].equals(event.getEventDay())) {
+                        xCord = 125 + (i * 100);
+                    }
+                }
+
+                int yStartCord = 0;
+                for (int i = 0; i < 24; i++) {
+                    if (event.getEventStartTime() == timesList[i]) {
+                        yStartCord = 140 + (i * 25);
+                    }
+                }
+
+                int yEndCord = 0;
+                for (int i = 0; i < 24; i++) {
+                    if (event.getEventEndTime() == timesList[i]) {
+                        yEndCord = 140 + (i * 25);
+                    }
+                }
+                System.out.println(xCord);
+                System.out.println(yStartCord);
+                System.out.println(yEndCord);
+
+                JButton eventButton = new JButton(event.getEventName());
+
+                eventButton.setBounds(xCord, yStartCord, 100, (yEndCord - yStartCord));
+                eventButton.addActionListener(editEventListener);
+                add(eventButton);
+                this.buttons.put(eventButton, event);
+                this.buttonList.add(eventButton);
+
+                for (JButton button : buttonList) {
+                    if (!schedule.getSchedule().get(day).contains(buttons.get(button))) {
+                        remove(button);
+                    }
                 }
             }
-
-            int yStartCord = 0;
-            for (int i = 0; i < 24; i++) {
-                if (event.getEventStartTime() == timesList[i]) {
-                    yStartCord = 140 + (i * 25);
-                }
-            }
-
-            int yEndCord = 0;
-            for (int i = 0; i < 24; i++) {
-                if (event.getEventEndTime() == timesList[i]) {
-                    yEndCord = 140 + (i * 25);
-                }
-            }
-            System.out.println(xCord);
-            System.out.println(yStartCord);
-            System.out.println(yEndCord);
-
-            JButton eventButton = new JButton(event.getEventName());
-
-            eventButton.setBounds(xCord, yStartCord, 100, (yEndCord - yStartCord));
-            eventButton.addActionListener(editEventListener);
-            add(eventButton);
-            this.buttons.put(eventButton, event);
-            this.buttonList.add(eventButton);
-
-            for (JButton button : buttonList) {
-                if (!schedule.contains(buttons.get(button))) {
-                    remove(button);
-                }
-            }
-//            g.setColor(Color.PINK); // different color for each day slot
-//            g.fillRect(xCord, yStartCord, 100, (yEndCord - yStartCord));
-//            g.setColor(Color.BLACK);
-//            g.drawString(schedule.get(j).getEventName(), (xCord + 10), (yStartCord + 15));
         }
     }
 
-    private class EditEventListener implements ActionListener {
+    class EditEventListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -144,6 +151,10 @@ public class ScheduleDrawing extends JComponent {
 
             for (JButton button: buttons.keySet()) {
                 if (source == button) {
+
+                    Event existingEvent = buttons.get(button);
+                    manager.removeEvent(existingEvent.eventName, existingEvent.eventDay,
+                            existingEvent.eventStartTime, user);
 
                     Object[] addEventText = {"Type:", addEventType, "Name:", addEventName, "Date:",
                             addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
@@ -167,12 +178,8 @@ public class ScheduleDrawing extends JComponent {
                         String eventEndString = eventEnd.split(":")[0];
                         int eventEndInt = Integer.parseInt(eventEndString);
 
+                        manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, user);
 
-                        Event event = editor.createEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt);
-
-                        schedule.add(event);
-                        Event removedEvent = buttons.get(button);
-                        schedule.remove(removedEvent);
                         repaint();
                     }
                 }
