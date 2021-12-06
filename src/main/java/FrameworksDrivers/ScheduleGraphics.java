@@ -4,7 +4,9 @@ package FrameworksDrivers;
 import Entities.Person;
 import Entities.events.Event;
 import InterfaceAdapters.ScheduleManager;
+import UseCaseClasses.FriendAdder;
 import UseCaseClasses.ScheduleEditor;
+import UseCaseClasses.UserList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +42,7 @@ public class ScheduleGraphics extends JFrame {
             "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
     private JComboBox addEventStart = new JComboBox(timesList);
     private JComboBox addEventEnd = new JComboBox(timesList);
+    private JComboBox usersFriendsCombo = new JComboBox();
 
     //ArrayList<Event> eventsSchedule = new ArrayList<>();
 
@@ -96,9 +99,7 @@ public class ScheduleGraphics extends JFrame {
         add(buttonPanel);
 
         scheduleDrawing.setBounds(25,0, 900, 1000);
-//        for (int i = 0; i < scheduleDrawing.buttons.size(); i++){
-//            scheduleDrawing.buttons.get(i).addActionListener(editEventListener);
-//        }
+
         add(scheduleDrawing);
 
 
@@ -115,7 +116,6 @@ public class ScheduleGraphics extends JFrame {
             Object source = e.getSource();
 
             // the following code will run if a given button is pressed
-
 
             if (source == addEventButton) {
                 Object[] addEventText = {"Type:", addEventType, "Name:", addEventName, "Date:", addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
@@ -181,21 +181,36 @@ public class ScheduleGraphics extends JFrame {
                 }
 
                 if (buttonChoice == JOptionPane.NO_OPTION) { // view friend requests
-                    // TODO: implement comments
-                    /*
-                    JComboBox listing all current friend requests
-                    Cancel, decline, and accept buttons
-                     */
+
+                    Object[] incommingFriendRequests = user.getIncomingRequests().toArray();
+                    String s = (String)JOptionPane.showInputDialog(
+                            null, "Select an incomming friend request", "View friend requests",
+                            JOptionPane.PLAIN_MESSAGE, null, incommingFriendRequests, null);
+
+                    // TODO: add popup, accept delcline, or cancel request
                 }
+
 
                 if (buttonChoice == JOptionPane.CANCEL_OPTION) { // send friend request
-                    JTextField friendRequestField = new JTextField();
-                    JOptionPane.showInputDialog(null, "Enter username: ", "Send friend request", JOptionPane.QUESTION_MESSAGE);
-                    String friendRequestName = friendRequestField.getText();
-                    // TODO: call on friendAdder to send friend request
+                    String friendRequestName = JOptionPane.showInputDialog(null, "Enter username: ", "Send friend request", JOptionPane.QUESTION_MESSAGE);
+
+                    System.out.println("FRIEND REQUESTNAME");
+                    System.out.println(friendRequestName);
+                    // TODO: fix
+                    Object[] done = {"Done"};
+
+                    if (UserList.containsUser(friendRequestName)) {
+
+                        FriendAdder.sendFriendRequest(user, UserList.getUser(friendRequestName));
+
+                        JOptionPane.showOptionDialog(null, "Friend request to " +friendRequestName +" has been sent.", "Friend request sent", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, done, null);
+
+                    }
+                    else { // if the user does not exist
+                        JOptionPane.showOptionDialog(null, "User " +friendRequestName +" does not seem to exist, no request sent.", "No friend request sent", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, done, null);
+                    }
 
                 }
-
             }
         }
     }

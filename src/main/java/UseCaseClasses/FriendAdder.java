@@ -12,7 +12,7 @@ public class FriendAdder {
      *
      */
 
-    public void sendFriendRequest(Person user1, Person user2){
+    public static void sendFriendRequest(Person user1, Person user2){
         /* user 1 sends friend request to user 2
          */
 
@@ -25,7 +25,7 @@ public class FriendAdder {
         user2.setIncomingRequests(incoming);
     }
 
-    public void acceptFriendRequest(Person user1, Person user2){
+    public static void acceptFriendRequest(Person user1, Person user2){
         /*user 2 accepts user1's friend request
          */
 
