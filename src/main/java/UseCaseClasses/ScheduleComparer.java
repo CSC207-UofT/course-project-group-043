@@ -11,8 +11,8 @@ public class ScheduleComparer {
      * Entities.events during that time, and busy if user1 or user2 have Entities.events during that time.
      *
      *
-     * @param user1 A Entities.Person whose schedule is being compared to user2's schedule
-     * @param user2 A Entities.Person whose schedule is being compared to user1's schedule
+     * @param user1 A Person whose schedule is being compared to user2's schedule
+     * @param user2 A Person whose schedule is being compared to user1's schedule
      */
     public Schedule compare(Person user1, Person user2) {
         Schedule result = new Schedule();
@@ -26,6 +26,7 @@ public class ScheduleComparer {
                 mondayCompare.put(String.valueOf(i), "busy");
             }
         }
+
         HashMap<String, String> tuesday1 = schedule1.getSchedule().get("Tuesday");
         HashMap<String, String> tuesday2 = schedule2.getSchedule().get("Tuesday");
         for (int i = 0; i <= 23; ++i) {
@@ -34,6 +35,7 @@ public class ScheduleComparer {
                 tuesdayCompare.put(String.valueOf(i), "busy");
             }
         }
+
         HashMap<String, String> wednesday1 = schedule1.getSchedule().get("Wednesday");
         HashMap<String, String> wednesday2 = schedule2.getSchedule().get("Wednesday");
         for (int i = 0; i <= 23; ++i) {
@@ -42,6 +44,7 @@ public class ScheduleComparer {
                 wednesdayCompare.put(String.valueOf(i), "busy");
             }
         }
+
         HashMap<String, String> thursday1 = schedule1.getSchedule().get("Thursday");
         HashMap<String, String> thursday2 = schedule2.getSchedule().get("Thursday");
         for (int i = 0; i <= 23; ++i) {
@@ -50,6 +53,7 @@ public class ScheduleComparer {
                 thursdayCompare.put(String.valueOf(i), "busy");
             }
         }
+
         HashMap<String, String> friday1 = schedule1.getSchedule().get("Friday");
         HashMap<String, String> friday2 = schedule2.getSchedule().get("Friday");
         for (int i = 0; i <= 23; ++i) {
@@ -58,6 +62,7 @@ public class ScheduleComparer {
                 fridayCompare.put(String.valueOf(i), "busy");
             }
         }
+
         HashMap<String, String> saturday1 = schedule1.getSchedule().get("Saturday");
         HashMap<String, String> saturday2 = schedule2.getSchedule().get("Saturday");
         for (int i = 0; i <= 23; ++i) {
@@ -66,6 +71,7 @@ public class ScheduleComparer {
                 saturdayCompare.put(String.valueOf(i), "busy");
             }
         }
+
         HashMap<String, String> sunday1 = schedule1.getSchedule().get("Sunday");
         HashMap<String, String> sunday2 = schedule2.getSchedule().get("Sunday");
         for (int i = 0; i <= 23; ++i) {
@@ -74,6 +80,7 @@ public class ScheduleComparer {
                 sundayCompare.put(String.valueOf(i), "busy");
             }
         }
+
         return result;
     }
 

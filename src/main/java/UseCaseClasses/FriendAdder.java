@@ -5,13 +5,14 @@ import Entities.Person;
 import java.util.ArrayList;
 
 public class FriendAdder {
-    /** Adds users to friend list by sending invitations, then accepting invitations.
+
+    /**
+     * Adds users to friend list by sending invitations, then accepting invitations.
      *
      * @param user1 the username of user1 who sends friend request
      * @param user2 the username of user2 who receives/ accepts friend request
-     *
+     * @return Whether the friend request was successfully sent
      */
-
     public boolean sendFriendRequest(Person user1, Person user2, UserList data){
         /* user 1 sends friend request to user 2
          */
@@ -32,9 +33,16 @@ public class FriendAdder {
 
     }
 
+    /**
+     * Accepts a friend request, so that two users can be listed as friends.
+     * Note that this assumes that a friend request has already been sent.
+     *
+     * @param user1
+     * @param user2
+     * @param data
+     * @return
+     */
     public boolean acceptFriendRequest(Person user1, Person user2, UserList data){
-        /*user 2 accepts user1's friend request
-         */
 
         boolean checkReal = data.containsUser(user1.getUserName()) &&
                 data.containsUser(user2.getUserName());
@@ -56,6 +64,8 @@ public class FriendAdder {
             user2Friends.add(user1);
             user2.setUserFriends(user2Friends);
         }
+
+        return checkReal;
 
     }
 }

@@ -57,15 +57,4 @@ public class AccountManager {
         }
         return false;
     }
-
-//    /**
-//     * Retrieves all users from database and adds their names as keys in users, and the Entities.Person object as values.
-//     */
-//    public void populateUsers(UserList data) throws ExecutionException, InterruptedException {
-////        ArrayList<Person> people = saver.retrieveUsers();
-//        for (String a : data.getUsers()) {
-//            this.users.put(a.getUserName(), a);
-//        }
-//    }
-
 }
