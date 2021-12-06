@@ -13,7 +13,6 @@ public class AccountCreator {
     /**
      * Create a new account for a Entities.Person.
      *
-     * @param user The Entities.Person object that this is an account for
      * @param name The username for the account, which must be unique
      * @param pass The password for the account
      * @param answer The answer to the security question that will be used for password changes / account recovery

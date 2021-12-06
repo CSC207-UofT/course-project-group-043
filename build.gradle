@@ -3,7 +3,7 @@ plugins {
 }
 
 version '1.0-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -11,7 +11,7 @@ repositories {
 sourceSets {
     main {
         java {
-            srcDirs = ['Controllers', 'Entities', 'FrameworksDrivers', 'UseCaseClasses']
+            srcDirs = ['InterfaceAdapters', 'Entities', 'FrameworksDrivers', 'UseCaseClasses']
         }
     }
 }
@@ -21,3 +21,5 @@ dependencies {
     implementation 'org.json:json:20171018'
     implementation 'com.google.firebase:firebase-admin:8.1.0'
 }
+
+targetCompatibility = JavaVersion.VERSION_11
