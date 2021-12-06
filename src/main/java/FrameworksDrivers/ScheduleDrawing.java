@@ -26,9 +26,9 @@ public class ScheduleDrawing extends JComponent {
     private final JTextField addEventName = new JTextField();
     private final JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"});
-    private final String[] timesList = {"00:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am",
-            "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "13:00pm", "14:00pm", "15:00pm",
-            "16:00pm", "17:00pm", "18:00pm", "19:00pm", "20:00pm", "21:00pm", "22:00pm", "23:00pm"};
+    private final String[] timesList = {"00:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00",
+            "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
+            "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
     private final JComboBox addEventStart = new JComboBox(timesList);
     private final JComboBox addEventEnd = new JComboBox(timesList);
     private final JComboBox addEventType = new JComboBox(new String[]{"Academic", "Course", "Fitness",
@@ -58,9 +58,9 @@ public class ScheduleDrawing extends JComponent {
         Color[] colorsList = {color0, color1, color2, color3, color4, color5, color6, color7};
 
         String[] titles = {"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-        String[] timesList = {"12:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am", "7:00am",
-                "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm",
-                "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm", "11:00pm"};
+        String[] timesList = {"00:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00",
+                "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
+                "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
 
 
         // drawing the day of week header boxes & outlines
@@ -160,7 +160,7 @@ public class ScheduleDrawing extends JComponent {
                             addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
 
                     int buttonChoice = JOptionPane.showConfirmDialog(null,
-                            addEventText, "Edit Entities.Event", JOptionPane.OK_CANCEL_OPTION);
+                            addEventText, "Edit Event", JOptionPane.OK_CANCEL_OPTION);
 
                     if (buttonChoice == JOptionPane.OK_OPTION) {
                         // will interact with Entities.Event class
