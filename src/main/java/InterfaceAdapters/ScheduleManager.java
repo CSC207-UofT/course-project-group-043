@@ -54,7 +54,6 @@ public class ScheduleManager {
         return adder.sendFriendRequest(data.getUser(user1), data.getUser(username2), data);
     }
 
-    // todo: write / edit tests for this
     /**
      * Accept a friend request from one user to another
      *
