@@ -8,13 +8,14 @@ sourceCompatibility = 11
 repositories {
     mavenCentral()
 }
-sourceSets {
-    main {
-        java {
-            srcDirs = ['InterfaceAdapters', 'Entities', 'FrameworksDrivers', 'UseCaseClasses']
-        }
-    }
-}
+
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs = ['InterfaceAdapters', 'Entities', 'FrameworksDrivers', 'UseCaseClasses']
+//        }
+//    }
+//}
 
 dependencies {
     testImplementation 'junit:junit:4.12'
