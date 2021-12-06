@@ -21,6 +21,7 @@ public class ScheduleManager {
     public ScheduleManager() {
         editor = new ScheduleEditor();
         comparer = new ScheduleComparer();
+        adder = new FriendAdder();
     }
 
     /**
