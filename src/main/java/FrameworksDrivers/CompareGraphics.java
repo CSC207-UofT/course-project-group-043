@@ -1,7 +1,6 @@
 package FrameworksDrivers;
 
 import Entities.Person;
-import Entities.events.Event;
 
 import javax.swing.*;
 import java.awt.*;
@@ -82,10 +81,10 @@ public class CompareGraphics extends JFrame implements ActionListener {
             g2g.setColor(Color.BLACK);
             g2g.drawString(timesList[x], 50, 160 +(25 * x));
         }
-        for (Event a : user1.getUserSchedule().getEvents()) {
+        for (Entities.events.Event a : user1.getUserSchedule().getEvents()) {
             paintEvent(a.getEventDay(), a.getEventStartTime(), a.getEventEndTime());
         }
-        for (Event a : user2.getUserSchedule().getEvents()) {
+        for (Entities.events.Event a : user2.getUserSchedule().getEvents()) {
             paintEvent(a.getEventDay(), a.getEventStartTime(), a.getEventEndTime());
         }
     }
