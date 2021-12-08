@@ -162,8 +162,10 @@ public class ScheduleDrawing extends JComponent {
                     Object[] addEventText = {"Type:", addEventType, "Name:", addEventName, "Date:",
                             addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
 
-                    int buttonChoice = JOptionPane.showConfirmDialog(null,
-                            addEventText, "Edit Entities.Event", JOptionPane.OK_CANCEL_OPTION);
+                    String[] EditButtons = {"Ok", "Remove", "Cancel"};
+
+                    int buttonChoice = JOptionPane.showOptionDialog(null,
+                            addEventText, "Edit Event", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, EditButtons, EditButtons[1]);
 
                     if (buttonChoice == JOptionPane.OK_OPTION) {
 
@@ -190,6 +192,13 @@ public class ScheduleDrawing extends JComponent {
                         } catch (ExecutionException | InterruptedException ex) {
                             ex.printStackTrace();
                         }
+                        repaint();
+                    }
+
+                    if (buttonChoice == JOptionPane.NO_OPTION) { //remove event
+                        Event existingEvent = buttons.get(button);
+                        saver.deleteUserEvent(user, existingEvent);
+                        manager.removeEvent(existingEvent.getEventName(), existingEvent.getEventDay(), existingEvent.getEventStartTime(),accountManager.getUserList().getUser(user));
                         repaint();
                     }
                 }
