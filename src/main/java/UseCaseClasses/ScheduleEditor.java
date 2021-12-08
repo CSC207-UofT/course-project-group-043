@@ -31,9 +31,9 @@ public class ScheduleEditor {
             event.setEventDay(eventDay);
             event.setEventStartTime(eventStartTime);
             event.setEventEndTime(eventEndTime);
-            ArrayList<Entities.events.Event> eventList = schedule.getEvents();
+            ArrayList<Event> eventList = schedule.getEvents();
             eventList.add(event);
-            schedule.setEvents(eventList);
+            user.getUserSchedule().setEvents(eventList);
         }
     }
 
@@ -45,7 +45,6 @@ public class ScheduleEditor {
      * @param startTime the time which this event begins at
      * @param user the Person whose schedule is being changed
      */
-
     public void removeEvent(String eventName, String eventDay, int startTime, Person user) {
         Schedule schedule = user.getUserSchedule();
         for (int i = 0; i < schedule.getEvents().size(); i++) {
