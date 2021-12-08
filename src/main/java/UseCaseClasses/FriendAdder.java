@@ -12,7 +12,7 @@ public class FriendAdder {
      *
      */
 
-    public void sendFriendRequest(Person user1, Person user2){
+    public static void sendFriendRequest(Person user1, Person user2){
         /* user 1 sends friend request to user 2
          */
 
@@ -25,7 +25,7 @@ public class FriendAdder {
         user2.setIncomingRequests(incoming);
     }
 
-    public void acceptFriendRequest(Person user1, Person user2){
+    public static void acceptFriendRequest(Person user1, Person user2){
         /*user 2 accepts user1's friend request
          */
 
@@ -45,4 +45,18 @@ public class FriendAdder {
         user2Friends.add(user1);
         user2.setUserFriends(user2Friends);
     }
+
+    public static void denyFriendRequest(Person user1, Person user2){
+        // user 2 denies user1's friend request
+
+        ArrayList<Person> user2IncomingRequests = user2.getIncomingRequests();
+        user2IncomingRequests.remove(user1);
+        user2.setIncomingRequests(user2IncomingRequests);
+
+        ArrayList<Person> user1OutgoingRequests = user1.getOutgoingRequests();
+        user1OutgoingRequests.remove(user2);
+        user1.setOutgoingRequests(user1OutgoingRequests);
+    }
+
+
 }
