@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 public class CourseDataGetterTest {
 
-    @Test()
+    @Test() // takes a while to do all of these, so no timeout
     public void testGettingCSC() throws URISyntaxException, IOException, InterruptedException {
         // note: this takes a while, relatively speaking (just under 2 seconds, apparently)
         CourseDataGetter getter = new CourseDataGetter("CSC");
