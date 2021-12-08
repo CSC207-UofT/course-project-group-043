@@ -2,8 +2,6 @@ package UseCaseClasses;
 
 import Entities.Person;
 
-import java.util.HashMap;
-
 public class AccountEditor {
 
     /**
@@ -31,6 +29,7 @@ public class AccountEditor {
      *
      * @param name The name of the account being checked for existence
      * @param data HashMap containing all usernames in use thus far, with associated Entities.Person
+     * @return true if a user with the given name currently exists
      */
     public boolean userExists(String name, UserList data) {
         return data.containsUser(name);
