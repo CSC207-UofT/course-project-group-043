@@ -2,7 +2,6 @@ package InterfaceAdapters;
 
 import UseCaseClasses.AccountCreator;
 import UseCaseClasses.AccountEditor;
-import UseCaseClasses.InformationSaver;
 import UseCaseClasses.AccountLogIn;
 import UseCaseClasses.UserList;
 
@@ -40,7 +39,7 @@ public class AccountManager {
 
         boolean result = creator.makeAccount(name, pass, answer, data);
         if (result) {
-            saver.saveUser(data.getUser(name)); // adds the user to the firestore database
+            saver.saveUser(name, data); // adds the user to the firestore database
         }
         return result;
     }
@@ -54,7 +53,7 @@ public class AccountManager {
      * @return true if the user was able to change their password
      */
     public boolean changePassword(String name, String answer, String newPass, UserList data)
-            throws IOException, ExecutionException, InterruptedException {
+            throws ExecutionException, InterruptedException {
 
         if (data.containsUser(name)) { // check if user exists
             if (editor.securityCheck(data.getUser(name), answer)) {
@@ -76,7 +75,6 @@ public class AccountManager {
     public boolean runLogin(String username, String password) {
         return logIn.logIn(username, password, data);
     }
-
 
     /**
      * Adds every user in the database to UserList

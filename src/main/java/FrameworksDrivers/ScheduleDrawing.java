@@ -183,13 +183,15 @@ public class ScheduleDrawing extends JComponent {
 
                         Event existingEvent = buttons.get(button);
                         saver.deleteUserEvent(user, existingEvent);
-                        manager.removeEvent(existingEvent.getEventName(), existingEvent.getEventDay(), existingEvent.getEventStartTime(),accountManager.getUserList().getUser(user));
+                        manager.removeEvent(existingEvent.getEventName(), existingEvent.getEventDay(),
+                                existingEvent.getEventStartTime(), user);
 
-                        try {
-                            manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, accountManager.getUserList().getUser(user));
-                        } catch (ExecutionException | InterruptedException ex) {
+                        try{
+                            manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, user);
+                        } catch (InterruptedException | ExecutionException ex) {
                             ex.printStackTrace();
                         }
+
                         repaint();
                     }
                 }

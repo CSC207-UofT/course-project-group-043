@@ -119,10 +119,11 @@ public class ScheduleGraphics extends JFrame {
                     int eventEndInt = Integer.parseInt(eventEndString);
 
                     try {
-                        manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, accountManager.getUserList().getUser(username));
-                    } catch (ExecutionException | InterruptedException ex) {
+                        manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, username);
+                    } catch (InterruptedException | ExecutionException ex) {
                         ex.printStackTrace();
                     }
+
                     repaint();
                 }
             }

@@ -7,7 +7,7 @@ import UseCaseClasses.ScheduleEditor;
 import UseCaseClasses.UserList;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -25,9 +25,9 @@ public class ScheduleManager {
     public ScheduleManager() throws IOException {
         editor = new ScheduleEditor();
         comparer = new ScheduleComparer();
-        schedules = new HashMap<>();
         saver = new InformationSaver();
         adder = new FriendAdder();
+        data = new UserList();
     }
 
     /**
@@ -41,18 +41,13 @@ public class ScheduleManager {
     }
 
     public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime,
-                         int eventEndTime, String user){
+                         int eventEndTime, String user) throws ExecutionException, InterruptedException {
         editor.addEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, data.getUser(user));
-        saver.saveUserEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, user);
+        saver.saveUserEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, data.getUser(user));
     }
 
-    // should we change this to give it an event
-    public void removeEvent(String eventName, String eventDay, String user) {
-        editor.removeEvent(eventName, eventDay, data.getUser(user));
-    }
-
-    public Schedule getSchedule(Person user){
-        return user.getUserSchedule();
+    public void removeEvent(String eventName, String eventDay, int startTime, String user) {
+        editor.removeEvent(eventName, eventDay, startTime, data.getUser(user));
     }
 
     /**
