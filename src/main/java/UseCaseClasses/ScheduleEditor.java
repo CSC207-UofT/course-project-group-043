@@ -31,9 +31,9 @@ public class ScheduleEditor {
             event.setEventDay(eventDay);
             event.setEventStartTime(eventStartTime);
             event.setEventEndTime(eventEndTime);
-            ArrayList<Entities.events.Event> eventList = schedule.getEvents();
+            ArrayList<Event> eventList = schedule.getEvents();
             eventList.add(event);
-            schedule.setEvents(eventList);
+            user.getUserSchedule().setEvents(eventList);
         }
     }
 

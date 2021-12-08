@@ -120,6 +120,7 @@ public class ScheduleGraphics extends JFrame {
 
                     try {
                         manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, username);
+                        saver.retrieveEvents(username, accountManager.getUserList());
                     } catch (InterruptedException | ExecutionException ex) {
                         ex.printStackTrace();
                     }

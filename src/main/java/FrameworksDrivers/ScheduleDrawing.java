@@ -189,6 +189,7 @@ public class ScheduleDrawing extends JComponent {
 
                         try{
                             manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, user);
+                            saver.retrieveEvents(user, accountManager.getUserList());
                         } catch (InterruptedException | ExecutionException ex) {
                             ex.printStackTrace();
                         }

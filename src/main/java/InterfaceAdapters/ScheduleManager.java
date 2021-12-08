@@ -30,6 +30,7 @@ public class ScheduleManager {
         data = new UserList();
         saver.retrieveUsers(data);
 
+        //populating the UserList with users from the database
         for (String username : data.getUsers().keySet()) {
             saver.retrieveFriends(username, data);
             saver.retrieveOutgoing(username, data);
