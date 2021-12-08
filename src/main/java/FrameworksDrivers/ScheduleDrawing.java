@@ -37,7 +37,8 @@ public class ScheduleDrawing extends JComponent {
 
     EditEventListener editEventListener = new EditEventListener();
 
-    public ScheduleDrawing(String user, AccountManager accountManager) throws IOException {
+    public ScheduleDrawing(String user, AccountManager accountManager)
+            throws IOException, ExecutionException, InterruptedException {
         this.user = user;
         this.schedule = accountManager.getUserList().getUser(user).getUserSchedule().getEvents();
         this.buttonList = new ArrayList<>();

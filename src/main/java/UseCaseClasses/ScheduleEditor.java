@@ -45,7 +45,6 @@ public class ScheduleEditor {
      * @param startTime the time which this event begins at
      * @param user the Person whose schedule is being changed
      */
-
     public void removeEvent(String eventName, String eventDay, int startTime, Person user) {
         Schedule schedule = user.getUserSchedule();
         for (int i = 0; i < schedule.getEvents().size(); i++) {

@@ -169,7 +169,7 @@ public class ScheduleGraphics extends JFrame {
                         }
                         try {
                             CompareGraphics gf = new CompareGraphics(username, friendName, accountManager);
-                        } catch (IOException ex) {
+                        } catch (IOException | ExecutionException | InterruptedException ex) {
                             ex.printStackTrace();
                         }
                     }

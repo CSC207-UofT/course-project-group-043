@@ -22,12 +22,13 @@ public class ScheduleManager {
     private FriendAdder adder;
     private final InformationSaver saver;
 
-    public ScheduleManager() throws IOException {
+    public ScheduleManager() throws IOException, ExecutionException, InterruptedException {
         editor = new ScheduleEditor();
         comparer = new ScheduleComparer();
         saver = new InformationSaver();
         adder = new FriendAdder();
         data = new UserList();
+        saver.retrieveUsers(data);
     }
 
     /**
