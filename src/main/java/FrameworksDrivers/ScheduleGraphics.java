@@ -3,6 +3,8 @@ package FrameworksDrivers;
 import InterfaceAdapters.AccountManager;
 import InterfaceAdapters.ScheduleManager;
 import InterfaceAdapters.InformationSaver;
+import UseCaseClasses.FriendAdder;
+import UseCaseClasses.UserList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -140,6 +142,56 @@ public class ScheduleGraphics extends JFrame {
                 int buttonChoice = JOptionPane.showOptionDialog(null, "Manage Friends",
                         "What type of friends do you want to manage: ", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                         null, manageFriendType, manageFriendType[0]);
+
+                if (buttonChoice == JOptionPane.YES_OPTION) { // view current friends
+                    String allFriends = new String();
+
+                    for (Person friend : user.getUserFriends()) {
+                        allFriends = allFriends + friends.getUserName() + "\n";
+                    }
+                    if (allFriends.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "You currently have no friends.");
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Current friends: \n" +allFriends);
+                    }
+
+
+                }
+
+                if (buttonChoice == JOptionPane.NO_OPTION) { // view friend requests
+                    Object[] friendRequests = user.getIncomingRequests().toArray();
+
+                    String chosenFriendRequest = (String)JOptionPane.showInputDialog(null,
+                            "Select an incomming friend request: \n(OK to accept, or CANCEL to deny)\n", "Manage Friend Requests", JOptionPane.PLAIN_MESSAGE,
+                            null, friendRequests, null);
+
+                    if (buttonChoice == JOptionPane.OK_OPTION) { // accept friend request
+                        user.acceptFriendRequest(chosenFriendRequest, username);
+                        JOptionPane.showInputDialog("You have become friends with " +chosenFriendRequest);
+                    }
+                    else { // deny friend request
+                        user.denyFriendRequest(chosenFriendRequest, username);
+                        JOptionPane.showInputDialog("You declined the friend request from " +chosenFriendRequest);
+                    }
+
+                }
+
+                if (buttonChoice == JOptionPane.CANCEL_OPTION) { // send friend request
+                    String friendRequestName = JOptionPane.showInputDialog(null, "Enter username: ", "Send friend request", JOptionPane.QUESTION_MESSAGE);
+                    Object[] done = {"Done"};
+
+                    if (UserList.containsUser(friendRequestName)) {
+                        FriendAdder.sendFriendRequest(user, UserList.getUser(friendRequestName));
+                        JOptionPane.showOptionDialog(null, "Friend request to " +friendRequestName +" has been sent.", "Friend request sent", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, done, null);
+                    }
+                    else { // if the user does not exist
+                        JOptionPane.showOptionDialog(null, "User " +friendRequestName +" does not seem to exist, no request sent.", "No friend request sent", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, done, null);
+                    }
+
+
+                }
+
             }
         }
     }
