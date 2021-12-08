@@ -59,13 +59,32 @@ public class CourseDataGetter {
         JSONObject lectureSecJSON = courseData.getJSONObject(courseName).getJSONObject("meetings");
         ArrayList<String> lectureKeys = new ArrayList<>();
 
-        // iterating to get all the keys
-        Iterator<String> iterator = lectureSecJSON.keys();
-        while (iterator.hasNext()) {
-            lectureKeys.add(iterator.next());
+        if (checkCourse(courseName)) {
+            // iterating to get all the keys
+            Iterator<String> iterator = lectureSecJSON.keys();
+            while (iterator.hasNext()) {
+                lectureKeys.add(iterator.next());
+            }
         }
 
         return lectureKeys;
+
+    }
+
+    /**
+     * Checks whether a course is present
+     *
+     * @param courseName
+     * @return
+     */
+    private boolean checkCourse(String courseName) {
+        for (String specificName : courseData.keySet()) {
+            if (specificName.toLowerCase().contains(courseName.toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
