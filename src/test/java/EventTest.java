@@ -9,20 +9,16 @@ public class EventTest {
     public void testEventFactory() {
         EventFactory factory = new EventFactory();
 
-        /* use factory to make a social event with varying String parameters of type
-         */
+        // use factory to make a social event with varying String parameters of type
         Event social = factory.getEvent("sOciAl");
 
-        /* use factory to make a academic event with varying String parameters of type
-         */
+        // use factory to make a academic event with varying String parameters of type
         Event academic = factory.getEvent("academic");
 
-        /* use factory to make a course event with varying String parameters of type
-         */
+        // use factory to make a course event with varying String parameters of type
         Event course = factory.getEvent("cOurse");
 
-        /* use factory to make a fitness event with varying String parameters of type
-         */
+        // use factory to make a fitness event with varying String parameters of type
         Event fitness = factory.getEvent("FitNess");
 
         SocialEvent result1 = new SocialEvent();
