@@ -1,16 +1,12 @@
 package InterfaceAdapters;
 
-import Entities.Person;
 import Entities.Schedule;
 import UseCaseClasses.FriendAdder;
 import UseCaseClasses.ScheduleComparer;
 import UseCaseClasses.ScheduleEditor;
-
+import UseCaseClasses.UserList;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 
@@ -20,63 +16,68 @@ import java.util.concurrent.ExecutionException;
 
 public class ScheduleManager {
 
-    // attempts to fix these style warnings have resulted in problems in other classes
-    private HashMap<Person, Schedule> schedules;
-    private final ScheduleEditor editor;
-    private final ScheduleComparer comparer;
+    private ScheduleEditor editor;
+    private ScheduleComparer comparer;
+    private UserList data;
+    private FriendAdder adder;
     private final InformationSaver saver;
 
-    public ScheduleManager() throws IOException {
+    public ScheduleManager() throws IOException, ExecutionException, InterruptedException {
         editor = new ScheduleEditor();
         comparer = new ScheduleComparer();
-        schedules = new HashMap<>();
         saver = new InformationSaver();
+        adder = new FriendAdder();
+        data = new UserList();
+        saver.retrieveUsers(data);
+
+        //populating the UserList with users from the database
+        for (String username : data.getUsers().keySet()) {
+            saver.retrieveFriends(username, data);
+            saver.retrieveOutgoing(username, data);
+            saver.retrieveIncoming(username, data);
+            saver.retrieveEvents(username, data);
+        }
     }
 
     /**
-     * Adds an instance of Person and Schedule to the schedules hashmap
+     * Compares two people's schedules and returns a schedule showing what times both
+     * are busy.
      * @param user1 the main user's Person
      * @param user2 the friend's Person
      */
-
-    public Schedule compare(Person user1, Person user2) {
-        return comparer.compare(user1, user2);
+    public Schedule compare(String user1, String user2) {
+        return comparer.compare(data.getUser(user1), data.getUser(user2));
     }
 
-    public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime, Person user) throws ExecutionException, InterruptedException {
-        editor.addEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, user);
-        saver.saveUserEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, user);
+    public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime,
+                         int eventEndTime, String user) throws ExecutionException, InterruptedException {
+        editor.addEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, data.getUser(user));
+        saver.saveUserEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, data.getUser(user));
     }
 
-    // should we change this to give it an event
-    public void removeEvent(String eventName, String eventDay, int startTime, Person user) {
-        editor.removeEvent(eventName, eventDay, startTime, user);
+    public void removeEvent(String eventName, String eventDay, int startTime, String user) {
+        editor.removeEvent(eventName, eventDay, startTime, data.getUser(user));
     }
 
-    public Schedule getSchedule(Person user){
-        return user.getUserSchedule();
+    /**
+     * Sends a friend request from one user to another user.
+     *
+     * @param user1 Username of the person sending the friend request
+     * @param username2 Username of the person to receive the friend request
+     * @return Whether the friend request was successfully sent
+     */
+    public boolean sendFR(String user1, String username2){
+        return adder.sendFriendRequest(data.getUser(user1), data.getUser(username2), data);
     }
 
-    public void sendFR(Person user1, String username2){
-        /* user 1 sends friend request to user2 using user 2's username
-         */
-
-        Set<Person> userset = this.schedules.keySet();
-        ArrayList<Person> users = new ArrayList<>(userset);
-        Person user2 = new Person();
-        for (Person user : users) {
-            if (user.getUserName().equals(username2)) {
-                user2 = user;
-            }
-        }
-        FriendAdder newRequest = new FriendAdder();
-        newRequest.sendFriendRequest(user1, user2);
-    }
-
-    public void acceptFR(Person user1, Person user2){
-        /* user 2 accepts user 1's friend request
-         */
-        FriendAdder acceptNew = new FriendAdder();
-        acceptNew.sendFriendRequest(user1, user2);
+    /**
+     * Accept a friend request from one user to another
+     *
+     * @param user1 Username of one of the two potential friends
+     * @param user2 Username of one of the two potential friends
+     * @return Whether the friend request was successfully accepted
+     */
+    public boolean acceptFR(String user1, String user2){
+        return adder.acceptFriendRequest(data.getUser(user1), data.getUser(user2), data);
     }
 }

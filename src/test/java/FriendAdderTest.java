@@ -1,5 +1,6 @@
 import Entities.Person;
 import UseCaseClasses.FriendAdder;
+import UseCaseClasses.UserList;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,6 +17,10 @@ public class FriendAdderTest {
         Person sunehra = new Person("sunehra", "2323");
         Person bob = new Person("bob1", "7474");
 
+        UserList data = new UserList();
+        data.addUser(sunehra.getUserName(), sunehra);
+        data.addUser(bob.getUserName(), bob);
+
         /* create new UseCaseClasses.FriendAdder
         */
 
@@ -24,7 +29,7 @@ public class FriendAdderTest {
         /* sunehra sends a friend request to bob
          */
 
-        friendRequest.sendFriendRequest(sunehra, bob);
+        friendRequest.sendFriendRequest(sunehra, bob, data);
         ArrayList<Person> bobList = new ArrayList<Person>();
         bobList.add(bob);
         assertEquals(sunehra.getOutgoingRequests(), bobList);
@@ -35,7 +40,7 @@ public class FriendAdderTest {
 
         /* bob accepts sunehra's friend request.
          */
-        friendRequest.acceptFriendRequest(sunehra, bob);
+        friendRequest.acceptFriendRequest(sunehra, bob, data);
         ArrayList<Person> empty = new ArrayList<Person>();
 
         assertEquals(sunehra.getOutgoingRequests(), empty);

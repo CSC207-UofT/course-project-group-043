@@ -37,7 +37,8 @@ public class ScheduleDrawing extends JComponent {
 
     EditEventListener editEventListener = new EditEventListener();
 
-    public ScheduleDrawing(String user, AccountManager accountManager) throws IOException {
+    public ScheduleDrawing(String user, AccountManager accountManager)
+            throws IOException, ExecutionException, InterruptedException {
         this.user = user;
         this.schedule = accountManager.getUserList().getUser(user).getUserSchedule().getEvents();
         this.buttonList = new ArrayList<>();
@@ -185,13 +186,16 @@ public class ScheduleDrawing extends JComponent {
 
                         Event existingEvent = buttons.get(button);
                         saver.deleteUserEvent(user, existingEvent);
-                        manager.removeEvent(existingEvent.getEventName(), existingEvent.getEventDay(), existingEvent.getEventStartTime(),accountManager.getUserList().getUser(user));
+                        manager.removeEvent(existingEvent.getEventName(), existingEvent.getEventDay(),
+                                existingEvent.getEventStartTime(), user);
 
-                        try {
-                            manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, accountManager.getUserList().getUser(user));
-                        } catch (ExecutionException | InterruptedException ex) {
+                        try{
+                            manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, user);
+                            saver.retrieveEvents(user, accountManager.getUserList());
+                        } catch (InterruptedException | ExecutionException ex) {
                             ex.printStackTrace();
                         }
+
                         repaint();
                     }
 

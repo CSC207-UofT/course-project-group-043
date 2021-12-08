@@ -119,10 +119,12 @@ public class ScheduleGraphics extends JFrame {
                     int eventEndInt = Integer.parseInt(eventEndString);
 
                     try {
-                        manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, accountManager.getUserList().getUser(username));
-                    } catch (ExecutionException | InterruptedException ex) {
+                        manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, username);
+                        saver.retrieveEvents(username, accountManager.getUserList());
+                    } catch (InterruptedException | ExecutionException ex) {
                         ex.printStackTrace();
                     }
+
                     repaint();
                 }
             }
@@ -168,7 +170,7 @@ public class ScheduleGraphics extends JFrame {
                         }
                         try {
                             CompareGraphics gf = new CompareGraphics(username, friendName, accountManager);
-                        } catch (IOException ex) {
+                        } catch (IOException | ExecutionException | InterruptedException ex) {
                             ex.printStackTrace();
                         }
                     }
