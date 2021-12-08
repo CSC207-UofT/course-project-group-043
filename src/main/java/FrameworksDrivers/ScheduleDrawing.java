@@ -4,24 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
-import Entities.Person;
-import Entities.Schedule;
 import Entities.events.Event;
+import InterfaceAdapters.AccountManager;
+import InterfaceAdapters.InformationSaver;
 import InterfaceAdapters.ScheduleManager;
-import UseCaseClasses.ScheduleEditor;
 
 public class ScheduleDrawing extends JComponent {
 
-    ScheduleManager manager;
-    Person user;
-    Schedule schedule;
+    ArrayList<Event> schedule;
     ArrayList<JButton> buttonList;
     HashMap<JButton, Event> buttons;
-    ScheduleEditor editor = new ScheduleEditor();
+    ScheduleManager manager = new ScheduleManager();
+    AccountManager accountManager;
+    String user;
+    InformationSaver saver;
 
     private final JTextField addEventName = new JTextField();
     private final JComboBox addEventDate = new JComboBox(new String[]{"Monday", "Tuesday", "Wednesday",
@@ -36,14 +37,20 @@ public class ScheduleDrawing extends JComponent {
 
     EditEventListener editEventListener = new EditEventListener();
 
-    public ScheduleDrawing(ScheduleManager manager, Person user){
+    public ScheduleDrawing(String user, AccountManager accountManager) throws IOException {
         this.user = user;
-        this.manager = manager;
-        this.schedule = manager.getSchedule(user);
+        this.schedule = accountManager.getUserList().getUser(user).getUserSchedule().getEvents();
         this.buttonList = new ArrayList<>();
         this.buttons = new HashMap<>();
+        this.saver = new InformationSaver();
+        this.accountManager = accountManager;
     }
 
+    /**
+     * Creates the Schedule Interface
+     *
+     * @param g The Graphical component being drawn on
+     */
     public void paintComponent(Graphics g){
 
         Color color0 = Color.white;
@@ -93,57 +100,57 @@ public class ScheduleDrawing extends JComponent {
         drawEvents(g, this.schedule);
     }
 
-    private void drawEvents(Graphics g, Schedule schedule) {
+    /**
+     * Puts events onto the schedule as buttons
+     *
+     * @param g The Graphical component being drawn on
+     * @param schedule The list of events that are to be added on the schedule
+     */
+    private void drawEvents(Graphics g, ArrayList<Event> schedule) {
         String[] titles = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         Integer[] timesList = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
                 20, 21, 22, 23, 24};
 
-        for (String day : schedule.getSchedule().keySet()) {
+        for (Event event : schedule) {
 
-            for (Event event: schedule.getSchedule().get(day)) {
-
-                int xCord = 0;
-                for (int i = 0; i < 7; i++) {
-                    if (titles[i].equals(event.getEventDay())) {
-                        xCord = 125 + (i * 100);
-                    }
+            int xCord = 0;
+            for (int i = 0; i < 7; i++) {
+                if (titles[i].equals(event.getEventDay())) {
+                    xCord = 125 + (i * 100);
                 }
+            }
 
-                int yStartCord = 0;
-                for (int i = 0; i < 24; i++) {
-                    if (event.getEventStartTime() == timesList[i]) {
-                        yStartCord = 140 + (i * 25);
-                    }
+            int yStartCord = 0;
+            for (int i = 0; i < 24; i++) {
+                if (event.getEventStartTime() == timesList[i]) {
+                    yStartCord = 140 + (i * 25);
                 }
+            }
 
-                int yEndCord = 0;
-                for (int i = 0; i < 24; i++) {
-                    if (event.getEventEndTime() == timesList[i]) {
-                        yEndCord = 140 + (i * 25);
-                    }
+            int yEndCord = 0;
+            for (int i = 0; i < 24; i++) {
+                if (event.getEventEndTime() == timesList[i]) {
+                    yEndCord = 140 + (i * 25);
                 }
-                System.out.println(xCord);
-                System.out.println(yStartCord);
-                System.out.println(yEndCord);
+            }
 
-                JButton eventButton = new JButton(event.getEventName());
+            JButton eventButton = new JButton(event.getEventName());
 
-                eventButton.setBounds(xCord, yStartCord, 100, (yEndCord - yStartCord));
-                eventButton.addActionListener(editEventListener);
-                add(eventButton);
-                this.buttons.put(eventButton, event);
-                this.buttonList.add(eventButton);
+            eventButton.setBounds(xCord, yStartCord, 100, (yEndCord - yStartCord));
+            eventButton.addActionListener(editEventListener);
+            add(eventButton);
+            this.buttons.put(eventButton, event);
+            this.buttonList.add(eventButton);
 
-                for (JButton button : buttonList) {
-                    if (!schedule.getSchedule().get(day).contains(buttons.get(button))) {
-                        remove(button);
-                    }
+            for (JButton button : buttonList) {
+                if (!schedule.contains(buttons.get(button))) {
+                    remove(button);
                 }
             }
         }
     }
 
-    class EditEventListener implements ActionListener {
+    private class EditEventListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -152,34 +159,37 @@ public class ScheduleDrawing extends JComponent {
             for (JButton button: buttons.keySet()) {
                 if (source == button) {
 
-                    Event existingEvent = buttons.get(button);
-                    manager.removeEvent(existingEvent.eventName, existingEvent.eventDay,
-                            existingEvent.eventStartTime, user);
-
                     Object[] addEventText = {"Type:", addEventType, "Name:", addEventName, "Date:",
                             addEventDate, "Start time:", addEventStart, "End time:", addEventEnd};
 
                     int buttonChoice = JOptionPane.showConfirmDialog(null,
-                            addEventText, "Edit Event", JOptionPane.OK_CANCEL_OPTION);
+                            addEventText, "Edit Entities.Event", JOptionPane.OK_CANCEL_OPTION);
 
                     if (buttonChoice == JOptionPane.OK_OPTION) {
-                        // will interact with Entities.Event class
 
-                        // temporarily assigning the values to temporary variables
                         String eventType = (String) addEventType.getSelectedItem();
                         String eventName = addEventName.getText();
                         String eventDate = (String) addEventDate.getSelectedItem();
 
                         String eventStart = (String) addEventStart.getSelectedItem();
+                        assert eventStart != null;
                         String eventStartString = eventStart.split(":")[0];
                         int eventStartInt = Integer.parseInt(eventStartString);
 
                         String eventEnd = (String) addEventEnd.getSelectedItem();
+                        assert eventEnd != null;
                         String eventEndString = eventEnd.split(":")[0];
                         int eventEndInt = Integer.parseInt(eventEndString);
 
-                        manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, user);
+                        Event existingEvent = buttons.get(button);
+                        saver.deleteUserEvent(user, existingEvent);
+                        manager.removeEvent(existingEvent.getEventName(), existingEvent.getEventDay(), existingEvent.getEventStartTime(),accountManager.getUserList().getUser(user));
 
+                        try {
+                            manager.addEvent(eventType, eventName, eventDate, eventStartInt, eventEndInt, accountManager.getUserList().getUser(user));
+                        } catch (ExecutionException | InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
                         repaint();
                     }
                 }

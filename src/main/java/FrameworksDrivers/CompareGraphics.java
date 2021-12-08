@@ -1,8 +1,7 @@
 package FrameworksDrivers;
 
-import Entities.Person;
-import Entities.Schedule;
 import Entities.events.Event;
+import InterfaceAdapters.AccountManager;
 import InterfaceAdapters.ScheduleManager;
 
 import javax.swing.*;
@@ -10,27 +9,30 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import java.io.IOException;
 import java.util.Objects;
 
 public class CompareGraphics extends JFrame implements ActionListener {
     private Graphics g2g;
-    private ScheduleManager manager;
-    private Person user1;
-    private Person user2;
+    private final AccountManager accountManager;
+    private final ScheduleManager scheduleManager;
+    private final String user1;
+    private final String user2;
 
-    private JLabel titleLabel;
-
-    private String[] timesList = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+    private final String[] timesList = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
 
 
-    public CompareGraphics(Person user1, Person user2, ScheduleManager manager) {
+    public CompareGraphics(String user1, String user2, AccountManager accountManager) throws IOException {
         super("Schedule Compare");
         this.user1 = user1;
         this.user2 = user2;
+        this.accountManager = accountManager;
+        this.scheduleManager = new ScheduleManager();
+
         setSize(850, 850); // setting the default size of the frame
 
         setLayout(null);
-        titleLabel = new JLabel("Comparing Schedule");
+        JLabel titleLabel = new JLabel("Comparing Schedule");
         titleLabel.setFont(new Font("Verdana", Font.PLAIN, 18)); // setting different font for title
         titleLabel.setBounds(360, -5, 200, 50);
         add(titleLabel);
@@ -85,15 +87,8 @@ public class CompareGraphics extends JFrame implements ActionListener {
             g2g.setColor(Color.BLACK);
             g2g.drawString(timesList[x], 50, 160 +(25 * x));
         }
-        for (String day : manager.getSchedule(user1).getSchedule().keySet()){
-            for (Event e : manager.getSchedule(user1).getDayEvents(day)){
-                paintEvent(e.getEventDay(), e.getEventStartTime(), e.getEventEndTime());
-            }
-        }
-        for (String day : manager.getSchedule(user2).getSchedule().keySet()){
-            for (Event e : manager.getSchedule(user2).getDayEvents(day)){
-                paintEvent(e.getEventDay(), e.getEventStartTime(), e.getEventEndTime());
-            }
+        for (Event event : scheduleManager.compare(accountManager.getUserList().getUser(user1), accountManager.getUserList().getUser(user2)).getEvents()) {
+            paintEvent(event.getEventDay(), event.getEventStartTime(), event.getEventEndTime());
         }
     }
 

@@ -1,9 +1,11 @@
 import Entities.Person;
 import Entities.Schedule;
+import Entities.events.Event;
 import UseCaseClasses.ScheduleComparer;
 import UseCaseClasses.ScheduleEditor;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -24,16 +26,7 @@ public class ScheduleComparerTest {
         ScheduleComparer compare = new ScheduleComparer();
         Schedule result = compare.compare(DennisTat, DennisTwo);
 
-        HashMap<Integer, String> testDay = new HashMap<>();
-        for (int i = 0; i <= 23; ++i) {
-            testDay.put(i, null);
-        }
-        for (int i = 16; i <= 22; ++i) {
-            testDay.put(i, "busy");
-        }
-        testDay.put(7, "busy");
-
-        assertEquals(testDay, result.getSchedule().get("Tuesday"));
+        assertEquals(result.getEvents().size(), 4);
 
     }
 }
