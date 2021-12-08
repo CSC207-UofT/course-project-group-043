@@ -1,6 +1,7 @@
 package InterfaceAdapters;
 
 import Entities.Person;
+import Entities.Review;
 import Entities.events.*;
 import UseCaseClasses.AccountCreator;
 import UseCaseClasses.ScheduleEditor;
@@ -16,6 +17,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -175,5 +177,34 @@ public class InformationSaver {
         }
     }
 
+    public void saveReview(Review review) throws ExecutionException, InterruptedException, IllegalArgumentException {
+        Map<String, Object> data = new HashMap<>();
+        data.put("Location", review.getLocation());
+        data.put("reviewBody", review.getReviewBody());
+        data.put("rating", review.getRating());
+        data.put("FullReview", review.getFullReview());
+        DocumentReference docRef = db.collection("reviews").document(review.getLocation());
+        ApiFuture<WriteResult> result = docRef.set(data);
+        ApiFuture<QuerySnapshot> query = db.collection("reviews").get();
+        QuerySnapshot querySnapshot = query.get(); //
+    }
+
+    public ArrayList<Review> retrieveReviews() throws ExecutionException, InterruptedException, IllegalArgumentException {
+
+        ArrayList<Review> allReviews = new ArrayList<>();
+
+        ApiFuture<QuerySnapshot> query = db.collection("reviews").get();
+        QuerySnapshot querySnapshot = query.get();
+        List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+        for (QueryDocumentSnapshot document : documents) {
+            String Location = document.getString("userName");
+            String reviewBody = document.getString("reviewBody");
+            String Rating = document.getString("rating");
+            Integer rating = Integer.parseInt(Rating);
+            Review a = new Review(Location, reviewBody, rating);
+            allReviews.add(a);
+        }
+        return allReviews;
+    }
 }
 

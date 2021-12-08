@@ -9,7 +9,7 @@ public class ReviewTest {
     @Test(timeout = 100)
     public void Test1() {
         Review review = new Review("Bahen Centre", "Great place for studying, and meeting new people.", 4);
-        String actual = review.printReview();
+        String actual = review.getFullReview();
         String expected = "Bahen Centre, 4/5.  Great place for studying, and meeting new people.";
         assertEquals(expected, actual);
     }
