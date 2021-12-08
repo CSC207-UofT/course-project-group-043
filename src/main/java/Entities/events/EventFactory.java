@@ -9,7 +9,7 @@ public class EventFactory {
             return new AcademicEvent();
         } else if (eventType.equalsIgnoreCase("Fitness")) {
             return new FitnessEvent();
-        } else if (eventType.equals("Social")) {
+        } else if (eventType.equalsIgnoreCase("Social")) {
             return new SocialEvent();
         }
         return null;
