@@ -13,7 +13,6 @@ public class AccountCreatorTest {
     @Test(timeout = 50)
     public void TestCheckValidity1() throws ExecutionException, InterruptedException {
         AccountCreator ac = new AccountCreator();
-        Person u1 = new Person();
         Person u2 = new Person();
         UserList tempData = new UserList();
 
@@ -27,7 +26,6 @@ public class AccountCreatorTest {
     @Test(timeout = 50)
     public void TestCheckValidity2() throws ExecutionException, InterruptedException {
         AccountCreator ac = new AccountCreator();
-        Person u1 = new Person();
         Person u2 = new Person();
         UserList tempData = new UserList();
 

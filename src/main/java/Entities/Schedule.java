@@ -38,4 +38,7 @@ public class Schedule {
     }
 
 
+    public ArrayList<Event> getDayEvents(String day) {
+        return schedule.get(day);
+    }
 }
