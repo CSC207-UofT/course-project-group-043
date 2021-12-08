@@ -3,19 +3,27 @@ package InterfaceAdapters;
 import UseCaseClasses.AccountCreator;
 import UseCaseClasses.AccountEditor;
 import UseCaseClasses.InformationSaver;
+import UseCaseClasses.AccountLogIn;
 import UseCaseClasses.UserList;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-// TODO: is this a facade??
-
 public class AccountManager {
 
-    private InformationSaver saver;
-    private AccountCreator creator;
-    private AccountEditor editor;
-    private UserList data; // todo: populate this with users from database?
+    private final InformationSaver saver;
+    private final AccountCreator creator;
+    private final AccountEditor editor;
+    private final AccountLogIn logIn;
+    private final UserList data;
+
+    public AccountManager() throws IOException {
+        saver = new InformationSaver();
+        creator = new AccountCreator();
+        editor = new AccountEditor();
+        data = new UserList();
+        logIn = new AccountLogIn();
+    }
 
 
     /**
@@ -51,10 +59,34 @@ public class AccountManager {
         if (data.containsUser(name)) { // check if user exists
             if (editor.securityCheck(data.getUser(name), answer)) {
                 editor.changePassword(data.getUser(name), newPass);
-                saver.saveUser(data.getUser(name)); // updates firebase with new password
+                saver.saveUser(name, data); // updates firebase with new password
                 return true;
             }
         }
         return false;
     }
+
+    /**
+     * Calls on AccountLogIn to verify the user's username and password
+     *
+     * @param username The username for the account that is being logged in to
+     * @param password The password for the account that is being logged in to
+     * @return true if the user was able to log in
+     */
+    public boolean runLogin(String username, String password) {
+        return logIn.logIn(username, password, data);
+    }
+
+
+    /**
+     * Adds every user in the database to UserList
+     */
+    public void populateUsers() throws ExecutionException, InterruptedException {
+        saver.retrieveUsers(data);
+    }
+
+    public UserList getUserList() {
+        return data;
+    }
+
 }

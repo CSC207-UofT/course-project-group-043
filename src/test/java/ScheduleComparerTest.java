@@ -1,10 +1,11 @@
-import Entities.Event;
 import Entities.Person;
 import Entities.Schedule;
+import Entities.events.Event;
 import UseCaseClasses.ScheduleComparer;
 import UseCaseClasses.ScheduleEditor;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -17,29 +18,15 @@ public class ScheduleComparerTest {
         Person DennisTat = new Person("twoDennis", "1234");
         Person DennisTwo = new Person("DennisTwo", "1234");
 
-        Event Csc = new Event("CSC207", "Tuesday", 16, 17);
-        Event Mat = new Event("MAT334", "Tuesday", 17, 21);
-        Event Sta = new Event("STA257", "Tuesday", 16, 23);
-        Event Jog = new Event("Jog", "Tuesday", 7, 8);
-
-        edit.addEvent(Csc, DennisTat);
-        edit.addEvent(Mat, DennisTat);
-        edit.addEvent(Sta, DennisTwo);
-        edit.addEvent(Jog, DennisTwo);
+        edit.addEvent("course","CSC207", "Tuesday", 16, 17, DennisTat);
+        edit.addEvent("course", "MAT334", "Tuesday", 17, 21, DennisTat);
+        edit.addEvent("course", "STA257", "Tuesday", 16, 23, DennisTwo);
+        edit.addEvent("fitness", "Jog", "Tuesday", 7, 8, DennisTwo);
 
         ScheduleComparer compare = new ScheduleComparer();
         Schedule result = compare.compare(DennisTat, DennisTwo);
 
-        HashMap<Integer, String> testDay = new HashMap<>();
-        for (int i = 0; i <= 23; ++i) {
-            testDay.put(i, null);
-        }
-        for (int i = 16; i <= 22; ++i) {
-            testDay.put(i, "busy");
-        }
-        testDay.put(7, "busy");
-
-        assertEquals(testDay, result.getSchedule().get("Tuesday"));
+        assertEquals(result.getEvents().size(), 4);
 
     }
 }
