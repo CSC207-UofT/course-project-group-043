@@ -89,9 +89,11 @@ public class CompareGraphics extends JFrame implements ActionListener {
             g2g.setColor(Color.BLACK);
             g2g.drawString(timesList[x], 50, 160 +(25 * x));
         }
+
         for (Event event : scheduleManager.compare(user1, user2).getEvents()) {
             paintEvent(event.getEventDay(), event.getEventStartTime(), event.getEventEndTime());
         }
+
     }
 
     public void paintEvent(String eventDay, int eventStartTime, int eventEndTime){

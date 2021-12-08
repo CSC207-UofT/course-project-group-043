@@ -29,6 +29,13 @@ public class ScheduleManager {
         adder = new FriendAdder();
         data = new UserList();
         saver.retrieveUsers(data);
+
+        for (String username : data.getUsers().keySet()) {
+            saver.retrieveFriends(username, data);
+            saver.retrieveOutgoing(username, data);
+            saver.retrieveIncoming(username, data);
+            saver.retrieveEvents(username, data);
+        }
     }
 
     /**
