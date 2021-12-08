@@ -1,44 +1,23 @@
 package Entities;
 
-import Entities.events.Event;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
+import Entities.events.*;
 
 public class Schedule {
 
-    private HashMap<String, ArrayList<Event>> schedule;  // day, events
+    private ArrayList<Event> events;
 
     public Schedule() {
-        this.schedule = new HashMap<>();
-        ArrayList<Event> monday = new ArrayList<Event>();
-        ArrayList<Event> tuesday = new ArrayList<Event>();
-        ArrayList<Event> wednesday = new ArrayList<Event>();
-        ArrayList<Event> thursday = new ArrayList<Event>();
-        ArrayList<Event> friday = new ArrayList<Event>();
-        ArrayList<Event> saturday = new ArrayList<Event>();
-        ArrayList<Event> sunday = new ArrayList<Event>();
-
-        this.schedule.put("Monday", monday);
-        this.schedule.put("Tuesday", tuesday);
-        this.schedule.put("Wednesday",wednesday);
-        this.schedule.put("Thursday", thursday);
-        this.schedule.put("Friday", friday);
-        this.schedule.put("Saturday", saturday);
-        this.schedule.put("Sunday", sunday);
+        this.events = new ArrayList<>();
     }
 
-    public HashMap<String, ArrayList<Event>> getSchedule() {
-        return schedule;
+    public ArrayList<Event> getEvents() {
+        return events;
     }
 
-    public void setDayEvents(String day, ArrayList<Event> list){
-        schedule.replace(day, list);
+    public void setEvents(ArrayList<Event> event) {
+        events = event;
     }
 
 
-    public ArrayList<Event> getDayEvents(String day) {
-        return schedule.get(day);
-    }
 }

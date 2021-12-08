@@ -7,9 +7,11 @@ import UseCaseClasses.ScheduleComparer;
 import UseCaseClasses.ScheduleEditor;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -22,11 +24,13 @@ public class ScheduleManager {
     private HashMap<Person, Schedule> schedules;
     private final ScheduleEditor editor;
     private final ScheduleComparer comparer;
+    private final InformationSaver saver;
 
-    public ScheduleManager() {
+    public ScheduleManager() throws IOException {
         editor = new ScheduleEditor();
         comparer = new ScheduleComparer();
         schedules = new HashMap<>();
+        saver = new InformationSaver();
     }
 
     /**
@@ -35,12 +39,13 @@ public class ScheduleManager {
      * @param user2 the friend's Person
      */
 
-    public Schedule compare(Person user1, Person user2) {// creating hard dependencies -- i don't think we're supposed to do this?
+    public Schedule compare(Person user1, Person user2) {
         return comparer.compare(user1, user2);
     }
 
-    public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime, Person user){
+    public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime, int eventEndTime, Person user) throws ExecutionException, InterruptedException {
         editor.addEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, user);
+        saver.saveUserEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, user);
     }
 
     // should we change this to give it an event
