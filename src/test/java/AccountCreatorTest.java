@@ -15,7 +15,7 @@ public class AccountCreatorTest {
         AccountCreator ac = new AccountCreator();
         Person u2 = new Person();
         UserList tempData = new UserList();
-        System.out.println(tempData.users);
+
         tempData.addUser("user123", u2);
 
         boolean actual = ac.makeAccount("user123", "1234", "Helen", tempData);
