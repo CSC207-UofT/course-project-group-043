@@ -1,12 +1,8 @@
 import Entities.Person;
 import Entities.Schedule;
-import Entities.events.Event;
 import UseCaseClasses.ScheduleComparer;
 import UseCaseClasses.ScheduleEditor;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,8 +19,8 @@ public class ScheduleComparerTest {
         edit.addEvent("course", "STA257", "Tuesday", 16, 23, DennisTwo);
         edit.addEvent("fitness", "Jog", "Tuesday", 7, 8, DennisTwo);
 
-        ScheduleComparer compare = new ScheduleComparer();
-        Schedule result = compare.compare(DennisTat, DennisTwo);
+        ScheduleComparer comparer = new ScheduleComparer();
+        Schedule result = comparer.compare(DennisTat, DennisTwo);
 
         assertEquals(result.getEvents().size(), 4);
 
