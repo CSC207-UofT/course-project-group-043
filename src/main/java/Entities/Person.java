@@ -2,9 +2,12 @@ package Entities;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a user of the program, who uses one account
+ * with their own schedule and list of friends.
+ */
 public class Person {
 
-    // style warnings -- all efforts to fix these have broken other parts of our code
     private String userName;
     private String userPassword;
     private Schedule userSchedule;

@@ -1,5 +1,8 @@
 package Entities.events;
 
+/**
+ * A factory for producing different types of events.
+ */
 public class EventFactory {
 
     public Event getEvent(String eventType) {

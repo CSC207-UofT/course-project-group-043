@@ -1,5 +1,9 @@
 package Entities.events;
 
+/**
+ * Abstract class representing a particular event
+ * in the user's schedule.
+ */
 public abstract class Event {
     public String eventName;
     public String eventDay;
@@ -42,7 +46,6 @@ public abstract class Event {
         return this.eventEndTime;
     }
 
-    //do not need setter for event type cuz each event class has set type and cannot change
     public abstract String getEventType();
 
 }

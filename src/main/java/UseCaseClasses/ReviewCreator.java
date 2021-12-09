@@ -16,7 +16,6 @@ public class ReviewCreator {
      * @param data HashMap containing all reviews created thus far, with associated Entities.Review
      * @return true if the review was successfully created and added
      */
-
     public boolean createReview(String Location, String reviewBody, Integer rating, ReviewList data)
             throws ExecutionException, InterruptedException{
 
