@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class LogInScreen extends JFrame {
 
-    AccountManager manager = new AccountManager();
+    private AccountManager manager = new AccountManager();
 
     /**
      * Creates a screen for the user to log in or create a new account
