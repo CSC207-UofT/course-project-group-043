@@ -2,14 +2,17 @@ package UseCaseClasses;
 
 import Entities.Person;
 
+/**
+ * Responsible for logging a user in.
+ */
 public class AccountLogIn {
 
     /**
-     * Create a new account for a Person.
+     * Log a user in based on the provided credentials.
      *
      * @param username The given username
      * @param password The given password
-     * @param users HashMap containing all usernames in use thus far, with associated Entities.Person
+     * @param users List of all usernames in use thus far, with associated Person
      * @return true if the provided username and password are associated with an account
      */
     public boolean logIn(String username, String password, UserList users) {

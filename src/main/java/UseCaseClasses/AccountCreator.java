@@ -5,6 +5,9 @@ import Entities.Person;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Responsible for creating a new account for a user.
+ */
 public class AccountCreator {
 
     /**

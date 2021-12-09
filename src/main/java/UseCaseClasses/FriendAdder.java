@@ -4,6 +4,9 @@ import Entities.Person;
 
 import java.util.ArrayList;
 
+/**
+ * Allows users to send and accept friend requests.
+ */
 public class FriendAdder {
 
     /**
