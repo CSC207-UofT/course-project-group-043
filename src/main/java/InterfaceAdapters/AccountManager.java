@@ -8,6 +8,9 @@ import UseCaseClasses.UserList;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Facade class for working with user accounts.
+ */
 public class AccountManager {
 
     private final InformationSaver saver;
@@ -36,7 +39,6 @@ public class AccountManager {
     public boolean createAccount(String name, String pass, String answer)
             throws ExecutionException, InterruptedException {
 
-
         boolean result = creator.makeAccount(name, pass, answer, data);
         if (result) {
             saver.saveUser(name, data); // adds the user to the firestore database
@@ -51,6 +53,8 @@ public class AccountManager {
      * @param newPass The password for the account
      * @param answer The answer to the security question that will be used for password changes / account recovery
      * @return true if the user was able to change their password
+     * @throws ExecutionException
+     * @throws InterruptedException
      */
     public boolean changePassword(String name, String answer, String newPass, UserList data)
             throws ExecutionException, InterruptedException {

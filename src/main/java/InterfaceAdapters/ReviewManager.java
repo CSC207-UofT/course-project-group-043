@@ -7,6 +7,9 @@ import UseCaseClasses.ReviewList;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Manages all Reviews in the system.
+ */
 public class ReviewManager {
 
     InformationSaver saver;
@@ -24,8 +27,10 @@ public class ReviewManager {
      * @param reviewBody The body of the review.
      * @param rating     The score out of 5 given by the reviewer.
      * @return true if the review was successfully created and added
+     * @throws ExecutionException
+     * @throws InterruptedException
+     * @throws IllegalArgumentException
      */
-
     public boolean createReview(String Location, String reviewBody, Integer rating)
             throws ExecutionException, InterruptedException, IllegalArgumentException {
 

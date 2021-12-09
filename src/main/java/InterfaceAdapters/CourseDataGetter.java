@@ -20,10 +20,21 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 // roughly followed tutorials from here: https://www.baeldung.com/java-9-http-client and
 // https://stackoverflow.com/questions/1359689/how-to-send-http-request-in-java
 
+/**
+ * For fetching information about various U of T courses from a website.
+ */
 public class CourseDataGetter {
 
     private JSONObject courseData;
 
+    /**
+     * Creates a new instance of CourseDataGetter
+     *
+     * @param courseCode Three letters indicating the type of course data to retrieve
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public CourseDataGetter(String courseCode) throws URISyntaxException, IOException, InterruptedException {
         this.courseData = fetchWebsiteInfo(courseCode);
     }
@@ -75,7 +86,7 @@ public class CourseDataGetter {
      * Checks whether a course is present
      *
      * @param courseName
-     * @return
+     * @return true if the course exists
      */
     private boolean checkCourse(String courseName) {
         for (String specificName : courseData.keySet()) {
