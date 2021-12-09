@@ -8,12 +8,20 @@ import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Starting point for running the program. Responsible for
+ * creating a UI that allows the user to log into their account.
+ */
 public class LogInScreen extends JFrame {
 
     AccountManager manager = new AccountManager();
 
     /**
      * Creates a screen for the user to log in or create a new account
+     *
+     * @throws IOException
+     * @throws ExecutionException
+     * @throws InterruptedException
      */
     public LogInScreen() throws IOException, ExecutionException, InterruptedException { // This will run the Log In screen of the Program
         String[] buttons = {"Log In", "Create an Account", "Exit"};

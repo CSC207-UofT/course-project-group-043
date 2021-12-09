@@ -1,6 +1,9 @@
 package Entities.events;
 
-
+/**
+ * Represents an event in the user's schedule that is
+ * related to academics but is not necessarily a lecture.
+ */
 public class AcademicEvent extends Event {
 
     private final String eventType;

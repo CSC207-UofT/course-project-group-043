@@ -5,10 +5,13 @@ import Entities.Review;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Responsible for creating reviews.
+ */
 public class ReviewCreator {
 
     /**
-     * Create a new review for a Entities.Review.
+     * Create a new review for a Review.
      *
      * @param Location The location that the review is for.
      * @param reviewBody The body of the review.
@@ -16,9 +19,7 @@ public class ReviewCreator {
      * @param data HashMap containing all reviews created thus far, with associated Entities.Review
      * @return true if the review was successfully created and added
      */
-
-    public boolean createReview(String Location, String reviewBody, Integer rating, ReviewList data)
-            throws ExecutionException, InterruptedException{
+    public boolean createReview(String Location, String reviewBody, Integer rating, ReviewList data) {
 
         boolean check = isValidLocation(Location, data);
         Review newReview = new Review();

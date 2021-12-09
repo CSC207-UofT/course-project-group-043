@@ -3,6 +3,9 @@ package Entities;
 import java.util.ArrayList;
 import Entities.events.*;
 
+/**
+ * Represents the schedule of a user of the program.
+ */
 public class Schedule {
 
     private ArrayList<Event> events;

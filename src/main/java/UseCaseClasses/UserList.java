@@ -4,6 +4,9 @@ import Entities.Person;
 
 import java.util.HashMap;
 
+/**
+ * Stores all the users and their associated account information.
+ */
 public class UserList {
 
     public HashMap<String, Person> users;

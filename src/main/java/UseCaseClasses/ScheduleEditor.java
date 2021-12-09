@@ -6,6 +6,9 @@ import Entities.events.*;
 
 import java.util.ArrayList;
 
+/**
+ * Responsible for adding and removing events from a schedule.
+ */
 public class ScheduleEditor {
 
     private final EventFactory factory;

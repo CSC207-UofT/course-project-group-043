@@ -2,6 +2,9 @@ package UseCaseClasses;
 
 import Entities.Person;
 
+/**
+ * Responsible for editing account details like passwords.
+ */
 public class AccountEditor {
 
     /**

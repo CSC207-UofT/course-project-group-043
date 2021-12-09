@@ -4,6 +4,9 @@ import Entities.Person;
 import Entities.Schedule;
 import Entities.events.*;
 
+/**
+ * Responsible for comparing the schedules of two users to determine when they are both busy.
+ */
 public class ScheduleComparer {
 
     /** Compares two Schedules and returns a Schedule with the combined events of both users

@@ -11,9 +11,8 @@ import java.util.concurrent.ExecutionException;
 
 
 /**
- * Represents and manages entire system of users and schedules
+ * Represents and manages entire system of users and schedules.
  */
-
 public class ScheduleManager {
 
     private ScheduleEditor editor;
@@ -22,6 +21,13 @@ public class ScheduleManager {
     private FriendAdder adder;
     private final InformationSaver saver;
 
+    /**
+     * Creates a new instance of ScheduleManager
+     *
+     * @throws IOException
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public ScheduleManager() throws IOException, ExecutionException, InterruptedException {
         editor = new ScheduleEditor();
         comparer = new ScheduleComparer();
@@ -42,6 +48,7 @@ public class ScheduleManager {
     /**
      * Compares two people's schedules and returns a schedule showing what times both
      * are busy.
+     *
      * @param user1 the main user's Person
      * @param user2 the friend's Person
      */
@@ -49,12 +56,33 @@ public class ScheduleManager {
         return comparer.compare(data.getUser(user1), data.getUser(user2));
     }
 
+    /**
+     * Calls on methods in ScheduleEditor to add an Event to a user's schedule, then
+     * saves the updated user information in the database.
+     *
+     * @param eventType The type of event
+     * @param eventName The name of the event
+     * @param eventDay The day of the week the event happens on
+     * @param eventStartTime The time (on 24 hour clock) that the event starts at
+     * @param eventEndTime The time (on a 24 hour clock) that the event ends at
+     * @param user The username of the user that this event is being added to the schedule of
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public void addEvent(String eventType, String eventName, String eventDay, int eventStartTime,
                          int eventEndTime, String user) throws ExecutionException, InterruptedException {
         editor.addEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, data.getUser(user));
         saver.saveUserEvent(eventType, eventName, eventDay, eventStartTime, eventEndTime, data.getUser(user));
     }
 
+    /**
+     * Removes an event from a user's schedule.
+     *
+     * @param eventName The name of the event
+     * @param eventDay The day of the week the event occurs on
+     * @param startTime The time at which the event starts
+     * @param user The username of the user that is having this event removed
+     */
     public void removeEvent(String eventName, String eventDay, int startTime, String user) {
         editor.removeEvent(eventName, eventDay, startTime, data.getUser(user));
     }

@@ -14,6 +14,9 @@ import InterfaceAdapters.AccountManager;
 import InterfaceAdapters.InformationSaver;
 import InterfaceAdapters.ScheduleManager;
 
+/**
+ * For drawing the user's schedule and the associated events.
+ */
 public class ScheduleDrawing extends JComponent {
 
     ArrayList<Event> schedule;
@@ -37,6 +40,15 @@ public class ScheduleDrawing extends JComponent {
 
     EditEventListener editEventListener = new EditEventListener();
 
+    /**
+     * Creates a new instance of ScheduleDrawing.
+     *
+     * @param user The username of the user whose schedule will be displayed.
+     * @param accountManager An instance of AccountManager that will manipulate the user's account
+     * @throws IOException
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public ScheduleDrawing(String user, AccountManager accountManager)
             throws IOException, ExecutionException, InterruptedException {
         this.user = user;

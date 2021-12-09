@@ -15,6 +15,9 @@ import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Class for setting up the components of the GUI.
+ */
 public class ScheduleGraphics extends JFrame {
 
     ScheduleManager manager = new ScheduleManager();
