@@ -202,7 +202,7 @@ public class ScheduleDrawing extends JComponent {
                     if (buttonChoice == JOptionPane.NO_OPTION) { //remove event
                         Event existingEvent = buttons.get(button);
                         saver.deleteUserEvent(user, existingEvent);
-                        manager.removeEvent(existingEvent.getEventName(), existingEvent.getEventDay(), existingEvent.getEventStartTime(),accountManager.getUserList().getUser(user));
+                        manager.removeEvent(existingEvent.getEventName(), existingEvent.getEventDay(), existingEvent.getEventStartTime(), user);
                         repaint();
                     }
                 }
